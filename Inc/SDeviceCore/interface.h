@@ -12,8 +12,8 @@
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(name) typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
-   const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
-   __SDEVICE_SETTINGS_DATA(name) *Settings;                                                                            \
+   const __SDEVICE_CONSTANT_DATA(name) Constant;                                                                       \
+   __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
    __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
 }
 
@@ -33,10 +33,3 @@ typedef enum
     SDEVICE_SETTING_SET_STATUS_VALIDATION_ERROR,
     SDEVICE_SETTING_SET_STATUS_SET_ERROR,
 } SDeviceSettingSetStatus;
-
-typedef struct
-{
-   const void *Constant;
-   void *Settings;
-   char Dynamic[];
-} SDeviceHandleCommon;
