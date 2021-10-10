@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SDeviceCore/common.h"
+#include "common.h"
 
 #include <stdbool.h>
 
