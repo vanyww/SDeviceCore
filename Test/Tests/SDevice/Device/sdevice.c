@@ -5,7 +5,7 @@
 __SDEVICE_INITIALIZE_HANDLE_DECLARATION(TestDevice, handle)
 {
    handle->Dynamic.TestDynamicValue = handle->Constant.TestConstantValue;
-   return true;
+   handle->IsInitialized = true;
 }
 
 __SDEVICE_SET_SETTING_DECLARATION(TestDevice, TestSetting, handle, value)

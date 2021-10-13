@@ -15,6 +15,7 @@
    const __SDEVICE_CONSTANT_DATA(name) Constant;                                                                       \
    __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
    __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
+   bool IsInitialized;                                                                                                 \
 }
 
 #define __SDEVICE_SET_SETTING(name, setting_name) __##name##_SDeviceSettingSet_##setting_name
@@ -25,7 +26,7 @@
 
 #define __SDEVICE_INITIALIZE_HANDLE(name) __##name##_SDeviceInitializeHandle
 #define __SDEVICE_INITIALIZE_HANDLE_DECLARATION(name, handle_name)                                                     \
-   bool __SDEVICE_INITIALIZE_HANDLE(name)(__attribute__((unused)) __SDEVICE_HANDLE(name) *handle_name)
+   void __SDEVICE_INITIALIZE_HANDLE(name)(__attribute__((unused)) __SDEVICE_HANDLE(name) *handle_name)
 
 typedef enum
 {
