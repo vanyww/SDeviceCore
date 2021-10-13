@@ -5,8 +5,9 @@ bool TestHandleInitialization(void)
 {
    int testValue = 0x123456;
    __SDEVICE_HANDLE(TestDevice) handle = { { .TestConstantValue = testValue } };
+   __SDEVICE_INITIALIZE_HANDLE(TestDevice)(&handle);
 
-   if(__SDEVICE_INITIALIZE_HANDLE(TestDevice)(&handle) != true)
+   if(handle.IsInitialized != true)
       return false;
 
    if(handle.Dynamic.TestDynamicValue != testValue)
@@ -18,9 +19,7 @@ bool TestHandleInitialization(void)
 bool TestHandleSettingSet(void)
 {
    __SDEVICE_HANDLE(TestDevice) handle;
-
-   if(__SDEVICE_INITIALIZE_HANDLE(TestDevice)(&handle) != true)
-      return false;
+   __SDEVICE_INITIALIZE_HANDLE(TestDevice)(&handle);
 
    int testSettingValue = 0x123456;
 
