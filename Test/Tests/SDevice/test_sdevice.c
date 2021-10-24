@@ -4,7 +4,7 @@
 bool TestHandleInitialization(void)
 {
    int testValue = 0x123456;
-   __SDEVICE_HANDLE(TestDevice) handle = { { .TestConstantValue = testValue } };
+   __SDEVICE_HANDLE(TestDevice) handle = { &(__SDEVICE_CONSTANT_DATA(TestDevice)){ .TestConstantValue = testValue } };
    __SDEVICE_INITIALIZE_HANDLE(TestDevice)(&handle);
 
    if(handle.IsInitialized != true)
@@ -18,7 +18,7 @@ bool TestHandleInitialization(void)
 
 bool TestHandleSettingSet(void)
 {
-   __SDEVICE_HANDLE(TestDevice) handle;
+   __SDEVICE_HANDLE(TestDevice) handle = { &(__SDEVICE_CONSTANT_DATA(TestDevice)){ .TestConstantValue = 0 } };
    __SDEVICE_INITIALIZE_HANDLE(TestDevice)(&handle);
 
    int testSettingValue = 0x123456;
