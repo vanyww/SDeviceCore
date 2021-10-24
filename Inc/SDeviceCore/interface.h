@@ -12,7 +12,7 @@
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(name) typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
-   const __SDEVICE_CONSTANT_DATA(name) Constant;                                                                       \
+   const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
    __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
    __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
    bool IsInitialized;                                                                                                 \
