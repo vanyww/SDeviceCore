@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdint.h>
+
 #ifndef likely
 #define likely(x) __builtin_expect(!!(x), 1)
 #endif
@@ -31,4 +33,11 @@
 void SDeviceAssertFailed(char *, int);
 #else
 #define SDeviceAssert(expression) ((void)0U)
+#endif
+
+#ifdef __SDEVICE_ERROR_LOG
+#define SDeviceRuntimeErrorRaised(handle, error) SDeviceProcessRuntimeError(handle, error)
+void SDeviceProcessRuntimeError(void *, int32_t);
+#else
+#define SDeviceRuntimeErrorRaised(handle, error) ((void)0U)
 #endif

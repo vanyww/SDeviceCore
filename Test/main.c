@@ -13,6 +13,7 @@ struct
    { TestMaxMacro, "max macro" },
    { TestMinMacro, "min macro" },
    { TestSDeviceAssert, "SDevice assert" },
+   { TestSDeviceRuntimeErrorProcess, "SDevice runtime error process" },
    { TestHandleInitialization, "handle initialization" },
    { TestHandleSettingSet, "setting set" }
 };
