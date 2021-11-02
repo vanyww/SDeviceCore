@@ -5,3 +5,4 @@
 bool TestMaxMacro(void);
 bool TestMinMacro(void);
 bool TestSDeviceAssert(void);
+bool TestSDeviceRuntimeErrorProcess(void);

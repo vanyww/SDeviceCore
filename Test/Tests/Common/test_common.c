@@ -28,3 +28,17 @@ void SDeviceAssertFailed(char *file, int line)
 {
    WasAssertFailedCalled = true;
 }
+
+bool WasErrorProcessCalled;
+
+bool TestSDeviceRuntimeErrorProcess(void)
+{
+   WasErrorProcessCalled = false;
+   SDeviceRuntimeErrorRaised(NULL, 0);
+   return WasErrorProcessCalled == true;
+}
+
+void SDeviceProcessRuntimeError(void *handle, int32_t error)
+{
+   WasErrorProcessCalled = true;
+}
