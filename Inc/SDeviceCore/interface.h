@@ -16,6 +16,7 @@
 {                                                                                                                      \
    bool IsInitialized;                                                                                                 \
    uint16_t InstanceId;                                                                                                \
+   void *const Context;                                                                                                \
    const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
    __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
    __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
@@ -24,6 +25,7 @@
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
    bool IsInitialized;                                                                                                 \
+   void *const Context;                                                                                                \
    const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
    __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
    __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
@@ -57,6 +59,7 @@ typedef struct
    uint16_t InstanceId;
 #endif
 
+   void *const Context;
    const void *Constant;
    uint8_t SettingsAndDynamic[];
 } SDeviceCommonHandle;
