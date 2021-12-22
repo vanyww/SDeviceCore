@@ -28,6 +28,10 @@
 })
 #endif
 
+#ifndef __SIZEOF_MEMBER
+#define __SIZEOF_MEMBER(type, member) sizeof(((type *)0)->member)
+#endif
+
 #ifdef __SDEVICE_ASSERT
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceAssertFailed(__FILE__, __LINE__))
 void SDeviceAssertFailed(char *, int);
