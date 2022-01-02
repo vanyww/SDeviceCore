@@ -11,7 +11,7 @@
 #define __SDEVICE_HANDLE(name) name##_SDeviceHandle
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(name) typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
 
-#ifdef __SDEVICE_ERROR_LOG
+#ifdef __SDEVICE_RUNTIME_ERROR
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
    bool IsInitialized;                                                                                                 \
@@ -25,7 +25,7 @@
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
    bool IsInitialized;                                                                                                 \
-   void *const Context;                                                                                                \
+   void *Context;                                                                                                      \
    const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
    __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
    __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
@@ -55,7 +55,7 @@ typedef struct
 {
    bool IsInitialized;
 
-#ifdef __SDEVICE_ERROR_LOG
+#ifdef __SDEVICE_RUNTIME_ERROR
    uint16_t InstanceId;
 #endif
 

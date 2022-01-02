@@ -39,7 +39,7 @@ void SDeviceAssertFailed(char *, int);
 #define SDeviceAssert(expression) ((void)0U)
 #endif
 
-#ifdef __SDEVICE_ERROR_LOG
+#ifdef __SDEVICE_RUNTIME_ERROR
 #define SDeviceRuntimeErrorRaised(handle, error) SDeviceProcessRuntimeError(handle, error)
 void SDeviceProcessRuntimeError(void *, int32_t);
 #else
