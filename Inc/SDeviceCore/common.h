@@ -32,6 +32,10 @@
 #define __SIZEOF_MEMBER(type, member) sizeof(((type *)0)->member)
 #endif
 
+#ifndef __LENGTHOF
+#define __LENGTHOF(array) (sizeof(array) / sizeof(*array))
+#endif
+
 #ifdef __SDEVICE_ASSERT
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceAssertFailed(__FILE__, __LINE__))
 void SDeviceAssertFailed(char *, int);
