@@ -39,6 +39,13 @@
          __attribute__((unused)) void *handle_name,                                                                    \
          __attribute__((unused)) const void *value_name)
 
+#define __SDEVICE_TRY_GET_PARAMETER_NAME(name, parameter_name) __##name##_SDeviceTryGetParameter_##parameter_name
+#define __SDEVICE_TRY_GET_PARAMETER(name, parameter_name) __SDEVICE_TRY_GET_PARAMETER_NAME(name, parameter_name)
+#define __SDEVICE_TRY_GET_PARAMETER_DECLARATION(name, parameter_name, handle_name, value_name)                         \
+   bool __SDEVICE_TRY_GET_PARAMETER_NAME(name, parameter_name)(                                                        \
+         __attribute__((unused)) void *handle_name,                                                                    \
+         __attribute__((unused)) void *value_name)
+
 #define __SDEVICE_INITIALIZE_HANDLE_NAME(name) __##name##_SDeviceInitializeHandle
 #define __SDEVICE_INITIALIZE_HANDLE(name) __SDEVICE_INITIALIZE_HANDLE_NAME(name)
 #define __SDEVICE_INITIALIZE_HANDLE_DECLARATION(name, handle_name)                                                     \
