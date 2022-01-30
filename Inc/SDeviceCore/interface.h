@@ -34,7 +34,7 @@
 
 #define __SDEVICE_SET_SETTING_NAME(name, setting_name) __##name##_SDeviceSettingSet_##setting_name
 #define __SDEVICE_SET_SETTING(name, setting_name) __SDEVICE_SET_SETTING_NAME(name, setting_name)
-#define __SDEVICE_SET_SETTING_RETURN_VALUE SDeviceSettingSetStatus
+#define __SDEVICE_SET_SETTING_RETURN_VALUE SDeviceOperationStatus
 #define __SDEVICE_SET_SETTING_PARAMETERS(handle_name, value_name) (void *handle_name, const void *value_name)
 #define __SDEVICE_SET_SETTING_POINTER(name)                                                                            \
    __SDEVICE_SET_SETTING_RETURN_VALUE (* name) __SDEVICE_SET_SETTING_PARAMETERS(,)
@@ -61,10 +61,10 @@
 
 typedef enum
 {
-    SDEVICE_SETTING_SET_STATUS_OK,
-    SDEVICE_SETTING_SET_STATUS_VALIDATION_ERROR,
-    SDEVICE_SETTING_SET_STATUS_SET_ERROR,
-} SDeviceSettingSetStatus;
+    SDEVICE_OPERATION_STATUS_OK,
+    SDEVICE_OPERATION_STATUS_VALIDATION_ERROR,
+    SDEVICE_OPERATION_STATUS_PROCESSING_ERROR,
+} SDeviceOperationStatus;
 
 typedef struct
 {
