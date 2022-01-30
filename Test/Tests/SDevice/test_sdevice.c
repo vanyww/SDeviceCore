@@ -29,7 +29,7 @@ bool TestHandleSettingSet(void)
 
    int testSettingValue = 0x123456;
 
-   if(__SDEVICE_SET_SETTING(TestDevice, TestSetting)(&handle, &testSettingValue) != SDEVICE_SETTING_SET_STATUS_OK)
+   if(__SDEVICE_SET_SETTING(TestDevice, TestSetting)(&handle, &testSettingValue) != SDEVICE_OPERATION_STATUS_OK)
       return false;
 
    if(handle.Settings.TestSettingValue != testSettingValue)

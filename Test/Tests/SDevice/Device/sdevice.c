@@ -12,5 +12,5 @@ __SDEVICE_SET_SETTING_DECLARATION(TestDevice, TestSetting, handle, value)
 {
    __SDEVICE_HANDLE(TestDevice) *deviceHandle = handle;
    memcpy(&deviceHandle->Settings.TestSettingValue, value, sizeof(deviceHandle->Settings.TestSettingValue));
-   return SDEVICE_SETTING_SET_STATUS_OK;
+   return SDEVICE_OPERATION_STATUS_OK;
 }
