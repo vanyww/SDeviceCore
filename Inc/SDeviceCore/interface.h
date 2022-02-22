@@ -5,9 +5,18 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define __SDEVICE_CONSTANT_DATA(name) __##name##_SDeviceConstantData
-#define __SDEVICE_SETTINGS_DATA(name) __##name##_SDeviceSettingsData
-#define __SDEVICE_DYNAMIC_DATA(name) __##name##_SDeviceDynamicData
+typedef struct
+{
+   bool IsInitialized;
+#ifdef __SDEVICE_RUNTIME_ERROR
+   uint16_t InstanceId;
+#endif
+   void *Context;
+   const uint8_t Data[];
+} SDeviceCommonHandle;
+
+#define __SDEVICE_INIT_DATA(name) __##name##_SDeviceInitData
+#define __SDEVICE_RUNTIME_DATA(name) __##name##_SDeviceRuntimeData
 
 #define __SDEVICE_HANDLE(name) name##_SDeviceHandle
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(name) typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
@@ -18,18 +27,16 @@
    bool IsInitialized;                                                                                                 \
    uint16_t InstanceId;                                                                                                \
    void *Context;                                                                                                      \
-   const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
-   __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
-   __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
+   const __SDEVICE_INIT_DATA(name) Init;                                                                               \
+   __SDEVICE_RUNTIME_DATA(name) Runtime;                                                                               \
 }
 #else
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
    bool IsInitialized;                                                                                                 \
    void *Context;                                                                                                      \
-   const __SDEVICE_CONSTANT_DATA(name) *Constant;                                                                      \
-   __SDEVICE_SETTINGS_DATA(name) Settings;                                                                             \
-   __SDEVICE_DYNAMIC_DATA(name) Dynamic;                                                                               \
+   const __SDEVICE_INIT_DATA(name) Init;                                                                               \
+   __SDEVICE_RUNTIME_DATA(name) Runtime;                                                                               \
 }
 #endif
 
@@ -67,23 +74,3 @@ typedef struct
 #define __SDEVICE_INITIALIZE_HANDLE(name) __SDEVICE_INITIALIZE_HANDLE_NAME(name)
 #define __SDEVICE_INITIALIZE_HANDLE_DECLARATION(name, handle_name)                                                     \
    void __SDEVICE_INITIALIZE_HANDLE_NAME(name)(__SDEVICE_HANDLE(name) *handle_name)
-
-typedef enum
-{
-    SDEVICE_OPERATION_STATUS_OK,
-    SDEVICE_OPERATION_STATUS_VALIDATION_ERROR,
-    SDEVICE_OPERATION_STATUS_PROCESSING_ERROR,
-} SDeviceOperationStatus;
-
-typedef struct
-{
-   bool IsInitialized;
-
-#ifdef __SDEVICE_RUNTIME_ERROR
-   uint16_t InstanceId;
-#endif
-
-   void *Context;
-   const void *Constant;
-   uint8_t SettingsAndDynamic[];
-} SDeviceCommonHandle;
