@@ -3,4 +3,5 @@
 #include <stdbool.h>
 
 bool TestHandleInitialization(void);
-bool TestHandleSettingSet(void);
+bool TestHandleParameterSet(void);
+bool TestHandleParameterGet(void);

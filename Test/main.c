@@ -1,6 +1,8 @@
 #include "Tests/Common/test_common.h"
 #include "Tests/SDevice/test_sdevice.h"
 
+#include "SDeviceCore/interface.h"
+
 #include <stdio.h>
 #include <string.h>
 
@@ -15,10 +17,11 @@ struct
    { TestSDeviceAssert, "SDevice assert" },
    { TestSDeviceRuntimeErrorProcess, "SDevice runtime error process" },
    { TestHandleInitialization, "handle initialization" },
-   { TestHandleSettingSet, "setting set" }
+   { TestHandleParameterSet, "parameter set" },
+   { TestHandleParameterGet, "parameter get" }
 };
 
-const size_t TestFunctionsCount = sizeof(TestFunctions) / sizeof(*TestFunctions);
+const size_t TestFunctionsCount = __LENGTHOF(TestFunctions);
 
 int main(void)
 {
