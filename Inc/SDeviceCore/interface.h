@@ -63,7 +63,7 @@ typedef enum
 #define __SDEVICE_GET_PARAMETER_RETURN_VALUE SDeviceOperationStatus
 #define __SDEVICE_GET_PARAMETER_ARGUMENTS(handle_name, value_name) (void *handle_name, void *value_name)
 #define __SDEVICE_GET_PARAMETER_POINTER(name)                                                                          \
-   __SDEVICE_GET_PARAMETER_RETURN_VALUE (* name) __SDEVICE_GET_PARAMETER_PARAMETERS(,)
+   __SDEVICE_GET_PARAMETER_RETURN_VALUE (* name) __SDEVICE_GET_PARAMETER_ARGUMENTS(,)
 #define __SDEVICE_GET_PARAMETER_DECLARATION(name, parameter_name, handle_name, value_name)                             \
    __SDEVICE_GET_PARAMETER_RETURN_VALUE                                                                                \
    __SDEVICE_GET_PARAMETER_NAME(name, parameter_name)                                                                  \
