@@ -22,6 +22,19 @@ typedef enum
     SDEVICE_OPERATION_STATUS_PROCESSING_ERROR
 } SDeviceOperationStatus;
 
+typedef struct
+{
+   union
+   {
+      const void *Set;
+      void *Get;
+   } Data;
+   size_t Offset;
+   size_t Size;
+} SDevicePartialParameterArguments;
+
+/**********************************************************************************************************************/
+
 #define __SDEVICE_INIT_DATA(name) __##name##_SDeviceInitData
 #define __SDEVICE_RUNTIME_DATA(name) __##name##_SDeviceRuntimeData
 
@@ -47,29 +60,55 @@ typedef enum
 }
 #endif
 
-#define __SDEVICE_SET_PARAMETER_NAME(name, parameter_name) __##name##_SDeviceSetParameter_##parameter_name
-#define __SDEVICE_SET_PARAMETER(name, parameter_name) __SDEVICE_SET_PARAMETER_NAME(name, parameter_name)
+/**********************************************************************************************************************/
+
 #define __SDEVICE_SET_PARAMETER_RETURN_VALUE SDeviceOperationStatus
 #define __SDEVICE_SET_PARAMETER_ARGUMENTS(handle_name, value_name) (void *handle_name, const void *value_name)
 #define __SDEVICE_SET_PARAMETER_POINTER(name)                                                                          \
    __SDEVICE_SET_PARAMETER_RETURN_VALUE (* name) __SDEVICE_SET_PARAMETER_ARGUMENTS(,)
+
+#define __SDEVICE_SET_PARAMETER_NAME(name, parameter_name) __##name##_SDeviceSetParameter_##parameter_name
+#define __SDEVICE_SET_PARAMETER(name, parameter_name) __SDEVICE_SET_PARAMETER_NAME(name, parameter_name)
 #define __SDEVICE_SET_PARAMETER_DECLARATION(name, parameter_name, handle_name, value_name)                             \
    __SDEVICE_SET_PARAMETER_RETURN_VALUE                                                                                \
    __SDEVICE_SET_PARAMETER_NAME(name, parameter_name)                                                                  \
    __SDEVICE_SET_PARAMETER_ARGUMENTS(handle_name, value_name)
 
-#define __SDEVICE_GET_PARAMETER_NAME(name, parameter_name) __##name##_SDeviceGetParameter_##parameter_name
-#define __SDEVICE_GET_PARAMETER(name, parameter_name) __SDEVICE_GET_PARAMETER_NAME(name, parameter_name)
+#define __SDEVICE_PARTIAL_SET_PARAMETER_NAME(name, parameter_name)                                                     \
+   __##name##_SDevicePartialSetParameter_##parameter_name
+#define __SDEVICE_PARTIAL_SET_PARAMETER(name, parameter_name) __SDEVICE_PARTIAL_SET_PARAMETER_NAME(name, parameter_name)
+#define __SDEVICE_PARTIAL_SET_PARAMETER_DECLARATION(name, parameter_name, handle_name, value_name)                     \
+   __SDEVICE_SET_PARAMETER_RETURN_VALUE                                                                                \
+   __SDEVICE_PARTIAL_SET_PARAMETER_NAME(name, parameter_name)                                                          \
+   __SDEVICE_SET_PARAMETER_ARGUMENTS(handle_name, value_name)
+
+/**********************************************************************************************************************/
+
 #define __SDEVICE_GET_PARAMETER_RETURN_VALUE SDeviceOperationStatus
 #define __SDEVICE_GET_PARAMETER_ARGUMENTS(handle_name, value_name) (void *handle_name, void *value_name)
 #define __SDEVICE_GET_PARAMETER_POINTER(name)                                                                          \
    __SDEVICE_GET_PARAMETER_RETURN_VALUE (* name) __SDEVICE_GET_PARAMETER_ARGUMENTS(,)
+
+#define __SDEVICE_GET_PARAMETER_NAME(name, parameter_name) __##name##_SDeviceGetParameter_##parameter_name
+#define __SDEVICE_GET_PARAMETER(name, parameter_name) __SDEVICE_GET_PARAMETER_NAME(name, parameter_name)
 #define __SDEVICE_GET_PARAMETER_DECLARATION(name, parameter_name, handle_name, value_name)                             \
    __SDEVICE_GET_PARAMETER_RETURN_VALUE                                                                                \
    __SDEVICE_GET_PARAMETER_NAME(name, parameter_name)                                                                  \
    __SDEVICE_GET_PARAMETER_ARGUMENTS(handle_name, value_name)
 
+#define __SDEVICE_PARTIAL_GET_PARAMETER_NAME(name, parameter_name)                                                     \
+   __##name##_SDevicePartialGetParameter_##parameter_name
+#define __SDEVICE_PARTIAL_GET_PARAMETER(name, parameter_name) __SDEVICE_PARTIAL_GET_PARAMETER_NAME(name, parameter_name)
+#define __SDEVICE_PARTIAL_GET_PARAMETER_DECLARATION(name, parameter_name, handle_name, value_name)                     \
+   __SDEVICE_GET_PARAMETER_RETURN_VALUE                                                                                \
+   __SDEVICE_PARTIAL_GET_PARAMETER_NAME(name, parameter_name)                                                          \
+   __SDEVICE_GET_PARAMETER_ARGUMENTS(handle_name, value_name)
+
+/**********************************************************************************************************************/
+
 #define __SDEVICE_INITIALIZE_HANDLE_NAME(name) __##name##_SDeviceInitializeHandle
 #define __SDEVICE_INITIALIZE_HANDLE(name) __SDEVICE_INITIALIZE_HANDLE_NAME(name)
 #define __SDEVICE_INITIALIZE_HANDLE_DECLARATION(name, handle_name)                                                     \
    void __SDEVICE_INITIALIZE_HANDLE_NAME(name)(__SDEVICE_HANDLE(name) *handle_name)
+
+/**********************************************************************************************************************/
