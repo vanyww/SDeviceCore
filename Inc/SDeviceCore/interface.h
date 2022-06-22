@@ -34,6 +34,7 @@ typedef struct
 
 /**********************************************************************************************************************/
 
+#define __SDEVICE_INIT_ARGUMENTS(name) __##name##_SDeviceInitArguments
 #define __SDEVICE_INIT_DATA(name) __##name##_SDeviceInitData
 
 #define __SDEVICE_RUNTIME_DATA(name) __##name##_SDeviceRuntimeData
@@ -107,9 +108,19 @@ typedef struct
 
 /**********************************************************************************************************************/
 
-#define __SDEVICE_INITIALIZE_HANDLE_NAME(name) __##name##_SDeviceInitializeHandle
-#define __SDEVICE_INITIALIZE_HANDLE(name) __SDEVICE_INITIALIZE_HANDLE_NAME(name)
-#define __SDEVICE_INITIALIZE_HANDLE_DECLARATION(name, handle_name)                                                     \
-   void __SDEVICE_INITIALIZE_HANDLE_NAME(name)(__SDEVICE_HANDLE(name) *handle_name)
+#define __SDEVICE_CREATE_HANDLE_NAME(name) __##name##_SDeviceCreateHandle
+#define __SDEVICE_CREATE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)
+#define __SDEVICE_CREATE_HANDLE_DECLARATION(name, arguments_name, context_name)                                        \
+   __SDEVICE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)(__SDEVICE_INIT_ARGUMENTS(name) *arguments_name,           \
+                                                             void *context_name)
+
+/**********************************************************************************************************************/
+
+/**********************************************************************************************************************/
+
+#define __SDEVICE_DISPOSE_HANDLE_NAME(name) __##name##_SDeviceDisposeHandle
+#define __SDEVICE_DISPOSE_HANDLE(name) __SDEVICE_DISPOSE_HANDLE_NAME(name)
+#define __SDEVICE_DISPOSE_HANDLE_DECLARATION(name, handle_name)                                                        \
+   void __SDEVICE_DISPOSE_HANDLE_NAME(name)(__SDEVICE_HANDLE(name) *handle_name)
 
 /**********************************************************************************************************************/
