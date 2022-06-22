@@ -36,6 +36,14 @@
 #define __LENGTHOF(array) (sizeof(array) / sizeof(*array))
 #endif
 
+#ifndef __SDEVICE_MALLOC
+#define __SDEVICE_MALLOC malloc
+#endif
+
+#ifndef __SDEVICE_FREE
+#define __SDEVICE_FREE free
+#endif
+
 #ifdef __SDEVICE_ASSERT
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceAssertFailed(__FILE__, __LINE__))
 void SDeviceAssertFailed(char *, int);

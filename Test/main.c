@@ -16,9 +16,7 @@ struct
    { TestMinMacro, "min macro" },
    { TestSDeviceAssert, "SDevice assert" },
    { TestSDeviceRuntimeErrorProcess, "SDevice runtime error process" },
-   { TestHandleInitialization, "handle initialization" },
-   { TestHandleParameterSet, "parameter set" },
-   { TestHandleParameterGet, "parameter get" }
+   { TestHandleParameter, "parameter set" },
 };
 
 const size_t TestFunctionsCount = __LENGTHOF(TestFunctions);
