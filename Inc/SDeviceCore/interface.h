@@ -2,17 +2,16 @@
 
 #include "common.h"
 
-#include <stdbool.h>
 #include <stddef.h>
 
 typedef struct
 {
-   bool IsInitialized;
 #ifdef __SDEVICE_RUNTIME_ERROR
    uint16_t InstanceId;
 #endif
    void *Context;
-   const uint8_t Data[];
+   void *Runtime;
+   const char Init[];
 } SDeviceCommonHandle;
 
 typedef enum
@@ -36,27 +35,29 @@ typedef struct
 /**********************************************************************************************************************/
 
 #define __SDEVICE_INIT_DATA(name) __##name##_SDeviceInitData
+
 #define __SDEVICE_RUNTIME_DATA(name) __##name##_SDeviceRuntimeData
+#define __SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(name)                                                               \
+   typedef struct __SDEVICE_RUNTIME_DATA(name) __SDEVICE_RUNTIME_DATA(name)
 
 #define __SDEVICE_HANDLE(name) name##_SDeviceHandle
-#define __SDEVICE_HANDLE_FORWARD_DECLARATION(name) typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
+#define __SDEVICE_HANDLE_FORWARD_DECLARATION(name)                                                                     \
+   typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
 
 #ifdef __SDEVICE_RUNTIME_ERROR
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
-   bool IsInitialized;                                                                                                 \
    uint16_t InstanceId;                                                                                                \
    void *Context;                                                                                                      \
+   __SDEVICE_RUNTIME_DATA(name) *Runtime;                                                                              \
    const __SDEVICE_INIT_DATA(name) Init;                                                                               \
-   __SDEVICE_RUNTIME_DATA(name) Runtime;                                                                               \
 }
 #else
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
-   bool IsInitialized;                                                                                                 \
    void *Context;                                                                                                      \
+   __SDEVICE_RUNTIME_DATA(name) *Runtime;                                                                              \
    const __SDEVICE_INIT_DATA(name) Init;                                                                               \
-   __SDEVICE_RUNTIME_DATA(name) Runtime;                                                                               \
 }
 #endif
 
