@@ -3,9 +3,11 @@
 #include "common.h"
 
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct
 {
+   const bool IsInitialized;
 #ifdef __SDEVICE_RUNTIME_ERROR
    uint16_t InstanceId;
 #endif
@@ -48,7 +50,7 @@ typedef struct
 #ifdef __SDEVICE_RUNTIME_ERROR
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
-   uint16_t InstanceId;                                                                                                \
+   const bool IsInitialized;                                                                                           \
    void *Context;                                                                                                      \
    __SDEVICE_RUNTIME_DATA(name) *Runtime;                                                                              \
    const __SDEVICE_INIT_DATA(name) Init;                                                                               \
@@ -56,6 +58,7 @@ typedef struct
 #else
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
+   const bool IsInitialized;                                                                                           \
    void *Context;                                                                                                      \
    __SDEVICE_RUNTIME_DATA(name) *Runtime;                                                                              \
    const __SDEVICE_INIT_DATA(name) Init;                                                                               \
