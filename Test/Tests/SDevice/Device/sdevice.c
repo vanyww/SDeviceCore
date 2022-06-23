@@ -5,7 +5,7 @@
 
 struct __SDEVICE_RUNTIME_DATA(TestDevice) { int TestParameter; };
 
-__SDEVICE_CREATE_HANDLE_DECLARATION(TestDevice, arguments, context)
+__SDEVICE_CREATE_HANDLE_DECLARATION(TestDevice, arguments, instanceIndex, context)
 {
    __SDEVICE_HANDLE(TestDevice) instance =
    {
@@ -14,7 +14,9 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestDevice, arguments, context)
          .TestConstant = arguments->TestConstant
       },
       .Runtime = __SDEVICE_MALLOC(sizeof(__SDEVICE_RUNTIME_DATA(TestDevice))),
-      .Context = context
+      .Context = context,
+      .InstanceIndex = instanceIndex,
+      .IsInitialized = true
    };
 
    return instance;
@@ -23,6 +25,7 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestDevice, arguments, context)
 __SDEVICE_DISPOSE_HANDLE_DECLARATION(TestDevice, handle)
 {
    __SDEVICE_FREE(handle->Runtime);
+   handle->Runtime = NULL;
 }
 
 __SDEVICE_SET_PARAMETER_DECLARATION(TestDevice, TestParameter, handle, value)
