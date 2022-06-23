@@ -3,7 +3,7 @@
 
 bool TestHandleParameter(void)
 {
-   __SDEVICE_INIT_ARGUMENTS(TestDevice) arguments;
+   const __SDEVICE_INIT_ARGUMENTS(TestDevice) arguments = { 0 };
    __attribute__((cleanup(__SDEVICE_DISPOSE_HANDLE(TestDevice)))) __SDEVICE_HANDLE(TestDevice) device =
          __SDEVICE_CREATE_HANDLE(TestDevice)(&arguments, NULL);
 
