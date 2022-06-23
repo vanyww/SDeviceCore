@@ -3,11 +3,13 @@
 #include "common.h"
 
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct
 {
+   const bool IsInitialized;
 #ifdef __SDEVICE_RUNTIME_ERROR
-   uint16_t InstanceId;
+   const uint16_t InstanceIndex;
 #endif
    void *Context;
    void *Runtime;
@@ -48,7 +50,8 @@ typedef struct
 #ifdef __SDEVICE_RUNTIME_ERROR
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
-   uint16_t InstanceId;                                                                                                \
+   const bool IsInitialized;                                                                                           \
+   const uint16_t InstanceIndex;                                                                                       \
    void *Context;                                                                                                      \
    __SDEVICE_RUNTIME_DATA(name) *Runtime;                                                                              \
    const __SDEVICE_INIT_DATA(name) Init;                                                                               \
@@ -56,6 +59,7 @@ typedef struct
 #else
 #define __SDEVICE_HANDLE_DEFINITION(name) struct __SDEVICE_HANDLE(name)                                                \
 {                                                                                                                      \
+   const bool IsInitialized;                                                                                           \
    void *Context;                                                                                                      \
    __SDEVICE_RUNTIME_DATA(name) *Runtime;                                                                              \
    const __SDEVICE_INIT_DATA(name) Init;                                                                               \
@@ -110,8 +114,9 @@ typedef struct
 
 #define __SDEVICE_CREATE_HANDLE_NAME(name) __##name##_SDeviceCreateHandle
 #define __SDEVICE_CREATE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)
-#define __SDEVICE_CREATE_HANDLE_DECLARATION(name, arguments_name, context_name)                                        \
+#define __SDEVICE_CREATE_HANDLE_DECLARATION(name, arguments_name, instance_index_name, context_name)                   \
    __SDEVICE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)(const __SDEVICE_INIT_ARGUMENTS(name) *arguments_name,     \
+                                                             uint16_t instance_index_name,                             \
                                                              void *context_name)
 
 /**********************************************************************************************************************/
