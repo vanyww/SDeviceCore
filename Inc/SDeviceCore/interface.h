@@ -111,7 +111,7 @@ typedef struct
 #define __SDEVICE_CREATE_HANDLE_NAME(name) __##name##_SDeviceCreateHandle
 #define __SDEVICE_CREATE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)
 #define __SDEVICE_CREATE_HANDLE_DECLARATION(name, arguments_name, context_name)                                        \
-   __SDEVICE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)(__SDEVICE_INIT_ARGUMENTS(name) *arguments_name,           \
+   __SDEVICE_HANDLE(name) __SDEVICE_CREATE_HANDLE_NAME(name)(const __SDEVICE_INIT_ARGUMENTS(name) *arguments_name,     \
                                                              void *context_name)
 
 /**********************************************************************************************************************/
