@@ -43,7 +43,7 @@ typedef struct
 #define __SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(name)                                                               \
    typedef struct __SDEVICE_RUNTIME_DATA(name) __SDEVICE_RUNTIME_DATA(name)
 
-#define __SDEVICE_HANDLE(name) name##_SDeviceHandle
+#define __SDEVICE_HANDLE(name) __name##_SDeviceHandle
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(name)                                                                     \
    typedef struct __SDEVICE_HANDLE(name) __SDEVICE_HANDLE(name)
 
