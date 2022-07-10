@@ -1,10 +1,10 @@
-#include "Tests/Common/test_common.h"
-#include "Tests/SDevice/test_sdevice.h"
-
-#include "SDeviceCore/interface.h"
-
 #include <stdio.h>
 #include <string.h>
+
+#include "SDeviceCore/common.h"
+
+#include "Tests/Common/test.h"
+#include "Tests/SDevice/test.h"
 
 struct
 {
@@ -12,11 +12,14 @@ struct
    char *Description;
 } TestFunctions[] =
 {
-   { TestMaxMacro, "max macro" },
-   { TestMinMacro, "min macro" },
-   { TestSDeviceAssert, "SDevice assert" },
-   { TestSDeviceRuntimeErrorProcess, "SDevice runtime error process" },
-   { TestHandleParameter, "parameter set" },
+   { TestCommonMaxMacro, "max macro" },
+   { TestCommonMinMacro, "min macro" },
+   { TestCommonSizeOfMember, "sizeofmember macro" },
+   { TestCommonLengthOf, "lengthof macro" },
+
+   { TestSDeviceHandleInitialization, "sdevice handle initialization" },
+   { TestSDeviceHandleProperty, "sdevice handle property" },
+   { TestSDeviceHandlePartialProperty, "sdevice handle partial property" },
 };
 
 const size_t TestFunctionsCount = __LENGTHOF(TestFunctions);
