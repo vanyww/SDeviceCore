@@ -9,20 +9,20 @@
 #endif
 
 #ifndef __MIN
-#define __MIN(_value1, _value2) (                                                                                      \
+#define __MIN(value1, value2) (                                                                                        \
 {                                                                                                                      \
-   __auto_type value1 = (_value1);                                                                                     \
-   __auto_type value2 = (_value2);                                                                                     \
-   value1 < value2 ? value1 : value2;                                                                                  \
+   __auto_type __value1 = (value1);                                                                                    \
+   __auto_type __value2 = (value2);                                                                                    \
+   __value1 < __value2 ? __value1 : __value2;                                                                          \
 })
 #endif
 
 #ifndef __MAX
-#define __MAX(_value1, _value2) (                                                                                      \
+#define __MAX(value1, value2) (                                                                                        \
 {                                                                                                                      \
-   __auto_type value1 = (_value1);                                                                                     \
-   __auto_type value2 = (_value2);                                                                                     \
-   value1 > value2 ? value1 : value2;                                                                                  \
+   __auto_type __value1 = (value1);                                                                                    \
+   __auto_type __value2 = (value2);                                                                                    \
+   __value1 > __value2 ? __value1 : __value2;                                                                          \
 })
 #endif
 
