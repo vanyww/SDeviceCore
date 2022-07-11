@@ -12,7 +12,7 @@ void SDeviceAssertFailed(char *, int);
 #ifdef __SDEVICE_RUNTIME_ERROR
 #define SDeviceRuntimeErrorRaised(handle, error) (                                                                     \
 {                                                                                                                      \
-   __typeof__(handle) __handle = (handle);                                                                             \
+   __auto_type __handle = (handle);                                                                             \
    ((SDeviceCommonHandle *)__handle)->Header.LastError = error;                                                        \
    SDeviceProcessRuntimeError(__handle);                                                                               \
 })
