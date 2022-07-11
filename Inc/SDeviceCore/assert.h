@@ -10,13 +10,13 @@ void SDeviceAssertFailed(char *, int);
 #endif
 
 #ifdef __SDEVICE_RUNTIME_ERROR
-#define SDeviceRuntimeErrorRaised(_handle, error) (                                                                    \
+#define SDeviceRuntimeErrorRaised(handle, error) (                                                                     \
 {                                                                                                                      \
-   __typeof__(handle) handle = _handle;                                                                                \
-   ((SDeviceCommonHandle *)handle)->Header.LastError = error;                                                          \
-   SDeviceProcessRuntimeError(handle);                                                                                 \
+   __auto_type __handle = (handle);                                                                             \
+   ((SDeviceCommonHandle *)__handle)->Header.LastError = error;                                                        \
+   SDeviceProcessRuntimeError(__handle);                                                                               \
 })
 void SDeviceProcessRuntimeError(void *);
 #else
-#define SDeviceRuntimeErrorRaised(handle, error) ((SDeviceCommonHandle *)handle)->Header.LastError = error
+#define SDeviceRuntimeErrorRaised(handle, error) ((SDeviceCommonHandle *)(handle))->Header.LastError = error
 #endif
