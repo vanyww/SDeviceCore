@@ -29,10 +29,10 @@ void _SDeviceLogStatus(const void *);
 #define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
 #endif
 
-#define SDeviceThrow(handle, status) (                                                                                 \
+#define SDeviceThrow(handle, exception) (                                                                              \
 {                                                                                                                      \
    SDeviceCommonHandle *__handle = (SDeviceCommonHandle *)(handle);                                                    \
-   __handle->Header.LatestStatus = (status);                                                                           \
+   __handle->Header.LatestStatus = (exception);                                                                        \
    Throw(__handle);                                                                                                    \
 })
 void _SDeviceProcessUnhandledThrow(const void *);
