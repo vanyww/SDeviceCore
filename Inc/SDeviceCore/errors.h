@@ -21,18 +21,18 @@ void _SDeviceProcessAssertFail(char *, int);
 #define SDeviceLogStatus(handle, status) (                                                                             \
 {                                                                                                                      \
    SDeviceCommonHandle *__handle = (SDeviceCommonHandle *)(handle);                                                    \
-   __handle->Header.LatestStatus = status;                                                                             \
+   __handle->Header.LatestStatus = (status);                                                                           \
    _SDeviceLogStatus(__handle);                                                                                        \
 })
 void _SDeviceLogStatus(const void *);
 #else
-#define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LastError = error
+#define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
 #endif
 
 #define SDeviceThrow(handle, status) (                                                                                 \
 {                                                                                                                      \
    SDeviceCommonHandle *__handle = (SDeviceCommonHandle *)(handle);                                                    \
-   __handle->Header.LatestStatus = status;                                                                             \
+   __handle->Header.LatestStatus = (status);                                                                           \
    Throw(__handle);                                                                                                    \
 })
 void _SDeviceProcessUnhandledThrow(const void *);
