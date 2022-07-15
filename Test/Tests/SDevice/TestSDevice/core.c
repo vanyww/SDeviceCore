@@ -1,7 +1,7 @@
 #include "core.h"
 
 #include "SDeviceCore/heap.h"
-#include "SDeviceCore/assert.h"
+#include "SDeviceCore/errors.h"
 
 #include <memory.h>
 
@@ -20,6 +20,8 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, index)
    SDeviceAssert(_init != NULL);
 
    __SDEVICE_HANDLE(TestSDevice) *instance = SDeviceMalloc(sizeof(__SDEVICE_HANDLE(TestSDevice)));
+   SDeviceAssert(instance != NULL);
+
    __SDEVICE_INIT_DATA(TestSDevice) *init = _init;
 
    instance->Header = (SDeviceHandleHeader){ _context, TEST_SDEVICE_STATUS_OK, index };
@@ -75,7 +77,7 @@ __SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _ha
    if(parameters->Size > sizeof(handle->Runtime.TestPartialProperty) ||
       parameters->Offset > sizeof(handle->Runtime.TestPartialProperty) - parameters->Size)
    {
-      SDeviceRuntimeErrorRaised(handle, TEST_SDEVICE_STATUS_TEST_PARTIAL_PROPERTY_INVALID_SET);
+      SDeviceLogStatus(handle, TEST_SDEVICE_STATUS_TEST_PARTIAL_PROPERTY_INVALID_SET);
       return SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR;
    }
 
@@ -95,7 +97,7 @@ __SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _ha
    if(parameters->Size > sizeof(handle->Runtime.TestPartialProperty) ||
       parameters->Offset > sizeof(handle->Runtime.TestPartialProperty) - parameters->Size)
    {
-      SDeviceRuntimeErrorRaised(handle, TEST_SDEVICE_STATUS_TEST_PARTIAL_PROPERTY_INVALID_GET);
+      SDeviceLogStatus(handle, TEST_SDEVICE_STATUS_TEST_PARTIAL_PROPERTY_INVALID_GET);
       return SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR;
    }
 

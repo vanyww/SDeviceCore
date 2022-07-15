@@ -1,0 +1,3 @@
+[submodule "Submodules/cexception"]
+	path = Submodules/cexception
+	url = https://gitlab.dnouglublenie.ru/nonius/embeddedfirmware/embeddedcommon/forks/cexception.git

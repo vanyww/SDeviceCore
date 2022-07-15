@@ -11,7 +11,7 @@
 typedef struct
 {
    void *Context;
-   int32_t LastError;
+   int32_t LatestStatus;
    uint32_t InstanceIndex;
 } SDeviceHandleHeader;
 
@@ -44,9 +44,9 @@ static inline void * SDeviceGetHandleContext(const void *handle)
    return ((const SDeviceCommonHandle *)handle)->Header.Context;
 }
 
-static inline int32_t SDeviceGetHandleLastError(const void *handle)
+static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
 {
-   return ((const SDeviceCommonHandle *)handle)->Header.LastError;
+   return ((const SDeviceCommonHandle *)handle)->Header.LatestStatus;
 }
 
 static inline uint32_t SDeviceGetHandleInstanceIndex(const void *handle)
