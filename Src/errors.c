@@ -13,7 +13,7 @@ __attribute__((weak)) void _SDeviceProcessUnhandledThrow(const void *_handle)
 {
    (void)_handle;
 
-   SDeviceAssert(false);
+   for(;;) { }
 }
 
 __attribute__((weak)) void _SDeviceLogStatus(const void *_handle)
