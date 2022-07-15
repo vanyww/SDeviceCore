@@ -17,18 +17,6 @@ void _SDeviceProcessAssertFail(char *, int);
 #define SDeviceEvalAssert(expression) expression
 #endif
 
-#ifdef __SDEVICE_USE_THROW
-#define SDeviceThrow(handle, status) (                                                                                 \
-{                                                                                                                      \
-   SDeviceCommonHandle *__handle = (SDeviceCommonHandle *)(handle);                                                    \
-   __handle->Header.LatestStatus = status;                                                                             \
-   Throw(__handle);                                                                                                    \
-})
-void _SDeviceProcessUnhandledThrow(const void *);
-#else
-#define SDeviceThrow(handle, error) ((SDeviceCommonHandle *)(handle))->Header.LastError = error
-#endif
-
 #ifdef __SDEVICE_USE_STATUS_LOG
 #define SDeviceLogStatus(handle, status) (                                                                             \
 {                                                                                                                      \
@@ -41,3 +29,10 @@ void _SDeviceLogStatus(const void *);
 #define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LastError = error
 #endif
 
+#define SDeviceThrow(handle, status) (                                                                                 \
+{                                                                                                                      \
+   SDeviceCommonHandle *__handle = (SDeviceCommonHandle *)(handle);                                                    \
+   __handle->Header.LatestStatus = status;                                                                             \
+   Throw(__handle);                                                                                                    \
+})
+void _SDeviceProcessUnhandledThrow(const void *);
