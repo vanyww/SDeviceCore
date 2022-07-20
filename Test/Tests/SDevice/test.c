@@ -1,6 +1,8 @@
 #include "test.h"
 
 #include "TestSDevice/core.h"
+#include "TestSDevice/Weak/weak.h"
+#include "SDeviceCore/errors.h"
 
 bool TestSDeviceHandleInitialization(void)
 {
@@ -85,4 +87,67 @@ bool TestSDeviceHandlePartialProperty(void)
       return false;
 
    return true;
+}
+
+bool TestSDeviceHandledThrow(void)
+{
+   __SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
+   __attribute__((cleanup(__SDEVICE_DISPOSE_HANDLE(TestSDevice)))) __SDEVICE_HANDLE(TestSDevice) *handle =
+            __SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, 0);
+   int32_t exception = 0xAAAAAAAA;
+   volatile CEXCEPTION_T e;
+
+   Try
+   {
+      SDeviceThrow(handle, exception);
+   }
+   Catch(e)
+   {
+      if(handle == e && SDeviceGetHandleLatestStatus(e) == exception)
+         return true;
+   }
+
+   return false;
+}
+
+bool TestSDeviceUnhandledThrow(void)
+{
+   __SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
+   __attribute__((cleanup(__SDEVICE_DISPOSE_HANDLE(TestSDevice)))) __SDEVICE_HANDLE(TestSDevice) *handle =
+            __SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, 0);
+   int32_t exception = 0xAAAAAAAA;
+
+   SDeviceThrow(handle, exception);
+
+   if(handle == LastUnhandledThrowHandle && SDeviceGetHandleLatestStatus(LastUnhandledThrowHandle) == exception)
+      return true;
+
+   return false;
+}
+
+bool TestSDeviceLogStatus(void)
+{
+   __SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
+   __attribute__((cleanup(__SDEVICE_DISPOSE_HANDLE(TestSDevice)))) __SDEVICE_HANDLE(TestSDevice) *handle =
+            __SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, 0);
+   int32_t status = 0xAAAAAAAA;
+
+   SDeviceLogStatus(handle, status);
+
+   if(handle == LastLogStatusHandle && SDeviceGetHandleLatestStatus(LastLogStatusHandle) == status)
+      return true;
+
+   return false;
+}
+
+bool TestSDeviceAssert(void)
+{
+   AssertFailedCalled = false;
+
+   SDeviceAssert(false);
+
+   if(AssertFailedCalled == true)
+      return true;
+
+   return false;
 }
