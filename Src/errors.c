@@ -1,5 +1,6 @@
-#include <stdbool.h>
 #include "../Inc/SDeviceCore/errors.h"
+
+#include <stdbool.h>
 
 __attribute__((weak)) void _SDeviceProcessAssertFail(char *file, int line)
 {

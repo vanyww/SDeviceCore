@@ -1,22 +1,27 @@
+#include "weak.h"
+
 #include "SDeviceCore/errors.h"
 #include "SDeviceCore/heap.h"
 
 #include <stdlib.h>
-#include <stdbool.h>
+
+const void *LastUnhandledThrowHandle;
+const void *LastLogStatusHandle;
+bool AssertFailedCalled;
 
 void _SDeviceProcessAssertFail(char *file, int line)
 {
-   for(;;) { }
+   AssertFailedCalled = true;
 }
 
 void _SDeviceProcessUnhandledThrow(const void *_handle)
 {
-   SDeviceAssert(false);
+   LastUnhandledThrowHandle = _handle;
 }
 
 void _SDeviceLogStatus(const void *_handle)
 {
-
+   LastLogStatusHandle = _handle;
 }
 
 void * SDeviceMalloc(size_t size)

@@ -1,10 +1,9 @@
-#include <stdio.h>
-#include <string.h>
-
 #include "SDeviceCore/common.h"
-
 #include "Tests/Common/test.h"
 #include "Tests/SDevice/test.h"
+
+#include <stdio.h>
+#include <string.h>
 
 struct
 {
@@ -20,6 +19,11 @@ struct
    { TestSDeviceHandleInitialization, "sdevice handle initialization" },
    { TestSDeviceHandleProperty, "sdevice handle property" },
    { TestSDeviceHandlePartialProperty, "sdevice handle partial property" },
+
+   { TestSDeviceHandledThrow, "sdevice handled throw" },
+   { TestSDeviceUnhandledThrow, "sdevice unhandled throw" },
+   { TestSDeviceLogStatus, "sdevice log status" },
+   { TestSDeviceAssert, "sdevice assert" },
 };
 
 const size_t TestFunctionsCount = __LENGTHOF(TestFunctions);
