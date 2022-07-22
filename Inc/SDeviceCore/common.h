@@ -33,3 +33,7 @@
 #ifndef __LENGTHOF
 #define __LENGTHOF(array) (sizeof(array) / sizeof(*array))
 #endif
+
+#ifndef __UNUSED_PARAMETER
+#define __UNUSED_PARAMETER(parameter) (void)(parameter)
+#endif
