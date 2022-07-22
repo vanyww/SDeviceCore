@@ -65,7 +65,6 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Inc"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Src"/>
-						<entry excluding="*/test/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Submodules"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -122,7 +121,6 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Inc"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Src"/>
-						<entry excluding="*/test/" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="Submodules"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Test"/>
 					</sourceEntries>
 				</configuration>

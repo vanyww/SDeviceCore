@@ -1,5 +1,13 @@
 #pragma once
 
+#include <stddef.h>
+
+typedef const void * CExceptionType;
+
+#define CEXCEPTION_NONE (NULL)
+#define CEXCEPTION_T CExceptionType
+#define CEXCEPTION_NO_CATCH_HANDLER(id) _SDeviceProcessUnhandledThrow(id)
+
 #include "../../Submodules/cexception/lib/CException.h"
 
 #ifdef __SDEVICE_USE_ASSERT
