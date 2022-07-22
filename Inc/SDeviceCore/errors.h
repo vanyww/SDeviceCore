@@ -29,4 +29,4 @@ void _SDeviceLogStatus(const void *);
    __handle->Header.LatestStatus = (exception);                                                                        \
    Throw(__handle);                                                                                                    \
 })
-void _SDeviceProcessUnhandledThrow(const void *);
+void _SDeviceProcessUnhandledThrow(CEXCEPTION_T);
