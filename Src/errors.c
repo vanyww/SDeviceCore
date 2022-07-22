@@ -20,3 +20,5 @@ __attribute__((weak)) void _SDeviceLogStatus(const void *_handle)
 {
    __UNUSED_PARAMETER(_handle);
 }
+
+#include "../Submodules/cexception/lib/CException.c"
