@@ -11,7 +11,7 @@ __attribute__((weak)) void _SDeviceProcessAssertFail(char *file, int line)
    for(;;) { }
 }
 
-__attribute__((weak)) void _SDeviceProcessUnhandledThrow(const void *_handle)
+__attribute__((weak)) void _SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle)
 {
    __UNUSED_PARAMETER(_handle);
 
