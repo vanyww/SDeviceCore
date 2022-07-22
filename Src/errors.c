@@ -1,8 +1,6 @@
 #include "SDeviceCore/errors.h"
 #include "SDeviceCore/common.h"
 
-#include <stdbool.h>
-
 __attribute__((weak)) void _SDeviceProcessAssertFail(char *file, int line)
 {
    __UNUSED_PARAMETER(file);
