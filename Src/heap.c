@@ -1,4 +1,4 @@
-#include "../Inc/SDeviceCore/heap.h"
+#include "SDeviceCore/heap.h"
 
 #include <stdlib.h>
 

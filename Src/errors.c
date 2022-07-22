@@ -1,4 +1,4 @@
-#include "../Inc/SDeviceCore/errors.h"
+#include "SDeviceCore/errors.h"
 
 #include <stdbool.h>
 
