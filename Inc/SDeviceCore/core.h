@@ -42,19 +42,19 @@ typedef struct
    __SDEVICE_RUNTIME_DATA(name) Runtime;                                                                               \
 }
 
-static inline void * SDeviceGetHandleContext(const void *handle)
+static inline void * SDeviceGetHandleContext(const void *_handle)
 {
-   return ((const SDeviceCommonHandle *)handle)->Header.Context;
+   return ((const SDeviceCommonHandle *)_handle)->Header.Context;
 }
 
-static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
+static inline int32_t SDeviceGetHandleLatestStatus(const void *_handle)
 {
-   return ((const SDeviceCommonHandle *)handle)->Header.LatestStatus;
+   return ((const SDeviceCommonHandle *)_handle)->Header.LatestStatus;
 }
 
-static inline uint32_t SDeviceGetHandleInstanceIndex(const void *handle)
+static inline uint32_t SDeviceGetHandleInstanceIndex(const void *_handle)
 {
-   return ((const SDeviceCommonHandle *)handle)->Header.InstanceIndex;
+   return ((const SDeviceCommonHandle *)_handle)->Header.InstanceIndex;
 }
 
 /* create handle ******************************************************************************************************/
