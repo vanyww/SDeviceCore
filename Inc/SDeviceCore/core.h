@@ -9,6 +9,13 @@
 #define __SDEVICE_CORE_VERSION_MINOR 1
 #define __SDEVICE_CORE_VERSION_PATCH 1
 
+typedef struct
+{
+   uint16_t Major;
+   uint8_t Minor;
+   uint8_t Patch;
+} SDeviceVersion;
+
 /* handle *************************************************************************************************************/
 
 typedef struct
