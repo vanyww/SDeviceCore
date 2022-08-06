@@ -5,9 +5,18 @@
 #include <stdint.h>
 #include <stddef.h>
 
+/* version *************************************************************************************************************/
+
 #define __SDEVICE_CORE_VERSION_MAJOR 2
 #define __SDEVICE_CORE_VERSION_MINOR 1
 #define __SDEVICE_CORE_VERSION_PATCH 1
+
+#define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
+{                                                                                                                      \
+   .Major = __SDEVICE_CORE_VERSION_MAJOR,                                                                              \
+   .Minor = __SDEVICE_CORE_VERSION_MINOR,                                                                              \
+   .Patch = __SDEVICE_CORE_VERSION_PATCH                                                                               \
+})
 
 typedef struct
 {
