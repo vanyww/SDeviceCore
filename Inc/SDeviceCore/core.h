@@ -9,7 +9,7 @@
 
 #define __SDEVICE_CORE_VERSION_MAJOR 2
 #define __SDEVICE_CORE_VERSION_MINOR 2
-#define __SDEVICE_CORE_VERSION_PATCH 0
+#define __SDEVICE_CORE_VERSION_PATCH 1
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
    .Major = __SDEVICE_CORE_VERSION_MAJOR,                                                                              \
