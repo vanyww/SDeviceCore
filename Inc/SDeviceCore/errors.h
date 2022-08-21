@@ -13,7 +13,7 @@ typedef const void * CExceptionType;
 #ifdef __SDEVICE_USE_ASSERT
 #define SDeviceAssert(expression) ((expression) ? (void)0U : _SDeviceProcessAssertFail(__FILE__, __LINE__))
 #define SDeviceEvalAssert(expression) SDeviceAssert(expression)
-void _SDeviceProcessAssertFail(char *, int);
+void _SDeviceProcessAssertFail(char *file, int line);
 #else
 #define SDeviceAssert(expression) ((void)0U)
 #define SDeviceEvalAssert(expression) expression
@@ -26,7 +26,7 @@ void _SDeviceProcessAssertFail(char *, int);
    __handle->Header.LatestStatus = (status);                                                                           \
    _SDeviceLogStatus(__handle);                                                                                        \
 })
-void _SDeviceLogStatus(const void *);
+void _SDeviceLogStatus(const void *_handle);
 #else
 #define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
 #endif
@@ -37,4 +37,4 @@ void _SDeviceLogStatus(const void *);
    __handle->Header.LatestStatus = (exception);                                                                        \
    Throw(__handle);                                                                                                    \
 })
-void _SDeviceProcessUnhandledThrow(CEXCEPTION_T);
+void _SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle);

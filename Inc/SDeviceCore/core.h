@@ -5,12 +5,11 @@
 #include <stdint.h>
 #include <stddef.h>
 
-/* version *************************************************************************************************************/
+/* version ************************************************************************************************************/
 
 #define __SDEVICE_CORE_VERSION_MAJOR 2
 #define __SDEVICE_CORE_VERSION_MINOR 2
-#define __SDEVICE_CORE_VERSION_PATCH 0
-
+#define __SDEVICE_CORE_VERSION_PATCH 1
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
    .Major = __SDEVICE_CORE_VERSION_MAJOR,                                                                              \
@@ -60,17 +59,20 @@ typedef struct
 
 static inline void * SDeviceGetHandleContext(const void *_handle)
 {
-   return ((const SDeviceCommonHandle *)_handle)->Header.Context;
+   const SDeviceCommonHandle *handle = _handle;
+   return handle->Header.Context;
 }
 
 static inline int32_t SDeviceGetHandleLatestStatus(const void *_handle)
 {
-   return ((const SDeviceCommonHandle *)_handle)->Header.LatestStatus;
+   const SDeviceCommonHandle *handle = _handle;
+   return handle->Header.LatestStatus;
 }
 
 static inline uint32_t SDeviceGetHandleInstanceIndex(const void *_handle)
 {
-   return ((const SDeviceCommonHandle *)_handle)->Header.InstanceIndex;
+   const SDeviceCommonHandle *handle = _handle;
+   return handle->Header.InstanceIndex;
 }
 
 /* create handle ******************************************************************************************************/
