@@ -2,5 +2,5 @@
 
 #include <stddef.h>
 
-void * SDeviceMalloc(size_t);
-void SDeviceFree(void *);
+void * SDeviceMalloc(size_t size);
+void SDeviceFree(void *_handle);
