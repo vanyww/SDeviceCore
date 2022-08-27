@@ -1,7 +1,8 @@
 #include "weak.h"
 
-#include "SDeviceCore/errors.h"
 #include "SDeviceCore/heap.h"
+#include "SDeviceCore/errors.h"
+#include "SDeviceCore/global.h"
 
 #include <stdlib.h>
 
@@ -26,7 +27,12 @@ void _SDeviceLogStatus(const void *_handle)
 
 void * SDeviceMalloc(size_t size)
 {
-   return malloc(size);
+   void *memory = malloc(size);
+
+   if(memory == NULL)
+      SDeviceThrow(CoreGlobalSDeviceHandle, CORE_GLOBAL_SDEVICE_EXCEPTION_OUT_OF_MEMORY);
+
+   return memory;
 }
 
 void SDeviceFree(void *_handle)
