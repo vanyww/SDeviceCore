@@ -2,6 +2,8 @@
 
 #include <stddef.h>
 
+/* cexception *********************************************************************************************************/
+
 typedef const void * CExceptionType;
 
 #define CEXCEPTION_NONE (NULL)
@@ -9,6 +11,8 @@ typedef const void * CExceptionType;
 #define CEXCEPTION_NO_CATCH_HANDLER(id) _SDeviceProcessUnhandledThrow(id)
 
 #include "../../Submodules/cexception/lib/CException.h"
+
+/* assertations *******************************************************************************************************/
 
 #ifdef __SDEVICE_USE_ASSERT
 #define SDeviceAssert(expression) ((expression) ? (void)0U : _SDeviceProcessAssertFail(__FILE__, __LINE__))
@@ -18,6 +22,8 @@ void _SDeviceProcessAssertFail(char *file, int line);
 #define SDeviceAssert(expression) ((void)0U)
 #define SDeviceEvalAssert(expression) expression
 #endif
+
+/* logging ************************************************************************************************************/
 
 #ifdef __SDEVICE_USE_STATUS_LOG
 #define SDeviceLogStatus(handle, status) (                                                                             \
@@ -31,6 +37,8 @@ void _SDeviceLogStatus(const void *_handle);
 #define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
 #endif
 
+/* throw **************************************************************************************************************/
+
 #define SDeviceThrow(handle, exception) (                                                                              \
 {                                                                                                                      \
    SDeviceCommonHandle *__handle = (SDeviceCommonHandle *)(handle);                                                    \
@@ -38,3 +46,5 @@ void _SDeviceLogStatus(const void *_handle);
    Throw(__handle);                                                                                                    \
 })
 void _SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle);
+
+/**********************************************************************************************************************/
