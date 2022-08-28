@@ -7,8 +7,8 @@
 
 /* version ************************************************************************************************************/
 
-#define __SDEVICE_CORE_VERSION_MAJOR 2
-#define __SDEVICE_CORE_VERSION_MINOR 3
+#define __SDEVICE_CORE_VERSION_MAJOR 3
+#define __SDEVICE_CORE_VERSION_MINOR 0
 #define __SDEVICE_CORE_VERSION_PATCH 0
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
