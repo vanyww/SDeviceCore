@@ -5,6 +5,8 @@
 
 #include <memory.h>
 
+const char DeviceName[] = "TestSDevice\0";
+
 __SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(TestSDevice);
 
 struct __SDEVICE_RUNTIME_DATA(TestSDevice)
@@ -15,7 +17,7 @@ struct __SDEVICE_RUNTIME_DATA(TestSDevice)
 
 __SDEVICE_HANDLE_DEFINITION(TestSDevice);
 
-__SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, index)
+__SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode)
 {
    SDeviceAssert(_init != NULL);
 
@@ -24,8 +26,14 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, index)
 
    __SDEVICE_INIT_DATA(TestSDevice) *init = _init;
 
-   instance->Header = (SDeviceHandleHeader){ _context, TEST_SDEVICE_STATUS_OK, index };
    instance->Init = *init;
+   instance->Header = (SDeviceHandleHeader)
+   {
+      .Context = _context,
+      .NameNode = { .Name = DeviceName , .OuterNode = _outerNameNode },
+      .LatestStatus = TEST_SDEVICE_STATUS_OK
+   };
+
    instance->Runtime = (__SDEVICE_RUNTIME_DATA(TestSDevice))
    {
       .TestProperty = init->TestPropertyInitialValue,
