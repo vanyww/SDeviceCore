@@ -26,11 +26,19 @@ typedef struct
 
 /* handle *************************************************************************************************************/
 
+typedef struct SDeviceNameNode SDeviceNameNode;
+
+struct SDeviceNameNode
+{
+   const void *Name;
+   const SDeviceNameNode *OuterNode;
+};
+
 typedef struct
 {
    void *Context;
+   SDeviceNameNode NameNode;
    int32_t LatestStatus;
-   uint32_t InstanceIndex;
 } SDeviceHandleHeader;
 
 typedef struct
@@ -69,24 +77,24 @@ static inline int32_t SDeviceGetHandleLatestStatus(const void *_handle)
    return handle->Header.LatestStatus;
 }
 
-static inline uint32_t SDeviceGetHandleInstanceIndex(const void *_handle)
+static inline SDeviceNameNode SDeviceGetHandleNameNode(const void *_handle)
 {
    const SDeviceCommonHandle *handle = _handle;
-   return handle->Header.InstanceIndex;
+   return handle->Header.NameNode;
 }
 
 /* create handle ******************************************************************************************************/
 
 #define __SDEVICE_CREATE_HANDLE_RETURN_VALUE void *
-#define __SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name, instance_index_name)                           \
-   (void *init_data_name, void *context_name, uint32_t instance_index_name)
+#define __SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name, outer_name_node_name)                          \
+   (void *init_data_name, void *context_name, SDeviceNameNode *outer_name_node_name)
 #define __SDEVICE_CREATE_HANDLE_POINTER(pointer_name)                                                                  \
    __SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) __SDEVICE_CREATE_HANDLE_ARGUMENTS(,,)
 #define __SDEVICE_CREATE_HANDLE(device_name) __##device_name##_SDeviceCreateHandle
-#define __SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, context_name, instance_index_name)            \
+#define __SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, context_name, outer_name_node_name)           \
    __SDEVICE_CREATE_HANDLE_RETURN_VALUE                                                                                \
    __SDEVICE_CREATE_HANDLE(device_name)                                                                                \
-   __SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name, instance_index_name)
+   __SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name, outer_name_node_name)
 
 /* dispose handle *****************************************************************************************************/
 
