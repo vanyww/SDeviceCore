@@ -1,5 +1,7 @@
 #include "SDeviceCore/global.h"
 
+static const char DeviceName[] = "CoreGlobal\0";
+
 __SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(CoreGlobal);
 
 struct __SDEVICE_RUNTIME_DATA(CoreGlobal) { };
@@ -11,7 +13,7 @@ __SDEVICE_HANDLE(CoreGlobal) *CoreGlobalSDeviceHandle = &(__SDEVICE_HANDLE(CoreG
    .Header =
    {
       .Context = NULL,
-      .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK,
-      .InstanceIndex = __CORE_GLOBAL_SDEVICE_INSTANCE_INDEX
+      .NameNode = { .Name = DeviceName, .OuterNode = NULL },
+      .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK
    }
 };
