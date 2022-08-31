@@ -83,6 +83,12 @@ static inline SDeviceNameNode SDeviceGetHandleNameNode(const void *_handle)
    return handle->Header.NameNode;
 }
 
+static inline const SDeviceNameNode * SDeviceGetHandleNameNodePointer(const void *_handle)
+{
+   const SDeviceCommonHandle *handle = _handle;
+   return &handle->Header.NameNode;
+}
+
 /* create handle ******************************************************************************************************/
 
 #define __SDEVICE_CREATE_HANDLE_RETURN_VALUE void *
