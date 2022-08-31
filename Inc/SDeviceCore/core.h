@@ -8,7 +8,7 @@
 /* version ************************************************************************************************************/
 
 #define __SDEVICE_CORE_VERSION_MAJOR 3
-#define __SDEVICE_CORE_VERSION_MINOR 0
+#define __SDEVICE_CORE_VERSION_MINOR 1
 #define __SDEVICE_CORE_VERSION_PATCH 0
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
@@ -83,11 +83,17 @@ static inline SDeviceNameNode SDeviceGetHandleNameNode(const void *_handle)
    return handle->Header.NameNode;
 }
 
+static inline const SDeviceNameNode * SDeviceGetHandleNameNodePointer(const void *_handle)
+{
+   const SDeviceCommonHandle *handle = _handle;
+   return &handle->Header.NameNode;
+}
+
 /* create handle ******************************************************************************************************/
 
 #define __SDEVICE_CREATE_HANDLE_RETURN_VALUE void *
 #define __SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name, outer_name_node_name)                          \
-   (void *init_data_name, void *context_name, SDeviceNameNode *outer_name_node_name)
+   (void *init_data_name, void *context_name, const SDeviceNameNode *outer_name_node_name)
 #define __SDEVICE_CREATE_HANDLE_POINTER(pointer_name)                                                                  \
    __SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) __SDEVICE_CREATE_HANDLE_ARGUMENTS(,,)
 #define __SDEVICE_CREATE_HANDLE(device_name) __##device_name##_SDeviceCreateHandle
