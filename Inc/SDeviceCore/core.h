@@ -77,12 +77,6 @@ static inline int32_t SDeviceGetHandleLatestStatus(const void *_handle)
    return handle->Header.LatestStatus;
 }
 
-static inline SDeviceNameNode SDeviceGetHandleNameNode(const void *_handle)
-{
-   const SDeviceCommonHandle *handle = _handle;
-   return handle->Header.NameNode;
-}
-
 static inline const SDeviceNameNode * SDeviceGetHandleNameNodePointer(const void *_handle)
 {
    const SDeviceCommonHandle *handle = _handle;
