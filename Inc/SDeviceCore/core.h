@@ -58,7 +58,7 @@ typedef struct
 #define __SDEVICE_HANDLE(device_name) __##device_name##_SDeviceHandle
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(device_name)                                                              \
    typedef struct __SDEVICE_HANDLE(device_name) __SDEVICE_HANDLE(device_name)
-#define __SDEVICE_HANDLE_DEFINITION(device_name) struct __SDEVICE_HANDLE(device_name)                                  \
+#define __SDEVICE_HANDLE_DECLARATION(device_name) struct __SDEVICE_HANDLE(device_name)                                 \
 {                                                                                                                      \
    SDeviceHandleHeader Header;                                                                                         \
    __SDEVICE_INIT_DATA(device_name) Init;                                                                              \
@@ -122,7 +122,7 @@ typedef enum
 } SDevicePropertyOperationStatus;
 
 #define __SDEVICE_PROPERTY_TYPE(device_name, property_name) __##device_name##_SDevice_##property_name##_PropertyType
-#define __SDEVICE_PROPERTY_TYPE_DEFINITION(device_name, property_name, type)                                           \
+#define __SDEVICE_PROPERTY_TYPE_DECLARATION(device_name, property_name, type)                                          \
    typedef type __SDEVICE_PROPERTY_TYPE(device_name, property_name)
 
 /* property set *******************************************************************************************************/
