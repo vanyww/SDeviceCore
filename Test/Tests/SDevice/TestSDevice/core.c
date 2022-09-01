@@ -15,7 +15,7 @@ struct __SDEVICE_RUNTIME_DATA(TestSDevice)
    __SDEVICE_PROPERTY_TYPE(TestSDevice, TestPartialProperty) TestPartialProperty;
 };
 
-__SDEVICE_HANDLE_DEFINITION(TestSDevice);
+__SDEVICE_HANDLE_DECLARATION(TestSDevice);
 
 __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode)
 {
