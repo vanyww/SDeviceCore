@@ -17,4 +17,6 @@ typedef enum
 
 struct __SDEVICE_INIT_DATA(CoreGlobal) { };
 
+__SDEVICE_STRING_NAME_DECLARATION(CoreGlobal);
+
 extern __SDEVICE_HANDLE(CoreGlobal) *CoreGlobalSDeviceHandle;

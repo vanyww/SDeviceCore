@@ -7,8 +7,8 @@
 
 /* version ************************************************************************************************************/
 
-#define __SDEVICE_CORE_VERSION_MAJOR 3
-#define __SDEVICE_CORE_VERSION_MINOR 1
+#define __SDEVICE_CORE_VERSION_MAJOR 4
+#define __SDEVICE_CORE_VERSION_MINOR 0
 #define __SDEVICE_CORE_VERSION_PATCH 0
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
@@ -58,12 +58,16 @@ typedef struct
 #define __SDEVICE_HANDLE(device_name) __##device_name##_SDeviceHandle
 #define __SDEVICE_HANDLE_FORWARD_DECLARATION(device_name)                                                              \
    typedef struct __SDEVICE_HANDLE(device_name) __SDEVICE_HANDLE(device_name)
-#define __SDEVICE_HANDLE_DEFINITION(device_name) struct __SDEVICE_HANDLE(device_name)                                  \
+#define __SDEVICE_HANDLE_DECLARATION(device_name) struct __SDEVICE_HANDLE(device_name)                                 \
 {                                                                                                                      \
    SDeviceHandleHeader Header;                                                                                         \
    __SDEVICE_INIT_DATA(device_name) Init;                                                                              \
    __SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                        \
 }
+
+#define __SDEVICE_STRING_NAME(device_name) __##device_name##_SDeviceStringName
+#define __SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char __SDEVICE_STRING_NAME(device_name)[];
+#define __SDEVICE_STRING_NAME_DEFINITION(device_name) const char __SDEVICE_STRING_NAME(device_name)[] = #device_name;
 
 static inline void * SDeviceGetHandleContext(const void *_handle)
 {
@@ -75,12 +79,6 @@ static inline int32_t SDeviceGetHandleLatestStatus(const void *_handle)
 {
    const SDeviceCommonHandle *handle = _handle;
    return handle->Header.LatestStatus;
-}
-
-static inline SDeviceNameNode SDeviceGetHandleNameNode(const void *_handle)
-{
-   const SDeviceCommonHandle *handle = _handle;
-   return handle->Header.NameNode;
 }
 
 static inline const SDeviceNameNode * SDeviceGetHandleNameNodePointer(const void *_handle)
@@ -124,7 +122,7 @@ typedef enum
 } SDevicePropertyOperationStatus;
 
 #define __SDEVICE_PROPERTY_TYPE(device_name, property_name) __##device_name##_SDevice_##property_name##_PropertyType
-#define __SDEVICE_PROPERTY_TYPE_DEFINITION(device_name, property_name, type)                                           \
+#define __SDEVICE_PROPERTY_TYPE_DECLARATION(device_name, property_name, type)                                          \
    typedef type __SDEVICE_PROPERTY_TYPE(device_name, property_name)
 
 /* property set *******************************************************************************************************/

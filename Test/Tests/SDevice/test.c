@@ -15,7 +15,7 @@ bool TestSDeviceHandleInitialization(void)
    if(SDeviceGetHandleContext(handle) != context)
       return false;
 
-   if(SDeviceGetHandleNameNode(handle).OuterNode != outerNameNode)
+   if(SDeviceGetHandleNameNodePointer(handle)->OuterNode != outerNameNode)
       return false;
 
    {
