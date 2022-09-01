@@ -65,6 +65,10 @@ typedef struct
    __SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                        \
 }
 
+#define __SDEVICE_STRING_NAME(device_name) __##device_name##_SDeviceStringName
+#define __SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char __SDEVICE_STRING_NAME(device_name)[];
+#define __SDEVICE_STRING_NAME_DEFINITION(device_name) const char __SDEVICE_STRING_NAME(device_name)[] = #device_name;
+
 static inline void * SDeviceGetHandleContext(const void *_handle)
 {
    const SDeviceCommonHandle *handle = _handle;
