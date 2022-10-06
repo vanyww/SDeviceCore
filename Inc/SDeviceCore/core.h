@@ -30,7 +30,7 @@ typedef struct SDeviceNameNode SDeviceNameNode;
 
 struct SDeviceNameNode
 {
-   const void *Name;
+   const char *Name;
    const SDeviceNameNode *OuterNode;
 };
 
