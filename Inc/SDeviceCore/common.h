@@ -1,5 +1,7 @@
 #pragma once
 
+#include <limits.h>
+
 #ifndef likely
 #define likely(x) __builtin_expect(!!(x), 1)
 #endif
@@ -28,6 +30,10 @@
 
 #ifndef __SIZEOF_MEMBER
 #define __SIZEOF_MEMBER(type, member) (sizeof(((type *)0)->member))
+#endif
+
+#ifndef __BIT_SIZEOF
+#define __BIT_SIZEOF(value) (sizeof(value) * CHAR_BIT)
 #endif
 
 #ifndef __LENGTHOF
