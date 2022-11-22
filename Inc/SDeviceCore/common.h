@@ -36,6 +36,10 @@
 #define __BIT_SIZEOF(value) (sizeof(value) * CHAR_BIT)
 #endif
 
+#ifndef __BIT_SIZEOF_MEMBER
+#define __BIT_SIZEOF_MEMBER(type, member) (__SIZEOF_MEMBER(type, member) * CHAR_BIT)
+#endif
+
 #ifndef __LENGTHOF
 #define __LENGTHOF(array) (sizeof(array) / sizeof(*array))
 #endif
