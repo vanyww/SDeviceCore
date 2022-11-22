@@ -8,7 +8,7 @@
 /* version ************************************************************************************************************/
 
 #define __SDEVICE_CORE_VERSION_MAJOR 4
-#define __SDEVICE_CORE_VERSION_MINOR 0
+#define __SDEVICE_CORE_VERSION_MINOR 1
 #define __SDEVICE_CORE_VERSION_PATCH 0
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
@@ -30,7 +30,7 @@ typedef struct SDeviceNameNode SDeviceNameNode;
 
 struct SDeviceNameNode
 {
-   const void *Name;
+   const char *Name;
    const SDeviceNameNode *OuterNode;
 };
 

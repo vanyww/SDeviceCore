@@ -1,5 +1,7 @@
 #pragma once
 
+#include <limits.h>
+
 #ifndef likely
 #define likely(x) __builtin_expect(!!(x), 1)
 #endif
@@ -9,25 +11,33 @@
 #endif
 
 #ifndef __MIN
-#define __MIN(value1, value2) (                                                                                        \
+#define __MIN(value$1, value$2) (                                                                                      \
 {                                                                                                                      \
-   __auto_type __value1 = (value1);                                                                                    \
-   __auto_type __value2 = (value2);                                                                                    \
-   __value1 < __value2 ? __value1 : __value2;                                                                          \
+   __auto_type __value$1 = (value$1);                                                                                  \
+   __auto_type __value$2 = (value$2);                                                                                  \
+   __value$1 < __value$2 ? __value$1 : __value$2;                                                                      \
 })
 #endif
 
 #ifndef __MAX
-#define __MAX(value1, value2) (                                                                                        \
+#define __MAX(value$1, value$2) (                                                                                      \
 {                                                                                                                      \
-   __auto_type __value1 = (value1);                                                                                    \
-   __auto_type __value2 = (value2);                                                                                    \
-   __value1 > __value2 ? __value1 : __value2;                                                                          \
+   __auto_type __value$1 = (value$1);                                                                                  \
+   __auto_type __value$2 = (value$2);                                                                                  \
+   __value$1 > __value$2 ? __value$1 : __value$2;                                                                      \
 })
 #endif
 
 #ifndef __SIZEOF_MEMBER
 #define __SIZEOF_MEMBER(type, member) (sizeof(((type *)0)->member))
+#endif
+
+#ifndef __BIT_SIZEOF
+#define __BIT_SIZEOF(value) (sizeof(value) * CHAR_BIT)
+#endif
+
+#ifndef __BIT_SIZEOF_MEMBER
+#define __BIT_SIZEOF_MEMBER(type, member) (__SIZEOF_MEMBER(type, member) * CHAR_BIT)
 #endif
 
 #ifndef __LENGTHOF

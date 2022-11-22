@@ -15,6 +15,9 @@ struct
    { TestCommonMinMacro, "min macro" },
    { TestCommonSizeOfMember, "sizeofmember macro" },
    { TestCommonLengthOf, "lengthof macro" },
+   { TestBitSizeof, "bit sizeof macro" },
+   { TestCommonBitSizeOfMember, "bitsizeofmember macro" },
+
 
    { TestSDeviceHandleInitialization, "sdevice handle initialization" },
    { TestSDeviceHandleProperty, "sdevice handle property" },
