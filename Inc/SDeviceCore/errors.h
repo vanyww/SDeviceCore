@@ -15,9 +15,14 @@ typedef const void * CExceptionType;
 /* assertations *******************************************************************************************************/
 
 #ifdef __SDEVICE_USE_ASSERT
+#ifdef __SDEVICE_USE_SIMPLE_ASSERT
+#define SDeviceAssert(expression) ((expression) ? (void)0U : _SDeviceProcessAssertFail())
+void _SDeviceProcessAssertFail(void);
+#else
 #define SDeviceAssert(expression) ((expression) ? (void)0U : _SDeviceProcessAssertFail(__FILE__, __LINE__))
-#define SDeviceEvalAssert(expression) SDeviceAssert(expression)
 void _SDeviceProcessAssertFail(char *file, int line);
+#endif
+#define SDeviceEvalAssert(expression) SDeviceAssert(expression)
 #else
 #define SDeviceAssert(expression) ((void)0U)
 #define SDeviceEvalAssert(expression) expression

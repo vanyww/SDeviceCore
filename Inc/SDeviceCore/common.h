@@ -47,3 +47,15 @@
 #ifndef __UNUSED_PARAMETER
 #define __UNUSED_PARAMETER(parameter) (void)(parameter)
 #endif
+
+#ifndef __SET_BITS
+#define __SET_BITS(value, bits) ((value) |= (bits))
+#endif
+
+#ifndef __CLEAR_BITS
+#define __CLEAR_BITS(value, bits) ((value) &= ~(bits))
+#endif
+
+#ifndef __READ_BITS
+#define __READ_BITS(value, bits) ((value) & (bits))
+#endif
