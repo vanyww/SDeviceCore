@@ -9,4 +9,4 @@
 {                                                                                                                      \
    type *Values;                                                                                                       \
    size_t Length;                                                                                                      \
-}                                                                                                                      \
+}
