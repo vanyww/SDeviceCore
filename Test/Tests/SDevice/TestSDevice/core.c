@@ -24,7 +24,7 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode
    __SDEVICE_HANDLE(TestSDevice) *instance = SDeviceMalloc(sizeof(__SDEVICE_HANDLE(TestSDevice)));
    SDeviceAssert(instance != NULL);
 
-   __SDEVICE_INIT_DATA(TestSDevice) *init = _init;
+   const __SDEVICE_INIT_DATA(TestSDevice) *init = _init;
 
    instance->Init = *init;
    instance->Header = (SDeviceHandleHeader)
