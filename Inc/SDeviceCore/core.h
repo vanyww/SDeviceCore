@@ -6,7 +6,7 @@
 /* version ************************************************************************************************************/
 
 #define __SDEVICE_CORE_VERSION_MAJOR 4
-#define __SDEVICE_CORE_VERSION_MINOR 4
+#define __SDEVICE_CORE_VERSION_MINOR 5
 #define __SDEVICE_CORE_VERSION_PATCH 0
 #define __SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                       \
 {                                                                                                                      \
@@ -62,6 +62,17 @@ typedef struct
    __SDEVICE_INIT_DATA(device_name) Init;                                                                              \
    __SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                        \
 }
+
+#define __SDEVICE_INIT_DATA_INTERNAL_ALIAS_DECLARATION(device_name)                                                    \
+   typedef __SDEVICE_INIT_DATA(device_name) ThisInitData
+#define __SDEVICE_RUNTIME_DATA_INTERNAL_ALIAS_DECLARATION(device_name)                                                 \
+   typedef __SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData
+#define __SDEVICE_HANDLE_INTERNAL_ALIAS_DECLARATION(device_name)                                                       \
+   typedef __SDEVICE_HANDLE(device_name) ThisHandle
+#define __SDEVICE_INTERNAL_ALIASES_DECLARATION(device_name)                                                            \
+   __SDEVICE_INIT_DATA_INTERNAL_ALIAS_DECLARATION(device_name);                                                        \
+   __SDEVICE_RUNTIME_DATA_INTERNAL_ALIAS_DECLARATION(device_name);                                                     \
+   __SDEVICE_HANDLE_INTERNAL_ALIAS_DECLARATION(device_name)
 
 #define __SDEVICE_STRING_NAME(device_name) __##device_name##_SDeviceStringName
 #define __SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char __SDEVICE_STRING_NAME(device_name)[];
