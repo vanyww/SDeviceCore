@@ -18,6 +18,8 @@ struct __SDEVICE_INIT_DATA(TestSDevice)
    int TestPartialPropertyInitialValue;
 };
 
+__SDEVICE_STRING_NAME_DECLARATION(TestSDevice);
+
 __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice,,,);
 __SDEVICE_DISPOSE_HANDLE_DECLARATION(TestSDevice,);
 

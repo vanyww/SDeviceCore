@@ -5,8 +5,6 @@
 
 #include <memory.h>
 
-const char DeviceName[] = "TestSDevice\0";
-
 __SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(TestSDevice);
 
 struct __SDEVICE_RUNTIME_DATA(TestSDevice)
@@ -16,25 +14,28 @@ struct __SDEVICE_RUNTIME_DATA(TestSDevice)
 };
 
 __SDEVICE_HANDLE_DECLARATION(TestSDevice);
+__SDEVICE_INTERNAL_ALIAS_DECLARATION(TestSDevice);
+
+__SDEVICE_STRING_NAME_DEFINITION(TestSDevice);
 
 __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode)
 {
    SDeviceAssert(_init != NULL);
 
-   __SDEVICE_HANDLE(TestSDevice) *instance = SDeviceMalloc(sizeof(__SDEVICE_HANDLE(TestSDevice)));
+   ThisHandle *instance = SDeviceMalloc(sizeof(ThisHandle));
    SDeviceAssert(instance != NULL);
 
-   const __SDEVICE_INIT_DATA(TestSDevice) *init = _init;
+   const ThisInitData *init = _init;
 
    instance->Init = *init;
    instance->Header = (SDeviceHandleHeader)
    {
       .Context = _context,
-      .NameNode = { .Name = DeviceName , .OuterNode = _outerNameNode },
+      .NameNode = { .Name = __SDEVICE_STRING_NAME(TestSDevice) , .OuterNode = _outerNameNode },
       .LatestStatus = TEST_SDEVICE_STATUS_OK
    };
 
-   instance->Runtime = (__SDEVICE_RUNTIME_DATA(TestSDevice))
+   instance->Runtime = (ThisRuntimeData)
    {
       .TestProperty = init->TestPropertyInitialValue,
       .TestPartialProperty = init->TestPartialPropertyInitialValue
@@ -45,7 +46,7 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode
 
 __SDEVICE_DISPOSE_HANDLE_DECLARATION(TestSDevice, _handlePointer)
 {
-   __SDEVICE_HANDLE(TestSDevice) **handlePointer = _handlePointer;
+   ThisHandle **handlePointer = _handlePointer;
    SDeviceFree(*handlePointer);
    *handlePointer = NULL;
 }
@@ -55,7 +56,7 @@ __SDEVICE_SET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
    SDeviceAssert(_handle != NULL);
    SDeviceAssert(_value != NULL);
 
-   __SDEVICE_HANDLE(TestSDevice) *handle = _handle;
+   ThisHandle *handle = _handle;
 
    memcpy(&handle->Runtime.TestProperty, _value, sizeof(handle->Runtime.TestProperty));
 
@@ -67,7 +68,7 @@ __SDEVICE_GET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
    SDeviceAssert(_handle != NULL);
    SDeviceAssert(_value != NULL);
 
-   __SDEVICE_HANDLE(TestSDevice) *handle = _handle;
+   ThisHandle *handle = _handle;
 
    memcpy(_value, &handle->Runtime.TestProperty, sizeof(handle->Runtime.TestProperty));
 
@@ -80,7 +81,7 @@ __SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _ha
    SDeviceAssert(parameters != NULL);
    SDeviceAssert(parameters->Data != NULL);
 
-   __SDEVICE_HANDLE(TestSDevice) *handle = _handle;
+   ThisHandle *handle = _handle;
 
    if(parameters->Size > sizeof(handle->Runtime.TestPartialProperty) ||
       parameters->Offset > sizeof(handle->Runtime.TestPartialProperty) - parameters->Size)
@@ -100,7 +101,7 @@ __SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _ha
    SDeviceAssert(parameters != NULL);
    SDeviceAssert(parameters->Data != NULL);
 
-   __SDEVICE_HANDLE(TestSDevice) *handle = _handle;
+   ThisHandle *handle = _handle;
 
    if(parameters->Size > sizeof(handle->Runtime.TestPartialProperty) ||
       parameters->Offset > sizeof(handle->Runtime.TestPartialProperty) - parameters->Size)
