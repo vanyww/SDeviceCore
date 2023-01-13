@@ -10,22 +10,16 @@ const void *LastUnhandledThrowHandle;
 const void *LastLogStatusHandle;
 bool AssertFailedCalled;
 
-void _SDeviceProcessAssertFail(char *file, int line)
+void SDeviceProcessAssertFail(char *file, int line)
 {
    AssertFailedCalled = true;
 }
-
-void _SDeviceProcessDebugAssertFail(char *file, int line)
-{
-   AssertFailedCalled = true;
-}
-
-void _SDeviceProcessUnhandledThrow(const void *_handle)
+void SDeviceProcessUnhandledThrow(const void *_handle)
 {
    LastUnhandledThrowHandle = _handle;
 }
 
-void _SDeviceLogStatus(const void *_handle)
+void SDeviceProcessLogStatus(const void *_handle)
 {
    LastLogStatusHandle = _handle;
 }
