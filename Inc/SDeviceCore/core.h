@@ -63,16 +63,10 @@ typedef struct
    SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                          \
 }
 
-#define SDEVICE_INIT_DATA_INTERNAL_ALIAS_DECLARATION(device_name)                                                      \
-   typedef SDEVICE_INIT_DATA(device_name) ThisInitData
-#define SDEVICE_RUNTIME_DATA_INTERNAL_ALIAS_DECLARATION(device_name)                                                   \
-   typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData
-#define SDEVICE_HANDLE_INTERNAL_ALIAS_DECLARATION(device_name)                                                         \
+#define SDEVICE_INTERNAL_ALIASES_DECLARATION(device_name)                                                              \
+   typedef SDEVICE_INIT_DATA(device_name) ThisInitData;                                                                \
+   typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData;                                                          \
    typedef SDEVICE_HANDLE(device_name) ThisHandle
-#define SDEVICE_INTERNAL_ALIASES_DECLARATION(device_name)                                                            \
-   SDEVICE_INIT_DATA_INTERNAL_ALIAS_DECLARATION(device_name);                                                          \
-   SDEVICE_RUNTIME_DATA_INTERNAL_ALIAS_DECLARATION(device_name);                                                       \
-   SDEVICE_HANDLE_INTERNAL_ALIAS_DECLARATION(device_name)
 
 #define SDEVICE_STRING_NAME(device_name) $##device_name##SDeviceStringName
 #define SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char SDEVICE_STRING_NAME(device_name)[];
