@@ -33,8 +33,8 @@ void _SDeviceProcessAssertFail(char *file, int line);
 #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : _SDeviceProcessAssertFail())
 void _SDeviceProcessAssertFail(void);
 #else
-#define SDeviceDebugAssert(expression) ((expression) ? (void)0U : _SDeviceProcessDebugAssertFail(__FILE__, __LINE__))
-void _SDeviceProcessDebugAssertFail(char *file, int line);
+#define SDeviceDebugAssert(expression) ((expression) ? (void)0U : _SDeviceProcessAssertFail(__FILE__, __LINE__))
+void _SDeviceProcessAssertFail(char *file, int line);
 #endif
 #define SDeviceDebugEvalAssert(expression) SDeviceAssert(expression)
 #else
