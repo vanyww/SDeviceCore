@@ -53,7 +53,7 @@ void SDeviceProcessAssertFail(char *file, int line);
 {                                                                                                                      \
    SDeviceCommonHandle *$handle = (SDeviceCommonHandle *)(handle);                                                     \
    $handle->Header.LatestStatus = (status);                                                                            \
-   SDeviceProcessLogStatus($handle);                                                                                         \
+   SDeviceProcessLogStatus($handle);                                                                                   \
 })
 void SDeviceProcessLogStatus(const void *_handle);
 #else
@@ -68,6 +68,6 @@ void SDeviceProcessLogStatus(const void *_handle);
    $handle->Header.LatestStatus = (exception);                                                                         \
    Throw($handle);                                                                                                     \
 })
-void $SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle);
+void SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle);
 
 /**********************************************************************************************************************/
