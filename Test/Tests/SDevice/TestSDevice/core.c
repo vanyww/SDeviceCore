@@ -5,20 +5,20 @@
 
 #include <memory.h>
 
-__SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(TestSDevice);
+SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(TestSDevice);
 
-struct __SDEVICE_RUNTIME_DATA(TestSDevice)
+struct SDEVICE_RUNTIME_DATA(TestSDevice)
 {
-   __SDEVICE_PROPERTY_TYPE(TestSDevice, TestProperty) TestProperty;
-   __SDEVICE_PROPERTY_TYPE(TestSDevice, TestPartialProperty) TestPartialProperty;
+   SDEVICE_PROPERTY_TYPE(TestSDevice, TestProperty) TestProperty;
+   SDEVICE_PROPERTY_TYPE(TestSDevice, TestPartialProperty) TestPartialProperty;
 };
 
-__SDEVICE_HANDLE_DECLARATION(TestSDevice);
-__SDEVICE_INTERNAL_ALIAS_DECLARATION(TestSDevice);
+SDEVICE_HANDLE_DECLARATION(TestSDevice);
+SDEVICE_INTERNAL_ALIASES_DECLARATION(TestSDevice);
 
-__SDEVICE_STRING_NAME_DEFINITION(TestSDevice);
+SDEVICE_STRING_NAME_DEFINITION(TestSDevice);
 
-__SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode)
+SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode)
 {
    SDeviceAssert(_init != NULL);
 
@@ -31,7 +31,7 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode
    instance->Header = (SDeviceHandleHeader)
    {
       .Context = _context,
-      .NameNode = { .Name = __SDEVICE_STRING_NAME(TestSDevice) , .OuterNode = _outerNameNode },
+      .NameNode = { .Name = SDEVICE_STRING_NAME(TestSDevice) , .OuterNode = _outerNameNode },
       .LatestStatus = TEST_SDEVICE_STATUS_OK
    };
 
@@ -44,14 +44,14 @@ __SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context, _outerNameNode
    return instance;
 }
 
-__SDEVICE_DISPOSE_HANDLE_DECLARATION(TestSDevice, _handlePointer)
+SDEVICE_DISPOSE_HANDLE_DECLARATION(TestSDevice, _handlePointer)
 {
    ThisHandle **handlePointer = _handlePointer;
    SDeviceFree(*handlePointer);
    *handlePointer = NULL;
 }
 
-__SDEVICE_SET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
+SDEVICE_SET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
 {
    SDeviceAssert(_handle != NULL);
    SDeviceAssert(_value != NULL);
@@ -63,7 +63,7 @@ __SDEVICE_SET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
    return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }
 
-__SDEVICE_GET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
+SDEVICE_GET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
 {
    SDeviceAssert(_handle != NULL);
    SDeviceAssert(_value != NULL);
@@ -75,7 +75,7 @@ __SDEVICE_GET_PROPERTY_DECLARATION(TestSDevice, TestProperty, _handle, _value)
    return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }
 
-__SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _handle, parameters)
+SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _handle, parameters)
 {
    SDeviceAssert(_handle != NULL);
    SDeviceAssert(parameters != NULL);
@@ -95,7 +95,7 @@ __SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _ha
    return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }
 
-__SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _handle, parameters)
+SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestSDevice, TestPartialProperty, _handle, parameters)
 {
    SDeviceAssert(_handle != NULL);
    SDeviceAssert(parameters != NULL);

@@ -29,7 +29,7 @@ struct
    { TestSDeviceAssert, "sdevice assert" },
 };
 
-const size_t TestFunctionsCount = __LENGTHOF(TestFunctions);
+const size_t TestFunctionsCount = LENGTHOF(TestFunctions);
 
 int main(void)
 {
