@@ -1,30 +1,30 @@
 #include "SDeviceCore/errors.h"
 #include "SDeviceCore/common.h"
 
-#ifdef __SDEVICE_USE_SIMPLE_ASSERT
-__attribute__((weak)) void _SDeviceProcessAssertFail(void)
+#ifdef SDEVICE_USE_SIMPLE_ASSERT
+__attribute__((weak)) void SDeviceProcessAssertFail(void)
 #else
-__attribute__((weak)) void _SDeviceProcessAssertFail(char *file, int line)
+__attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
 #endif
 {
 #ifndef __SDEVICE_USE_SIMPLE_ASSERT
-   __UNUSED_PARAMETER(file);
-   __UNUSED_PARAMETER(line);
+   UNUSED_PARAMETER(file);
+   UNUSED_PARAMETER(line);
 #endif
 
    for(;;) { }
 }
 
-__attribute__((weak)) void _SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle)
+__attribute__((weak)) void SDeviceProcessLogStatus(const void *_handle)
 {
-   __UNUSED_PARAMETER(_handle);
-
-   for(;;) { }
+   UNUSED_PARAMETER(_handle);
 }
 
-__attribute__((weak)) void _SDeviceLogStatus(const void *_handle)
+__attribute__((weak)) void SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle)
 {
-   __UNUSED_PARAMETER(_handle);
+   UNUSED_PARAMETER(_handle);
+
+   for(;;) { }
 }
 
 #include "../Submodules/cexception/lib/CException.c"
