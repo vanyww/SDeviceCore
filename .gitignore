@@ -1,3 +1,5 @@
-LibraryBuild/
-TestBuild/
-.settings/
+.metadata
+.settings
+LibraryBuild
+TestBuild
+.launch
