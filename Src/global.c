@@ -16,8 +16,11 @@ SDEVICE_HANDLE(CoreGlobal) *CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(CoreGloba
 {
    .Header =
    {
+#ifndef SDEVICE_CORE_GLOBAL_CONTEXT
       .Context = NULL,
-      .NameNode = { .Name = SDEVICE_STRING_NAME(CoreGlobal), .OuterNode = NULL },
+#else
+      .Context = &SDEVICE_CORE_GLOBAL_CONTEXT,
+#endif
       .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK
    }
 };
