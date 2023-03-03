@@ -6,6 +6,10 @@
 
 typedef const void * CExceptionType;
 
+#ifdef SDEVICE_USE_EXTERNAL_ERROR_CONFIG
+#include "sdevice_error_config.h"
+#endif
+
 #define CEXCEPTION_NONE (NULL)
 #define CEXCEPTION_T CExceptionType
 #define CEXCEPTION_NO_CATCH_HANDLER(id) SDeviceProcessUnhandledThrow(id)
