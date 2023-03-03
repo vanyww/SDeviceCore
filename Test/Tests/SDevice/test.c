@@ -7,15 +7,11 @@
 bool TestSDeviceHandleInitialization(void)
 {
    void *context = (void *)0x123;
-   void *outerNameNode = (void *)0x456;
    SDEVICE_INIT_DATA(TestSDevice) init = { 0x789, 0xABC };
    __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestSDevice)))) SDEVICE_HANDLE(TestSDevice) *handle =
-            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, context, outerNameNode);
+            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, context);
 
    if(SDeviceGetHandleContext(handle) != context)
-      return false;
-
-   if(SDeviceGetHandleNameNodePointer(handle)->OuterNode != outerNameNode)
       return false;
 
    {
@@ -47,7 +43,7 @@ bool TestSDeviceHandleProperty(void)
 {
    SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
    __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestSDevice)))) SDEVICE_HANDLE(TestSDevice) *handle =
-            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, NULL);
+            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL);
 
    SDEVICE_PROPERTY_TYPE(TestSDevice, TestProperty) writeValue = 0xABCDEF;
    if(SDEVICE_SET_PROPERTY(TestSDevice, TestProperty)(handle, &writeValue) != SDEVICE_PROPERTY_OPERATION_STATUS_OK)
@@ -67,7 +63,7 @@ bool TestSDeviceHandlePartialProperty(void)
 {
    SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
    __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestSDevice)))) SDEVICE_HANDLE(TestSDevice) *handle =
-            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, NULL);
+            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL);
    SDevicePropertyOperationStatus status;
 
    SDEVICE_PROPERTY_TYPE(TestSDevice, TestPartialProperty) writeValue = 0xABCDEF;
@@ -93,7 +89,7 @@ bool TestSDeviceHandledThrow(void)
 {
    SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
    __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestSDevice)))) SDEVICE_HANDLE(TestSDevice) *handle =
-            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, NULL);
+            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL);
    int32_t exception = 0xAAAAAAAA;
    volatile CEXCEPTION_T e;
 
@@ -114,7 +110,7 @@ bool TestSDeviceUnhandledThrow(void)
 {
    SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
    __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestSDevice)))) SDEVICE_HANDLE(TestSDevice) *handle =
-            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, NULL);
+            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL);
    int32_t exception = 0xAAAAAAAA;
 
    SDeviceThrow(handle, exception);
@@ -129,7 +125,7 @@ bool TestSDeviceLogStatus(void)
 {
    SDEVICE_INIT_DATA(TestSDevice) init = { 0, 0 };
    __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestSDevice)))) SDEVICE_HANDLE(TestSDevice) *handle =
-            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL, NULL);
+            SDEVICE_CREATE_HANDLE(TestSDevice)(&init, NULL);
    int32_t status = 0xAAAAAAAA;
 
    SDeviceLogStatus(handle, status);
