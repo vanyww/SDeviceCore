@@ -14,7 +14,7 @@ __attribute__((weak)) void * SDeviceMalloc(size_t size)
    return memory;
 }
 
-__attribute__((weak)) void SDeviceFree(void *_handle)
+__attribute__((weak)) void SDeviceFree(void *memory)
 {
-   free(_handle);
+   free(memory);
 }
