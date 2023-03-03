@@ -3,28 +3,28 @@
 #include <limits.h>
 
 #ifndef likely
-#define likely(x) __builtin_expect(!!(x), 1)
+#define likely(expression) __builtin_expect(!!(expression), 1)
 #endif
 
 #ifndef unlikely
-#define unlikely(x) __builtin_expect(!!(x), 0)
+#define unlikely(expression) __builtin_expect(!!(expression), 0)
 #endif
 
 #ifndef MIN
-#define MIN(value$1, value$2) (                                                                                        \
+#define MIN(value_0, value_1) (                                                                                        \
 {                                                                                                                      \
-   __auto_type $value$1 = (value$1);                                                                                   \
-   __auto_type $value$2 = (value$2);                                                                                   \
-   $value$1 < $value$2 ? $value$1 : $value$2;                                                                          \
+   __auto_type $value_0 = (value_0);                                                                                   \
+   __auto_type $value_1 = (value_1);                                                                                   \
+   $value_0 < $value_1 ? $value_0 : $value_1;                                                                          \
 })
 #endif
 
 #ifndef MAX
-#define MAX(value$1, value$2) (                                                                                        \
+#define MAX(value_0, value_1) (                                                                                        \
 {                                                                                                                      \
-   __auto_type $value$1 = (value$1);                                                                                   \
-   __auto_type $value$2 = (value$2);                                                                                   \
-   $value$1 > $value$2 ? $value$1 : $value$2;                                                                          \
+   __auto_type $value_0 = (value_0);                                                                                   \
+   __auto_type $value_1 = (value_1);                                                                                   \
+   $value_0 > $value_1 ? $value_0 : $value_1;                                                                          \
 })
 #endif
 
@@ -33,7 +33,7 @@
 #endif
 
 #ifndef BIT_SIZEOF
-#define BIT_SIZEOF(value) (sizeof(value) * CHAR_BIT)
+#define BIT_SIZEOF(type) (sizeof(type) * CHAR_BIT)
 #endif
 
 #ifndef BIT_SIZEOF_MEMBER
