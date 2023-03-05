@@ -2,13 +2,10 @@
 
 /**
  * @file core.h
- * @brief Определения и объявления для создания модулей и взаимодействия с ними.
- */
-
-/**
- * @defgroup Core Ядро фреймворка SDevice
- * @copydoc core.h
- * @details Модули состоят из трех частей:
+ * @brief Инструменты создания модулей и взаимодействия с ними.
+ * @details Модуль - единица разработки в рамках фреймворка SDevice.
+ * Представляет собой набор объявлений и определений, описывающих структуры данных и алгоритмы взаимодействия с ними.
+ * Модули состоят из трех частей:
  * - публичная часть интерфейса
  * - приватная часть интерфейса
  * - реализация интерфейса
@@ -19,6 +16,14 @@
  * @include core/private.h
  * Пример реализации интерфейса:
  * @include core/core.c
+ * Публичная часть интерфейса предназначена для использования в конечном ПО.
+ * Приватная часть интерфейса используется в реализации самого модуля.
+ */
+
+/**
+ * @defgroup sdevice_core Ядро фреймворка SDevice
+ * @brief @copybrief core.h
+ * @details @copydetails core.h
  * @{
  */
 
@@ -27,6 +32,7 @@
 
 /**
  * @brief Версия модуля.
+ * @details Тип данных, используемый для хранения версии модулей.
  */
 typedef struct
 {
@@ -61,27 +67,30 @@ typedef struct
 })
 
 /**
- * @defgroup Handles Дескрипторы
- * @brief Макросы для объявления и взаимодействия с дескрипторами.
- * @details Структура данных дескриптора состоит из следующих членов:
- * - SDeviceHandleHeader Header
- * - SDEVICE_INIT_DATA() Init
- * - SDEVICE_RUNTIME_DATA() Runtime
+ * @defgroup handles Дескрипторы модулей
+ * @brief Инструменты описания дескрипторов и взаимодействия с ними.
+ * @details Дескриптор - часть интерфейса модуля, структура данных,
+ * храненящая его параметры и внутреннее состояние между вызовами.
+ * Дескриптор состоит из следующих членов:
+ * - @code SDeviceHandleHeader Header @endcode
+ * - @code SDEVICE_INIT_DATA(device_name) Init @endcode
+ * - @code SDEVICE_RUNTIME_DATA(device_name) Runtime @endcode
  *
- * @n В @b публичной части интерфейса используется предварительное объявление SDEVICE_HANDLE_FORWARD_DECLARATION().
- * В @b приватной части интерфейса используется обычное (полное) объявление SDEVICE_HANDLE_DECLARATION().
- * @n Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @note В публичной части интерфейса используется предварительное объявление - #SDEVICE_HANDLE_FORWARD_DECLARATION.
+ * @note В приватной части интерфейса используется обыкновенное (полное) объявление - #SDEVICE_HANDLE_DECLARATION.
+ *
+ * Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @defgroup HandleInitData Параметры инициализации
- * @brief Макросы для объявления и взаимодействия со структурами данных параметров инициализации дескрипторов.
- * @details Параметры инициализации - это структура данных, определяемая разработчиком модуля.
- * Пользователь создает экземпляр этой структуры и передает его @link HandleCreation функции создания модуля @endlink.
- * Это позволяет настроить конкретный дескриптор под нужды пользователя в рамках, заданных разработчиком модуля.
- * Часть @b публичного интерфейса модуля.
- * @n Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup handle_init_data Параметры инициализации дескриптора
+ * @brief Инструменты описания параметров инициализации дескриптора и взаимодействия с ними.
+ * @details Параметры инициализации дескриптора - часть интерфейса модуля, структура данных,
+ * используемая для пользовательской настройки конкретного его дескриптора в момент создания.
+ * @note Может принадлежать как к публичной, так и к приватной части интерфейса в зависимости от особенностей модуля.
+ *
+ * Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
@@ -107,12 +116,13 @@ typedef struct
 /** @} */
 
 /**
- * @defgroup HandleRuntimeData Параметры времени выполнения
- * @brief Макросы для объявления и взаимодействия со структурами данных параметров времени выполнения дескрипторов.
- * @details Параметры времени выполнения - это структура данных, определяемая разработчиком модуля.
- * Она хранит внутреннее состояние конкретного дескриптора в процессе его использования пользователем.
- * Часть @b приватного интерфейса модуля.
- * @n Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup handle_runtime_data Параметры времени выполнения дескриптора
+ * @brief Инструменты описания параметров времени выполнения дескриптора и взаимодействия с ними.
+ * @details Параметры времени выполнения дескриптора - часть интерфейса модуля, структура данных,
+ * хранящая внутреннее состояние его дескриптора.
+ * @note Часть приватного интерфейса модуля.
+ *
+ * Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
@@ -137,29 +147,27 @@ typedef struct
 
 /** @} */
 
-/** @} */
-
 /**
- * @defgroup HandleCreation Процедура создания дескриптора
- * @brief Макросы для объявления, определения и использования процедуры создания дескриптора модуля.
- * @details Данная процедура создает и инициализирует новый дескриптор модуля.
- * @n Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup handle_creation Функция создания дескриптора
+ * @brief Инструменты описания функции создания дескриптора и взаимодействия с ней.
+ * @details Данная функция создает и инициализирует дескриптор, используя параметры, переданные пользователем.
+ * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @brief Мета-определение символа (имени) процедуры создания дескриптора.
+ * @brief Мета-определение символа (имени) функции создания дескриптора.
  * @param device_name Название модуля.
  */
 #define SDEVICE_CREATE_HANDLE(device_name) _##device_name##SDeviceCreateHandle
 
 /**
- * @brief Тип возвращаемого процедурой создания дескриптора значения.
+ * @brief Тип возвращаемого функцией создания дескриптора значения.
  */
 #define SDEVICE_CREATE_HANDLE_RETURN_VALUE void *
 
 /**
- * @brief Список формальных параметров процедуры создания дескриптора.
+ * @brief Список формальных параметров функции создания дескриптора.
  * @param init_data_name Имя формального параметра параметров инициализации дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
@@ -167,14 +175,14 @@ typedef struct
    (const void *init_data_name, void *context_name)
 
 /**
- * @brief Создает переменную (или член структуры) типа указателя на процедуру создания дескриптора.
+ * @brief Создает переменную (или член структуры) типа указателя на функцию создания дескриптора.
  * @param pointer_name Имя создаваемой переменной.
  */
 #define SDEVICE_CREATE_HANDLE_POINTER(pointer_name)                                                                    \
    SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) SDEVICE_CREATE_HANDLE_ARGUMENTS(,,)
 
 /**
- * @brief Создает прототип (объявление) процедуры создания дескриптора.
+ * @brief Создает прототип (объявление) функции создания дескриптора.
  * @param device_name Название модуля.
  * @param init_data_name Имя формального параметра данных инициализации дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
@@ -187,12 +195,10 @@ typedef struct
 /** @} */
 
 /**
- * @defgroup HandleDisposal Процедура удаления дескриптора
- * @brief Макросы для объявления, определения и использования процедуры удаления дескриптора модуля.
- * @details Параметры времени выполнения - это структура данных, определяемая разработчиком модуля.
- * Она хранит внутреннее состояние конкретного дескриптора в процессе его использования пользователем.
- * Часть @b приватного интерфейса модуля.
- * @n Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup handle_disposal Функция удаления дескриптора
+ * @brief Инструменты описания функции удаления дескриптора и взаимодействия с ней.
+ * @details Данная функция деинициализирует и удаляет переданный дескриптор.
+ * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
@@ -216,7 +222,7 @@ typedef struct
 
 /**
  * @brief Мета-определение символа (имени) функции удаления дескриптора.
- * @param device_name Пользовательское имя модуля.
+ * @param device_name Название модуля.
  */
 #define SDEVICE_DISPOSE_HANDLE(device_name) _##device_name##SDeviceDisposeHandle
 
@@ -233,7 +239,8 @@ typedef struct
 /** @} */
 
 /**
- * @brief Заголовок дескриптора, общие для всех дескрипторов данные.
+ * @brief Заголовок дескриптора.
+ * @details Структура данных, общая для всех дескрипторов.
  */
 typedef struct
 {
@@ -243,24 +250,20 @@ typedef struct
 
 /**
  * @brief Мета-определение символа (идентификатора) структуры дескриптора.
- * @param device_name Пользовательское имя модуля.
+ * @param device_name Название модуля.
  */
 #define SDEVICE_HANDLE(device_name) _##device_name##SDeviceHandle
 
 /**
  * @brief Создает предварительное объявление структуры дескриптора.
- * @param device_name Пользовательское имя модуля.
+ * @param device_name Название модуля.
  */
 #define SDEVICE_HANDLE_FORWARD_DECLARATION(device_name)                                                                \
    typedef struct SDEVICE_HANDLE(device_name) SDEVICE_HANDLE(device_name)
 
 /**
- * @brief Создает объявление структуры дескриптора.
- * @param device_name Пользовательское имя модуля.
- * @details Структура дескриптора включает в себя следующие члены:
- * - SDeviceHandleHeader Header
- * - SDEVICE_INIT_DATA(device_name) Init
- * - SDEVICE_RUNTIME_DATA(device_name) Runtime
+ * @brief Создает объявление структуры данных дескриптора.
+ * @param device_name Название модуля.
  */
 #define SDEVICE_HANDLE_DECLARATION(device_name) struct SDEVICE_HANDLE(device_name)                                     \
 {                                                                                                                      \
@@ -271,14 +274,14 @@ typedef struct
 
 /**
  * @brief Создает объявления псевдонимов для типов данных, ассоциированных с модулем.
- * @details Предназначен для использования в объявлении приватного интерфейса модуля.
- * Упрощает написание и чтение кода модуля.
+ * @details Упрощает написание и чтение кода модуля.
  * @n Создает следующие объявления:
- * - typedef SDEVICE_INIT_DATA(device_name) ThisInitData
- * - typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData
- * - typedef SDEVICE_HANDLE(device_name) ThisHandle
+ * - @code typedef SDEVICE_INIT_DATA(device_name) ThisInitData @endcode
+ * - @code typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData @endcode
+ * - @code typedef SDEVICE_HANDLE(device_name) ThisHandle @endcode
  *
- * @param device_name Пользовательское имя модуля.
+ * @note Опциональная часть приватного интерфейса модуля.
+ * @param device_name Название модуля.
  */
 #define SDEVICE_INTERNAL_ALIASES_DECLARATION(device_name)                                                              \
    typedef SDEVICE_INIT_DATA(device_name) ThisInitData;                                                                \
@@ -287,8 +290,8 @@ typedef struct
 
 /**
  * @brief Возвращает пользовательский контекст дескриптора.
- * @param[in] _handle Дескриптор.
- * @return Пользовательский контекст дескриптора @p _handle.
+ * @param[in] handle Дескриптор.
+ * @return Пользовательский контекст дескриптора @p handle.
  */
 static inline void * SDeviceGetHandleContext(const void *handle)
 {
@@ -298,8 +301,8 @@ static inline void * SDeviceGetHandleContext(const void *handle)
 
 /**
  * @brief Возвращает последнее состояние дескриптора.
- * @param[in] _handle Дескриптор.
- * @return Последнее состояние дескриптора @p _handle.
+ * @param[in] handle Дескриптор.
+ * @return Последнее состояние дескриптора @p handle.
  */
 static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
 {
@@ -310,9 +313,13 @@ static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
 /** @} */
 
 /**
- * @defgroup Properties Свойства
- * @brief Объявления, предназначенные для создания и взаимодействия со свойствами.
- * @details Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup properties Свойства
+ * @brief Инструменты описания свойств и взаимодействия с ними.
+ * @details Свойства - универсальный интерфейс доступа к значению для записи и/или чтения.
+ * Используются в модулях для доступа к внутренним данным модуля, а также вычисляемым значениям.
+ * Делятся на:
+ * - @ref common_properties
+ * - @ref partial_properties
  * @{
  */
 
@@ -322,7 +329,7 @@ static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
 typedef enum
 {
     SDEVICE_PROPERTY_OPERATION_STATUS_OK,               /**< Операция выполнена успешно. */
-    SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR, /**< Ошибка валидации значения. */
+    SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR, /**< Ошибка проверки значения. */
     SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR  /**< Ошибка во время записи или чтения значения. */
 } SDevicePropertyOperationStatus;
 
@@ -343,16 +350,17 @@ typedef enum
    typedef type SDEVICE_PROPERTY_TYPE(device_name, property_name)
 
 /**
- * @defgroup CommonProperties Обыкновенные свойства
- * @brief Объявления, предназначенные для создания и взаимодействия с частичными свойствами модулей.
- * @details Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup common_properties Обыкновенные свойства
+ * @brief Инструменты описания обыкновенных свойств и взаимодействия с ними.
+ * @details Интерфейс обыкновенных свойств обеспечивает доступ для записи и\или чтения к цельному значению.
+ * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @defgroup CommonPropertySet Запись
- * @brief Объявления, предназначенные для создания и взаимодействия с функцией записи обыкновенного свойства.
- * @details Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup common_property_set Запись
+ * @brief Инструменты описания функции записи обыкновенного свойства и взаимодействия с ней.
+ * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
@@ -397,9 +405,9 @@ typedef enum
 /** @} */
 
 /**
- * @defgroup CommonPropertyGet Чтение
- * @brief Объявления, предназначенные для создания и взаимодействия с функцией чтения обыкновенного свойства.
- * @details Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup common_property_get Чтение
+ * @brief Инструменты описания функции чтения обыкновенного свойства и взаимодействия с ней.
+ * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
@@ -446,22 +454,22 @@ typedef enum
 /** @} */
 
 /**
- * @defgroup PartialProperties Частичные свойства
- * @brief Объявления, предназначенные для создания и взаимодействия с частичными свойствами модулей.
- * @details Интерфейс частичных свойств, в отличие от обыкновенных, обеспечивает доступ к произвольному срезу значения.
- * Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup partial_properties Частичные свойства
+ * @brief Инструменты описания частичных свойств и взаимодействия с ними.
+ * @details Интерфейс частичных свойств обеспечивает доступ для записи и\или чтения к произвольному срезу значения.
+ * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @defgroup PartialPropertySet Запись
- * @brief Объявления, предназначенные для создания и взаимодействия с функцией записи частичного свойства.
- * @details Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup partial_property_set Запись
+ * @brief Инструменты описания функции записи частичного свойства и взаимодействия с ней.
+ * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @brief Структура данных параметров записываемого значения.
+ * @brief Структура данных параметров записываемого значения частичного свойства.
  */
 typedef struct
 {
@@ -478,7 +486,7 @@ typedef struct
 /**
  * @brief Список формальных параметров функции записи частичного свойства.
  * @param handle_name Имя формального параметра дескриптора.
- * @param parameters_name Имя формального параметра параметров записываемого значения.
+ * @param parameters_name Имя формального параметра параметров записываемого значения частичного свойства.
  */
 #define SDEVICE_SET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)                                           \
    (void *handle_name, const SDeviceSetPartialPropertyParameters *parameters_name)
@@ -503,7 +511,7 @@ typedef struct
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  * @param handle_name Имя формального параметра дескриптора.
- * @param parameters_name Имя формального параметра параметров записываемого значения.
+ * @param parameters_name Имя формального параметра параметров записываемого значения частичного свойства.
  */
 #define SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(device_name, property_name, handle_name, parameters_name)             \
    SDEVICE_SET_PARTIAL_PROPERTY_RETURN_VALUE                                                                           \
@@ -513,14 +521,14 @@ typedef struct
 /** @} */
 
 /**
- * @defgroup PartialPropertyGet Чтение
- * @brief Объявления, предназначенные для создания и взаимодействия с функцией чтения частичного свойства.
- * @details Пример применения соответствующих макросов приведен в @link Core описании ядра фреймворка @endlink.
+ * @defgroup partial_property_get Чтение
+ * @brief Инструменты описания функции чтения частичного свойства и взаимодействия с ней.
+ * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @brief Структура данных параметров читаемого значения.
+ * @brief Структура данных параметров читаемого значения частичного свойства.
  */
 typedef struct
 {
@@ -530,14 +538,14 @@ typedef struct
 } SDeviceGetPartialPropertyParameters;
 
 /**
- * @brief Тип возвращаемого функцией частичного обыкновенного свойства значения.
+ * @brief Тип возвращаемого функцией чтения частичного обыкновенного свойства значения.
  */
 #define SDEVICE_GET_PARTIAL_PROPERTY_RETURN_VALUE SDevicePropertyOperationStatus
 
 /**
  * @brief Список формальных параметров функции чтения частичного свойства.
  * @param handle_name Имя формального параметра дескриптора.
- * @param parameters_name Имя формального параметра параметров читаемого значения.
+ * @param parameters_name Имя формального параметра параметров читаемого значения частичного свойства.
  */
 #define SDEVICE_GET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)                                           \
    (void *handle_name, const SDeviceGetPartialPropertyParameters *parameters_name)
@@ -562,12 +570,14 @@ typedef struct
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  * @param handle_name Имя формального параметра дескриптора.
- * @param parameters_name Имя формального параметра параметров читаемого значения.
+ * @param parameters_name Имя формального параметра параметров читаемого значения частичного свойства.
  */
 #define SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(device_name, property_name, handle_name, parameters_name)             \
    SDEVICE_GET_PARTIAL_PROPERTY_RETURN_VALUE                                                                           \
    SDEVICE_GET_PARTIAL_PROPERTY(device_name, property_name)                                                            \
    SDEVICE_GET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)
+
+/** @} */
 
 /** @} */
 

@@ -82,9 +82,9 @@ SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, val
    return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }
 
-/** [Errors processing examples] */
+/** [error_processing_example] */
 
-void CommonInterfaceFunction(SDEVICE_HANDLE(Example) *handle)
+void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle)
 {
    SDeviceAssert(handle != NULL);
 
@@ -94,13 +94,19 @@ void CommonInterfaceFunction(SDEVICE_HANDLE(Example) *handle)
    int randomValue;
    SDeviceDebugEvalAssert((randomValue = GetRandomIntGreaterThanZero(handle)) >= 0);
 
-   if(randomValue == 0) /* dummy example check */
-      SDeviceThrow(handle, EXAMPLE_SDEVICE_EXCEPTION_SOME_EXCEPTION_0);
+   try /* dummy exception handler */
+   {
+      if(randomValue <= 0) /* dummy example check */
+         SDeviceThrow(handle, EXAMPLE_SDEVICE_EXCEPTION_SOME_EXCEPTION_0);
+   }
+   catch(e)
+   {
+      /* `e` has type `const void *` and is identical to `handle` */
+      /* process exception */
+   }
 
-   if(10 / randomValue > 0) /* dummy example check */
+   if(randomValue <= 0) /* dummy example check */
       SDeviceLogStatus(handle, EXAMPLE_SDEVICE_STATUS_ERROR_1);
-
-   return;
 }
 
-/** [Errors processing examples] */
+/** [error_processing_example] */
