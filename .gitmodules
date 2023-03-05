@@ -1,6 +1,6 @@
-[submodule "CException"]
+[submodule "doxygen-awesome-css"]
+	path = Doxygen/Style/doxygen-awesome-css
+	url = ../forks/doxygen-awesome-css.git
+[submodule "cexception"]
 	path = Submodules/cexception
-	url = https://gitlab.dnouglublenie.ru/nonius/embeddedfirmware/embeddedcommon/forks/cexception.git
-[submodule "Submodules/doxygen-awesome-css"]
-	path = Submodules/doxygen-awesome-css
-	url = https://github.com/jothepro/doxygen-awesome-css
+	url = ../forks/cexception.git

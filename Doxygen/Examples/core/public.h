@@ -45,4 +45,4 @@ SDEVICE_PROPERTY_TYPE_DECLARATION(Example, FixedLengthString, struct { char Valu
 SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value);
 SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value);
 
-void NormalExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle);
+void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle);

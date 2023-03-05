@@ -12,7 +12,7 @@ SDEVICE_INIT_DATA_DECLARATION(CoreGlobal) { };
 
 SDEVICE_HANDLE_DECLARATION(CoreGlobal);
 
-SDEVICE_HANDLE(CoreGlobal) *CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(CoreGlobal))
+SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(CoreGlobal))
 {
    .Header =
    {

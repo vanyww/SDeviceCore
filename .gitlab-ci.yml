@@ -1,6 +1,6 @@
 variables:
   GIT_SUBMODULE_STRATEGY: normal
-  GIT_SUBMODULE_PATHS: Submodules/doxygen-awesome-css
+  GIT_SUBMODULE_PATHS: Doxygen/Style/doxygen-awesome-css
 
 image: alpine
 
@@ -10,6 +10,7 @@ before_script:
 
 pages:
   script:
+  - doxygen -s -u Doxygen/Doxyfile
   - doxygen Doxygen/Doxyfile
   - mv html/ public/
   artifacts:

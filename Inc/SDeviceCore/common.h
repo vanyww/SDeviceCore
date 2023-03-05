@@ -4,12 +4,14 @@
 
 /**
  * @file common.h
- * @brief Различные распространенные операции.
+ * @brief Различные распространенные общие операции.
+ * @details Реализация часто применяемых при разработке модулей и не имеющих к ним прямого отношения операций.
  */
 
 /**
- * @defgroup Common Общие макросы
- * @copydoc common.h
+ * @defgroup common_operations Общие операции
+ * @brief @copybrief common.h
+ * @brief @copydetails common.h
  * @{
  */
 
@@ -40,7 +42,8 @@
 #ifndef MIN
 /**
  * @brief Вычисляет минимум из двух значений.
- * @note Использует braced-groups для предотвращения повторного исполнения.
+ * @details
+ * @note Использует braced-groups для предотвращения повторного исполнения передаваемых параметров.
  * @param value_0 Первое значение.
  * @param value_1 Второе значение.
  * @return Минимум из @p value_0 и @p value_1.
@@ -56,7 +59,8 @@
 #ifndef MAX
 /**
  * @brief Вычисляет максимум из двух значений.
- * @note Использует braced-groups для предотвращения повторного исполнения.
+ * @details
+ * @note Использует braced-groups для предотвращения повторного исполнения передаваемых параметров.
  * @param value_0 Первое значение.
  * @param value_1 Второе значение.
  * @return Максимум из @p value_0 и @p value_1.
@@ -124,7 +128,7 @@
 /**
  * @brief Устанавливает указанные биты в значении.
  * @param value Значение.
- * @param bits Биты, которые необходимо установить в значении @p value.
+ * @param bits Биты, которые необходимо установить в @p value.
  */
 #define SET_BITS(value, bits) ((value) |= (bits))
 #endif
@@ -133,7 +137,7 @@
 /**
  * @brief Сбрасывает указанные биты в значении.
  * @param value Значение.
- * @param bits Биты, которые необходимо сбросить в значении @p value.
+ * @param bits Биты, которые необходимо сбросить в @p value.
  */
 #define CLEAR_BITS(value, bits) ((value) &= ~(bits))
 #endif
@@ -142,7 +146,7 @@
 /**
  * @brief Читает указанные биты из значения.
  * @param value Значение.
- * @param bits Биты, которые необходимо прочитать из значения @p value.
+ * @param bits Биты, которые необходимо прочитать из @p value.
  * @return Биты @p bits значения @p value.
  */
 #define READ_BITS(value, bits) ((value) & (bits))
