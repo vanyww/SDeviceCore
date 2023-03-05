@@ -54,7 +54,7 @@ typedef struct
 /**
  * @brief Младшая компонента версии ядра фреймворка SDevice.
  */
-#define SDEVICE_CORE_VERSION_PATCH 0
+#define SDEVICE_CORE_VERSION_PATCH 1
 
 /**
  * @brief Версия ядра фреймворка SDevice в виде составного литерала структуры SDeviceVersion.
