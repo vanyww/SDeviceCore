@@ -62,6 +62,6 @@ typedef enum
 /**
  * @brief Дескриптор глобального модуля.
  */
-extern SDEVICE_HANDLE(CoreGlobal) *CoreGlobalSDeviceHandle;
+extern SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle;
 
 /** @} */
