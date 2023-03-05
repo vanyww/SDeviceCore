@@ -286,23 +286,14 @@ typedef struct
    typedef SDEVICE_HANDLE(device_name) ThisHandle
 
 /**
- * @brief Универсальный тип данных для доступа к заголовкам дескрипторов.
- */
-typedef struct
-{
-   SDeviceHandleHeader Header; /**< Заголовок дескриптора. */
-   char Data[]; /**< Прочие данные дескриптора. */
-} SDeviceCommonHandle;
-
-/**
  * @brief Возвращает пользовательский контекст дескриптора.
  * @param[in] _handle Дескриптор.
  * @return Пользовательский контекст дескриптора @p _handle.
  */
-static inline void * SDeviceGetHandleContext(const void *_handle)
+static inline void * SDeviceGetHandleContext(const void *handle)
 {
-   const SDeviceCommonHandle *handle = _handle;
-   return handle->Header.Context;
+   const SDeviceHandleHeader *header = handle;
+   return header->Context;
 }
 
 /**
@@ -310,10 +301,10 @@ static inline void * SDeviceGetHandleContext(const void *_handle)
  * @param[in] _handle Дескриптор.
  * @return Последнее состояние дескриптора @p _handle.
  */
-static inline int32_t SDeviceGetHandleLatestStatus(const void *_handle)
+static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
 {
-   const SDeviceCommonHandle *handle = _handle;
-   return handle->Header.LatestStatus;
+   const SDeviceHandleHeader *header = handle;
+   return header->LatestStatus;
 }
 
 /** @} */
