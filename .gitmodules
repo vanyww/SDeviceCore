@@ -3,4 +3,4 @@
 	url = https://gitlab.dnouglublenie.ru/nonius/embeddedfirmware/embeddedcommon/forks/cexception.git
 [submodule "Submodules/doxygen-awesome-css"]
 	path = Submodules/doxygen-awesome-css
-	url = https://github.com/jothepro/doxygen-awesome-css
+	url = https://gitlab.dnouglublenie.ru/nonius/embeddedfirmware/embeddedcommon/forks/doxygen-awesome-css.git
