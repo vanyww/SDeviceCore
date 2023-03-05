@@ -10,6 +10,7 @@ before_script:
 
 pages:
   script:
+  - doxygen -s -u Doxygen/Doxyfile
   - doxygen Doxygen/Doxyfile
   - mv html/ public/
   artifacts:
