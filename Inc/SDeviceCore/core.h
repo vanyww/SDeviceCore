@@ -305,7 +305,7 @@ typedef struct
    typedef SDEVICE_HANDLE(device_name) ThisHandle
 
 /**
- * @brief Возвращает пользовательский контекст дескриптора.
+ * @brief Возвращает пользовательский контекст дескриптора @ref SDeviceHandleHeader::Context.
  * @param[in] handle Дескриптор.
  * @return Пользовательский контекст дескриптора @p handle.
  */
@@ -316,7 +316,7 @@ static inline void * SDeviceGetHandleContext(const void *handle)
 }
 
 /**
- * @brief Возвращает последнее состояние дескриптора.
+ * @brief Возвращает последнее состояние дескриптора @ref SDeviceHandleHeader::LatestStatus.
  * @param[in] handle Дескриптор.
  * @return Последнее состояние дескриптора @p handle.
  */
@@ -325,7 +325,11 @@ static inline SDeviceHandleLatestStatus SDeviceGetHandleLatestStatus(const void 
    const SDeviceHandleHeader *header = handle;
    return header->LatestStatus;
 }
-
+/**
+ * @brief Возвращает внешний дескриптор @ref SDeviceHandleHeader::ParentHandle.
+ * @param[in] handle Дескриптор.
+ * @return Внешний дескриптор дескриптора @p handle.
+ */
 static inline const void * SDeviceGetHandleParent(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
@@ -333,7 +337,7 @@ static inline const void * SDeviceGetHandleParent(const void *handle)
 }
 
 /**
- * @brief Возвращает идентификатор дескриптора.
+ * @brief Возвращает идентификатор дескриптора @ref SDeviceHandleHeader::Identifier.
  * @param[in] handle Дескриптор.
  * @return Идентификатор дескриптора @p handle.
  */
@@ -421,7 +425,8 @@ typedef enum
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  */
-#define SDEVICE_SET_PROPERTY(device_name, property_name) _##device_name##SDevice##property_name##SetProperty
+#define SDEVICE_SET_PROPERTY(device_name, property_name)                                                               \
+   _##device_name##SDevice##property_name##SetProperty
 
 /**
  * @brief Создает прототип (объявление) функции записи обыкновенного свойства.
@@ -468,7 +473,8 @@ typedef enum
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  */
-#define SDEVICE_GET_PROPERTY(device_name, property_name) device_name##SDevice##property_name##GetProperty
+#define SDEVICE_GET_PROPERTY(device_name, property_name)                                                               \
+   _##device_name##SDevice##property_name##GetProperty
 
 /**
  * @brief Создает прототип (объявление) функции чтения обыкновенного свойства.

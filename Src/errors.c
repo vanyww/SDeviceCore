@@ -15,14 +15,14 @@ __attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
    for(;;) { }
 }
 
-__attribute__((weak)) void SDeviceProcessLogStatus(const void *_handle)
+__attribute__((weak)) void SDeviceProcessLogStatus(const void *handle)
 {
-   UNUSED_PARAMETER(_handle);
+   UNUSED_PARAMETER(handle);
 }
 
-__attribute__((weak)) void SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle)
+__attribute__((weak)) void SDeviceProcessUnhandledThrow(CEXCEPTION_T handle)
 {
-   UNUSED_PARAMETER(_handle);
+   UNUSED_PARAMETER(handle);
 
    for(;;) { }
 }
