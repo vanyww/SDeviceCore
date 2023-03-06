@@ -16,11 +16,17 @@ SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(Cor
 {
    .Header =
    {
-#ifndef SDEVICE_CORE_GLOBAL_CONTEXT
-      .Context = NULL,
-#else
+#ifdef SDEVICE_CORE_GLOBAL_CONTEXT
       .Context = &SDEVICE_CORE_GLOBAL_CONTEXT,
+#else
+      .Context = NULL,
 #endif
+
+#ifdef SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
+      .Identifier = SDEVICE_CORE_GLOBAL_HANDLE_ID,
+#endif
+
+      .ParentHandle = NULL,
       .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK
    }
 };

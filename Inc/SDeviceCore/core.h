@@ -169,10 +169,12 @@ typedef struct
 /**
  * @brief Список формальных параметров функции создания дескриптора.
  * @param init_data_name Имя формального параметра параметров инициализации дескриптора.
+ * @param parent_name Имя формального параметра указателя на внешний дескриптор.
+ * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, context_name)                                     \
-   (const void *init_data_name, void *context_name)
+#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, identifier_name, context_name)                    \
+   (const void *init_data_name, const void *parent_name, SDeviceHandleIdentifier identifier_name, void *context_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию создания дескриптора.
@@ -185,12 +187,14 @@ typedef struct
  * @brief Создает прототип (объявление) функции создания дескриптора.
  * @param device_name Название модуля.
  * @param init_data_name Имя формального параметра данных инициализации дескриптора.
+ * @param parent_name Имя формального параметра указателя на внешний дескриптор.
+ * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, parent_name, context_name)                      \
+#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, parent_name, identifier_name, context_name)     \
    SDEVICE_CREATE_HANDLE_RETURN_VALUE                                                                                  \
    SDEVICE_CREATE_HANDLE(device_name)                                                                                  \
-   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, context_name)
+   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, identifier_name, context_name)
 
 /** @} */
 
@@ -239,14 +243,25 @@ typedef struct
 /** @} */
 
 /**
+ * @brief Тип данных идентификатора дескриптора.
+ */
+typedef uint16_t SDeviceHandleIdentifier;
+
+/**
+ * @brief Тип данных последнего состояния дескриптора.
+ */
+typedef int16_t SDeviceHandleLatestStatus;
+
+/**
  * @brief Заголовок дескриптора.
  * @details Структура данных, общая для всех дескрипторов.
  */
 typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
-   const void *ParentHandle;
-   int16_t LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   const void *ParentHandle; /**< Внешний ("родительский") дескриптор. */
+   SDeviceHandleLatestStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   SDeviceHandleIdentifier Identifier; /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
 /**
@@ -305,7 +320,7 @@ static inline void * SDeviceGetHandleContext(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Последнее состояние дескриптора @p handle.
  */
-static inline int16_t SDeviceGetHandleLatestStatus(const void *handle)
+static inline SDeviceHandleLatestStatus SDeviceGetHandleLatestStatus(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
    return header->LatestStatus;
@@ -315,6 +330,17 @@ static inline const void * SDeviceGetHandleParent(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
    return header->ParentHandle;
+}
+
+/**
+ * @brief Возвращает идентификатор дескриптора.
+ * @param[in] handle Дескриптор.
+ * @return Идентификатор дескриптора @p handle.
+ */
+static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *handle)
+{
+   const SDeviceHandleHeader *header = handle;
+   return header->Identifier;
 }
 
 /** @} */

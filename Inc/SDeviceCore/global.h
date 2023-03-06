@@ -30,11 +30,21 @@
 
 /**
  * @brief **[Опция]** Контекст дескриптора глобального модуля.
- * @details Указатель на значение этого макроса будет использован в качестве контекста дескриптора глобального модуля.
- * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONTEXT.
+ * @ref SDeviceHandleHeader::Context.
+ * @details Значение этого макроса будет использовано в качестве контекста дескриптора глобального модуля.
+ * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG.
  * @note Может быть объявлен пользователем.
  */
 #define SDEVICE_CORE_GLOBAL_CONTEXT
+
+/**
+ * @brief **[Опция]** Идентификатор дескриптора глобального модуля.
+ * @details Значение этого макроса будет использовано в качестве идентификатора дескриптора глобального модуля.
+ * @ref SDeviceHandleHeader::Identifier.
+ * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG.
+ * @note Может быть объявлен пользователем.
+ */
+#define SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
 
 #endif
 
