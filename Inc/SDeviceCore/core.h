@@ -171,7 +171,7 @@ typedef struct
  * @param init_data_name Имя формального параметра параметров инициализации дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name)                                                  \
+#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, context_name)                                     \
    (const void *init_data_name, void *context_name)
 
 /**
@@ -187,10 +187,10 @@ typedef struct
  * @param init_data_name Имя формального параметра данных инициализации дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, context_name)                                   \
+#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, parent_name, context_name)                      \
    SDEVICE_CREATE_HANDLE_RETURN_VALUE                                                                                  \
    SDEVICE_CREATE_HANDLE(device_name)                                                                                  \
-   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name)
+   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, context_name)
 
 /** @} */
 
@@ -245,6 +245,7 @@ typedef struct
 typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
+   const void *ParentHandle;
    int32_t LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
 } SDeviceHandleHeader;
 
@@ -308,6 +309,12 @@ static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
    return header->LatestStatus;
+}
+
+static inline const void * SDeviceGetHandleParent(const void *handle)
+{
+   const SDeviceHandleHeader *header = handle;
+   return header->ParentHandle;
 }
 
 /** @} */
