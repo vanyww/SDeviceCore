@@ -246,7 +246,7 @@ typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
    const void *ParentHandle;
-   int32_t LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   int16_t LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
 } SDeviceHandleHeader;
 
 /**
@@ -305,7 +305,7 @@ static inline void * SDeviceGetHandleContext(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Последнее состояние дескриптора @p handle.
  */
-static inline int32_t SDeviceGetHandleLatestStatus(const void *handle)
+static inline int16_t SDeviceGetHandleLatestStatus(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
    return header->LatestStatus;
