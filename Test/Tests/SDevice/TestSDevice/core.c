@@ -16,7 +16,7 @@ struct SDEVICE_RUNTIME_DATA(TestSDevice)
 SDEVICE_HANDLE_DECLARATION(TestSDevice);
 SDEVICE_INTERNAL_ALIASES_DECLARATION(TestSDevice);
 
-SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context)
+SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _parent, _id, _context)
 {
    SDeviceAssert(_init != NULL);
 
@@ -29,7 +29,9 @@ SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice, _init, _context)
    instance->Header = (SDeviceHandleHeader)
    {
       .Context = _context,
-      .LatestStatus = TEST_SDEVICE_STATUS_OK
+      .ParentHandle = _parent,
+      .LatestStatus = TEST_SDEVICE_STATUS_OK,
+      .Identifier = _id
    };
 
    instance->Runtime = (ThisRuntimeData)

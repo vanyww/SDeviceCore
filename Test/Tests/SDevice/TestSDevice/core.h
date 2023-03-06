@@ -18,7 +18,7 @@ struct SDEVICE_INIT_DATA(TestSDevice)
    int TestPartialPropertyInitialValue;
 };
 
-SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice,,);
+SDEVICE_CREATE_HANDLE_DECLARATION(TestSDevice,,,,);
 SDEVICE_DISPOSE_HANDLE_DECLARATION(TestSDevice,);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(TestSDevice, TestProperty, int);
