@@ -1,6 +1,6 @@
 #include "private.h"
 
-SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _context)
+SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _parent, _context)
 {
    SDeviceAssert(_init != NULL);
 
@@ -8,7 +8,9 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _context)
    handle->Header = (SDeviceHandleHeader)
    {
       .Context = _context,
-      .LatestStatus = EXAMPLE_SDEVICE_STATUS_OK
+      .ParentHandle = _parent,
+      .LatestStatus = EXAMPLE_SDEVICE_STATUS_OK,
+      .HandleId = 0
    };
    const ThisInitData *init = _init;
    handle->Init = *init;

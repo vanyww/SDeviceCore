@@ -1,7 +1,7 @@
 #include "SDeviceCore/global.h"
 
-#ifdef SDEVICE_USE_EXTERNAL_GLOBAL_CONTEXT
-#include "global_sdevice_context.h"
+#ifdef SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG
+#include "global_sdevice_config.h"
 #endif
 
 SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(CoreGlobal);

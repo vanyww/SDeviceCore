@@ -34,7 +34,7 @@ SDEVICE_INIT_DATA_DECLARATION(Example)
    /* any init data: callbacks, constants, etc. */
 };
 
-SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _context);
+SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _parent, _context);
 SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, _handlePointer);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Example, IntValue, int);
