@@ -20,21 +20,33 @@
 #ifdef DOXYGEN
 
 /**
- * @brief **[Опция]** Флаг использования дополнительного файла для определения контекста дескриптора глобального модуля.
- * @details Определение данного флага требует наличия файла `global_sdevice_context.h` в *include path*.
- * Файл создается пользователем и содержит определение контекста дескриптора глобального модуля.
- * Используется в комбинации с #SDEVICE_CORE_GLOBAL_CONTEXT.
+ * @brief **[Опция]** Флаг использования дополнительного файла параметров дескриптора глобального модуля.
+ * @details Определение данного флага требует наличия файла `global_sdevice_config.h` в *include path*.
+ * Файл создается пользователем и содержит параметры дескриптора глобального модуля:
+ * - #SDEVICE_CORE_GLOBAL_CONTEXT
+ * - #SDEVICE_CORE_GLOBAL_HANDLE_ID
+ *
  * @note Может быть объявлен пользователем.
  */
-#define SDEVICE_USE_EXTERNAL_GLOBAL_CONTEXT
+#define SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG
 
 /**
  * @brief **[Опция]** Контекст дескриптора глобального модуля.
- * @details Указатель на значение этого макроса будет использован в качестве контекста дескриптора глобального модуля.
- * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONTEXT.
+ * @ref SDeviceHandleHeader::Context.
+ * @details Значение этого макроса будет использовано в качестве контекста дескриптора глобального модуля.
+ * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG.
  * @note Может быть объявлен пользователем.
  */
 #define SDEVICE_CORE_GLOBAL_CONTEXT
+
+/**
+ * @brief **[Опция]** Идентификатор дескриптора глобального модуля.
+ * @details Значение этого макроса будет использовано в качестве идентификатора дескриптора глобального модуля.
+ * @ref SDeviceHandleHeader::Identifier.
+ * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG.
+ * @note Может быть объявлен пользователем.
+ */
+#define SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
 
 #endif
 

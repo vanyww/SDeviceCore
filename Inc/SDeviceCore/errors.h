@@ -55,7 +55,7 @@
 #define SDEVICE_USE_STATUS_LOG
 
 /**
- * @brief **[Опция]** Флаг использования дополнительного файла для изменения параметров библиотеки CException.
+ * @brief **[Опция]** Флаг использования дополнительного файла параметров библиотеки CException.
  * @details Определение данного флага требует наличия файла `sdevice_error_config.h` в *include path*.
  * Файл создается пользователем и содержит параметры библиотеки CException, используемой в механизме исключений.
  * Допускается изменение любых параметров, кроме уже определенных:
@@ -102,7 +102,7 @@ typedef const void * CExceptionType;
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
 #else
 /**
- * @brief Проверка утверждения.
+ * @brief Проверяет утверждение.
  * @details Проверяет утверждение @p expression, в случае его ложности вызывает функцию @ref SDeviceProcessAssertFail.
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression не будет исполнено.
  * @param expression Утверждение, которое необходимо проверить.
@@ -110,7 +110,7 @@ typedef const void * CExceptionType;
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
 #endif
 /**
- * @brief Проверка утверждения с инвариантным исполнением.
+ * @brief Проверяет утверждение с его инвариантным исполнением.
  * @details Проверяет утверждение @p expression, в случае его ложности вызывает функцию @ref SDeviceProcessAssertFail.
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
  * @param expression Утверждение, которое необходимо проверить.
@@ -127,7 +127,7 @@ typedef const void * CExceptionType;
 void SDeviceProcessAssertFail(void);
 #else
 /**
- * @brief Проверка внутреннего утверждения модуля.
+ * @brief Проверяет внутреннее утверждение модуля.
  * @details Принцип работы не отличается от #SDeviceAssert.
  * Предназначен для использования внутри универсальных модулей, проверяемых отдельно (вне конечного ПО).
  * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression не будет исполнено.
@@ -136,7 +136,7 @@ void SDeviceProcessAssertFail(void);
 #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
 #endif
 /**
- * @brief Проверка внутреннего утверждения модуля с инвариантным исполнением.
+ * @brief Проверяет внутреннее утверждение модуля с его инвариантным исполнением.
  * @details Принцип работы не отличается от #SDeviceEvalAssert.
  * Предназначен для использования внутри универсальных модулей, проверяемых отдельно (вне конечного ПО).
  * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
@@ -150,16 +150,16 @@ void SDeviceProcessAssertFail(void);
 
 #ifdef SDEVICE_USE_STATUS_LOG
 /**
- * @brief Логирование состояния дескриптора.
+ * @brief Логирует состояние дескриптора.
  * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
  * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
  * @param status Идентификатор состояния (int32_t).
  */
 #define SDeviceLogStatus(handle, status) (                                                                             \
 {                                                                                                                      \
-   SDeviceCommonHandle *$handle = (SDeviceCommonHandle *)(handle);                                                     \
-   $handle->Header.LatestStatus = (status);                                                                            \
-   SDeviceProcessLogStatus($handle);                                                                                   \
+   SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                     \
+   _header->LatestStatus = (status);                                                                                   \
+   SDeviceProcessLogStatus(handle);                                                                                    \
 })
 
 #else
@@ -174,9 +174,9 @@ void SDeviceProcessAssertFail(void);
  */
 #define SDeviceThrow(handle, exception) (                                                                              \
 {                                                                                                                      \
-   SDeviceCommonHandle *$handle = (SDeviceCommonHandle *)(handle);                                                     \
-   $handle->Header.LatestStatus = (exception);                                                                         \
-   Throw($handle);                                                                                                     \
+   SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                     \
+   _header->LatestStatus = (exception);                                                                                \
+   Throw(handle);                                                                                                      \
 })
 
 #ifdef SDEVICE_USE_SIMPLE_ASSERT
@@ -202,16 +202,16 @@ void SDeviceProcessAssertFail(char *file, int line);
  * @brief Функция обработки запроса на логирование события.
  * @details Вызывается при запросе логирования макросом #SDeviceLogStatus.
  * @note Определена в виде слабого символа, реализация по-умолчанию - пустая функция.
- * @param[in] _handle Дескриптор, ассоциированный с логируемым событием.
+ * @param[in] handle Дескриптор, ассоциированный с логируемым событием.
  */
-void SDeviceProcessLogStatus(const void *_handle);
+void SDeviceProcessLogStatus(const void *handle);
 
 /**
  * @brief Функция обработки необработанного явно исключения.
  * @details Вызывается в случае, если выброшенное (#SDeviceThrow) исключение не было обработано.
  * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.
- * @param[in] _handle Дескриптор, ассоциированный с возникшим исключением.
+ * @param[in] handle Дескриптор, ассоциированный с возникшим исключением.
  */
-void SDeviceProcessUnhandledThrow(CEXCEPTION_T _handle);
+void SDeviceProcessUnhandledThrow(CEXCEPTION_T handle);
 
 /** @} */
