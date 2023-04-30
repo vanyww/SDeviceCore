@@ -163,7 +163,7 @@ void SDeviceProcessAssertFail(void);
 })
 
 #else
-#define SDeviceLogStatus(handle, status) ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
+#define SDeviceLogStatus(handle, status) ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
 #endif
 
 /**
