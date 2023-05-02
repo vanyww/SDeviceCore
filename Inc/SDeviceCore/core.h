@@ -250,7 +250,7 @@ typedef uint16_t SDeviceHandleIdentifier;
 /**
  * @brief Тип данных последнего состояния дескриптора.
  */
-typedef int16_t SDeviceHandleLatestStatus;
+typedef int16_t SDeviceHandleStatus;
 
 /**
  * @brief Заголовок дескриптора.
@@ -260,7 +260,7 @@ typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
    const void *ParentHandle; /**< Внешний ("родительский") дескриптор. */
-   SDeviceHandleLatestStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   SDeviceHandleStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
    SDeviceHandleIdentifier Identifier; /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
@@ -320,11 +320,12 @@ static inline void * SDeviceGetHandleContext(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Последнее состояние дескриптора @p handle.
  */
-static inline SDeviceHandleLatestStatus SDeviceGetHandleLatestStatus(const void *handle)
+static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
    return header->LatestStatus;
 }
+
 /**
  * @brief Возвращает внешний дескриптор @ref SDeviceHandleHeader::ParentHandle.
  * @param[in] handle Дескриптор.
