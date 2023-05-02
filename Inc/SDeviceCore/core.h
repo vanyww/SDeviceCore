@@ -259,7 +259,7 @@ typedef int16_t SDeviceHandleStatus;
 typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
-   const void *ParentHandle; /**< Внешний ("родительский") дескриптор. */
+   const void *OwnerHandle; /**< Внешний ("родительский") дескриптор. */
    const char *SDeviceStringName;
    SDeviceHandleStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
    SDeviceHandleIdentifier Identifier; /**< Идентификатор дескриптора. */
@@ -336,10 +336,10 @@ static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handl
  * @param[in] handle Дескриптор.
  * @return Внешний дескриптор дескриптора @p handle.
  */
-static inline const void * SDeviceGetHandleParent(const void *handle)
+static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
-   return header->ParentHandle;
+   return header->OwnerHandle;
 }
 
 /**
