@@ -260,6 +260,7 @@ typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
    const void *ParentHandle; /**< Внешний ("родительский") дескриптор. */
+   const char *SDeviceStringName;
    SDeviceHandleStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
    SDeviceHandleIdentifier Identifier; /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
@@ -304,6 +305,10 @@ typedef struct
    typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData;                                                          \
    typedef SDEVICE_HANDLE(device_name) ThisHandle
 
+#define SDEVICE_STRING_NAME(device_name) _##device_name##SDeviceStringName
+#define SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char SDEVICE_STRING_NAME(device_name)[]
+#define SDEVICE_STRING_NAME_DEFINITION(device_name) const char SDEVICE_STRING_NAME(device_name)[] = #device_name
+
 /**
  * @brief Возвращает пользовательский контекст дескриптора @ref SDeviceHandleHeader::Context.
  * @param[in] handle Дескриптор.
@@ -346,6 +351,12 @@ static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *han
 {
    const SDeviceHandleHeader *header = handle;
    return header->Identifier;
+}
+
+static inline const char * SDeviceGetHandleSDeviceStringName(const void *handle)
+{
+   const SDeviceHandleHeader *header = handle;
+   return header->SDeviceStringName;
 }
 
 /** @} */
