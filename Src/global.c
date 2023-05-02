@@ -7,10 +7,18 @@
 SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(CoreGlobal);
 SDEVICE_INIT_DATA_FORWARD_DECLARATION(CoreGlobal);
 
-SDEVICE_RUNTIME_DATA_DECLARATION(CoreGlobal) { };
-SDEVICE_INIT_DATA_DECLARATION(CoreGlobal) { };
+SDEVICE_RUNTIME_DATA_DECLARATION(CoreGlobal)
+{
+
+};
+
+SDEVICE_INIT_DATA_DECLARATION(CoreGlobal)
+{
+
+};
 
 SDEVICE_HANDLE_DECLARATION(CoreGlobal);
+SDEVICE_STRING_NAME_DEFINITION(CoreGlobal);
 
 SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(CoreGlobal))
 {
@@ -22,11 +30,14 @@ SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(Cor
       .Context = NULL,
 #endif
 
+      .OwnerHandle = NULL,
+      .SDeviceStringName = SDEVICE_STRING_NAME(CoreGlobal),
+      .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK,
+
 #ifdef SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
       .Identifier = SDEVICE_CORE_GLOBAL_HANDLE_ID,
+#else
+      .Identifier = 0
 #endif
-
-      .ParentHandle = NULL,
-      .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK
    }
 };

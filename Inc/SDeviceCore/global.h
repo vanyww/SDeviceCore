@@ -73,6 +73,8 @@ typedef enum
    CORE_GLOBAL_SDEVICE_EXCEPTION_OUT_OF_MEMORY /**< Недостаток выделяемой памяти. */
 } CoreGlobalSDeviceException;
 
+SDEVICE_STRING_NAME_DECLARATION(CoreGlobal);
+
 /**
  * @brief Дескриптор глобального модуля.
  */
