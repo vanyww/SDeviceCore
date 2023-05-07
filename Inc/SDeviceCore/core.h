@@ -382,6 +382,14 @@ typedef enum
     SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR  /**< Ошибка во время записи или чтения значения. */
 } SDevicePropertyOperationStatus;
 
+#define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
+{                                                                                                                      \
+   __auto_type _value = (value);                                                                                       \
+   _value == SDEVICE_PROPERTY_OPERATION_STATUS_OK               ||                                                     \
+   _value == SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR ||                                                     \
+   _value == SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR;                                                       \
+})
+
 /**
  * @brief Мета-определение символа (имени) типа данных свойства.
  * @param device_name Название модуля.
