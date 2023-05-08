@@ -15,70 +15,13 @@
  * @{
  */
 
-#include <stddef.h>
-
-#ifdef DOXYGEN
-
-/**
- * @brief **[Опция]** Флаг, включающий проверку утверждений.
- * @details Управляет поведением #SDeviceAssert и #SDeviceEvalAssert.
- * Состояние флага удаляет или добавляет проверку утверждений при помощи условной компиляции.
- * Отключение проверки утверждений позволяет уменьшить затраты памяти и повысить производительность.
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_USE_ASSERT
-
-/**
- * @brief **[Опция]** Флаг, включающий проверку внутренних утверждений модулей.
- * @details Управляет поведением #SDeviceDebugAssert и #SDeviceDebugEvalAssert.
- * Состояние флага удаляет или добавляет проверку внутренних утверждений модулей при помощи условной компиляции.
- * Отключение проверки внутренних утверждений модулей позволяет уменьшить затраты памяти и повысить производительность.
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_USE_DEBUG_ASSERT
-
-/**
- * @brief **[Опция]** Флаг, упрощающий прототип функции @ref SDeviceProcessAssertFail.
- * @details Изменяет прототип с SDeviceProcessAssertFail(char *, int) на SDeviceProcessAssertFail(void).
- * Флаг позволяет уменьшить затраты памяти на проверку утверждений, исключив строковые пути к файлам и номера строк.
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_USE_SIMPLE_ASSERT
-#undef SDEVICE_USE_SIMPLE_ASSERT
-
-/**
- * @brief **[Опция]** Флаг, включающий логирование.
- * @details Управляет поведением #SDeviceLogStatus.
- * Состояние флага удаляет или добавляет логирование при помощи условной компиляции.
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_USE_STATUS_LOG
-
-/**
- * @brief **[Опция]** Флаг использования дополнительного файла параметров библиотеки CException.
- * @details Определение данного флага требует наличия файла `sdevice_error_config.h` в *include path*.
- * Файл создается пользователем и содержит параметры библиотеки CException, используемой в механизме исключений.
- * Допускается изменение любых параметров, кроме уже определенных:
- * - #CEXCEPTION_NONE
- * - #CEXCEPTION_T
- * - #CEXCEPTION_NO_CATCH_HANDLER
- *
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_USE_EXTERNAL_ERROR_CONFIG
-#undef SDEVICE_USE_EXTERNAL_ERROR_CONFIG
-
-#endif
+#include "config.h"
 
 /**
  * @brief Тип данных исключения.
  * @details Определение типа данных, представляющего собой исключение (дескриптор модуля).
  */
 typedef const void * CExceptionType;
-
-#ifdef SDEVICE_USE_EXTERNAL_ERROR_CONFIG
-#include "sdevice_error_config.h"
-#endif
 
 /**
  * @brief Параметр CException: "пустое" значение исключения (NULL).
