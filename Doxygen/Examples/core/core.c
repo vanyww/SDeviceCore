@@ -1,19 +1,27 @@
 #include "private.h"
 
-SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _parent, _context)
+#include "SDeviceCore/errors.h"
+#include "SDeviceCore/heap.h"
+
+SDEVICE_STRING_NAME_DEFINITION(Example);
+
+SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, owner, identifier, context)
 {
-   SDeviceAssert(_init != NULL);
+   SDeviceAssert(init != NULL);
+
+   const ThisInitData *_init = init;
 
    ThisHandle *handle = SDeviceMalloc(sizeof(ThisHandle));
    handle->Header = (SDeviceHandleHeader)
    {
-      .Context = _context,
-      .ParentHandle = _parent,
+      .Context = context,
+      .OwnerHandle = owner,
+      .SDeviceStringName = SDEVICE_STRING_NAME(Example),
       .LatestStatus = EXAMPLE_SDEVICE_STATUS_OK,
-      .HandleId = 0
+      .Identifier = identifier
    };
-   const ThisInitData *init = _init;
-   handle->Init = *init;
+
+   handle->Init = *_init;
    handle->Runtime = (ThisRuntimeData){ /* initializer list for runtime data */ };
 
    /* perform any other init actions */
@@ -21,19 +29,19 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _parent, _context)
    return handle;
 }
 
-SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, _handlePointer)
+SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, handlePointer)
 {
-   SDeviceAssert(_handlePointer != NULL);
+   SDeviceAssert(handlePointer != NULL);
 
-   ThisHandle **handlePointer = _handlePointer;
-   ThisHandle *handle = *handlePointer;
+   ThisHandle **_handlePointer = handlePointer;
+   ThisHandle *handle = *_handlePointer;
 
    SDeviceAssert(handle != NULL);
 
    /* perform any other dispose actions */
 
-   SDeviceFree(*handlePointer);
-   *handlePointer = NULL;
+   SDeviceFree(*_handlePointer);
+   *_handlePointer = NULL;
 }
 
 SDEVICE_GET_PROPERTY_DECLARATION(Example, IntValue, handle, value)
@@ -90,11 +98,11 @@ void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle)
 {
    SDeviceAssert(handle != NULL);
 
-   int randomValue = GetRandomIntGreaterThanZero(handle);
+   int randomValue = GetRandomIntGreaterThanZero();
    SDeviceDebugAssert(result >= 0);
 
    int randomValue;
-   SDeviceDebugEvalAssert((randomValue = GetRandomIntGreaterThanZero(handle)) >= 0);
+   SDeviceDebugEvalAssert((randomValue = GetRandomIntGreaterThanZero()) >= 0);
 
    try /* dummy exception handler */
    {

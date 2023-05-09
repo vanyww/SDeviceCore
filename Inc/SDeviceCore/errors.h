@@ -40,35 +40,34 @@ typedef const void * CExceptionType;
 
 #include "../../Submodules/cexception/lib/CException.h"
 
-#if defined SDEVICE_USE_ASSERT
-#if defined SDEVICE_USE_SIMPLE_ASSERT
-#define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
-#else
 /**
  * @brief Проверяет утверждение.
  * @details Проверяет утверждение @p expression, в случае его ложности вызывает функцию @ref SDeviceProcessAssertFail.
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression не будет исполнено.
  * @param expression Утверждение, которое необходимо проверить.
  */
+#if defined SDEVICE_USE_ASSERT || defined DOXYGEN
+#if defined SDEVICE_USE_SIMPLE_ASSERT
+#define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
+#else
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
 #endif
+#else
+#define SDeviceAssert(expression) ((void)0U)
+#endif
+
 /**
  * @brief Проверяет утверждение с его инвариантным исполнением.
  * @details Проверяет утверждение @p expression, в случае его ложности вызывает функцию @ref SDeviceProcessAssertFail.
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
  * @param expression Утверждение, которое необходимо проверить.
  */
+#if defined SDEVICE_USE_ASSERT || defined DOXYGEN
 #define SDeviceEvalAssert(expression) SDeviceAssert(expression)
 #else
-#define SDeviceAssert(expression) ((void)0U)
 #define SDeviceEvalAssert(expression) expression
 #endif
 
-#if defined SDEVICE_USE_ASSERT && defined SDEVICE_USE_DEBUG_ASSERT
-#if defined SDEVICE_USE_SIMPLE_ASSERT
-#define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
-void SDeviceProcessAssertFail(void);
-#else
 /**
  * @brief Проверяет внутреннее утверждение модуля.
  * @details Принцип работы не отличается от #SDeviceAssert.
@@ -76,8 +75,16 @@ void SDeviceProcessAssertFail(void);
  * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression не будет исполнено.
  * @param expression Утверждение, которое необходимо проверить.
  */
+#if (defined SDEVICE_USE_ASSERT && defined SDEVICE_USE_DEBUG_ASSERT) || defined DOXYGEN
+#if defined SDEVICE_USE_SIMPLE_ASSERT
+#define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
+#else
 #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
 #endif
+#else
+#define SDeviceDebugAssert(expression) ((void)0U)
+#endif
+
 /**
  * @brief Проверяет внутреннее утверждение модуля с его инвариантным исполнением.
  * @details Принцип работы не отличается от #SDeviceEvalAssert.
@@ -85,26 +92,25 @@ void SDeviceProcessAssertFail(void);
  * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
  * @param expression Утверждение, которое необходимо проверить.
  */
-#define SDeviceDebugEvalAssert(expression) SDeviceAssert(expression)
+#if (defined SDEVICE_USE_ASSERT && defined SDEVICE_USE_DEBUG_ASSERT) || defined DOXYGEN
+#define SDeviceDebugEvalAssert(expression) SDeviceDebugAssert(expression)
 #else
-#define SDeviceDebugAssert(expression) ((void)0U)
-#define SDeviceDebugEvalAssert(expression) eSDeviceProcessLogStatusxpression
+#define SDeviceDebugEvalAssert(expression) expression
 #endif
 
-#if defined SDEVICE_USE_ASSERT
 /**
  * @brief Логирует состояние дескриптора.
  * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
  * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
  * @param status Идентификатор состояния (int32_t).
  */
+#if defined SDEVICE_USE_ASSERT || defined DOXYGEN
 #define SDeviceLogStatus(handle, status) (                                                                             \
 {                                                                                                                      \
    SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                     \
    _header->LatestStatus = (status);                                                                                   \
    SDeviceProcessLogStatus(handle);                                                                                    \
 })
-
 #else
 #define SDeviceLogStatus(handle, status) ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
 #endif
@@ -122,9 +128,6 @@ void SDeviceProcessAssertFail(void);
    Throw(handle);                                                                                                      \
 })
 
-#if defined SDEVICE_USE_SIMPLE_ASSERT
-void SDeviceProcessAssertFail(void);
-#else
 /**
  * @brief Функция обработки проваленной проверки утверждения.
  * @details Вызывается при провале проверки утверждения макросами:
@@ -136,9 +139,12 @@ void SDeviceProcessAssertFail(void);
  * @note Может иметь разные прототипы в зависимости от состояния флага #SDEVICE_USE_SIMPLE_ASSERT.
  * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.
  * @param[in] file Путь к файлу, в котором расположена проваленная проверка утверждения.
- * @param[in] line Строка файла, в которой расположено проваленная проверка утверждения.
+ * @param[in] line Строка файла, в которой расположена проваленная проверка утверждения.
  */
+#if !defined SDEVICE_USE_SIMPLE_ASSERT || defined DOXYGEN
 void SDeviceProcessAssertFail(char *file, int line);
+#else
+void SDeviceProcessAssertFail(void);
 #endif
 
 /**

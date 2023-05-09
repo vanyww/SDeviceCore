@@ -1,5 +1,3 @@
-#pragma once
-
 /**
  * @file core.h
  * @brief Инструменты создания модулей и взаимодействия с ними.
@@ -20,15 +18,17 @@
  * Приватная часть интерфейса используется в реализации самого модуля.
  */
 
+#pragma once
+
+#include <stdint.h>
+#include <stddef.h>
+
 /**
  * @defgroup sdevice_core Ядро фреймворка SDevice
  * @brief @copybrief core.h
  * @details @copydetails core.h
  * @{
  */
-
-#include <stdint.h>
-#include <stddef.h>
 
 /**
  * @brief Версия модуля.
@@ -169,12 +169,12 @@ typedef struct
 /**
  * @brief Список формальных параметров функции создания дескриптора.
  * @param init_data_name Имя формального параметра параметров инициализации дескриптора.
- * @param parent_name Имя формального параметра указателя на внешний дескриптор.
+ * @param owner_name Имя формального параметра указателя на владельца (внешний дескриптор).
  * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, identifier_name, context_name)                    \
-   (const void *init_data_name, const void *parent_name, SDeviceHandleIdentifier identifier_name, void *context_name)
+#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, owner_name, identifier_name, context_name)                     \
+   (const void *init_data_name, const void *owner_name, SDeviceHandleIdentifier identifier_name, void *context_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию создания дескриптора.
@@ -187,14 +187,14 @@ typedef struct
  * @brief Создает прототип (объявление) функции создания дескриптора.
  * @param device_name Название модуля.
  * @param init_data_name Имя формального параметра данных инициализации дескриптора.
- * @param parent_name Имя формального параметра указателя на внешний дескриптор.
+ * @param owner_name Имя формального параметра указателя на внешний дескриптор.
  * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, parent_name, identifier_name, context_name)     \
+#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, owner_name, identifier_name, context_name)      \
    SDEVICE_CREATE_HANDLE_RETURN_VALUE                                                                                  \
    SDEVICE_CREATE_HANDLE(device_name)                                                                                  \
-   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, parent_name, identifier_name, context_name)
+   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, owner_name, identifier_name, context_name)
 
 /** @} */
 
@@ -248,7 +248,7 @@ typedef struct
 typedef uint16_t SDeviceHandleIdentifier;
 
 /**
- * @brief Тип данных последнего состояния дескриптора.
+ * @brief Тип данных состояния дескриптора.
  */
 typedef int16_t SDeviceHandleStatus;
 
@@ -259,8 +259,8 @@ typedef int16_t SDeviceHandleStatus;
 typedef struct
 {
    void *Context; /**< Указатель на пользовательский контекст дескриптора. */
-   const void *OwnerHandle; /**< Внешний ("родительский") дескриптор. */
-   const char *SDeviceStringName;
+   const void *OwnerHandle; /**< Указатель на владельца дескриптора (внешний дескриптор). */
+   const char *SDeviceStringName; /**< Строковое имя модуля дескриптора. */
    SDeviceHandleStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
    SDeviceHandleIdentifier Identifier; /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
@@ -305,19 +305,66 @@ typedef struct
    typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData;                                                          \
    typedef SDEVICE_HANDLE(device_name) ThisHandle
 
-#define SDEVICE_STRING_NAME(device_name) _##device_name##SDeviceStringName
-#define SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char SDEVICE_STRING_NAME(device_name)[]
-#define SDEVICE_STRING_NAME_DEFINITION(device_name) const char SDEVICE_STRING_NAME(device_name)[] = #device_name
+/**
+ * @defgroup string_name Строковое имя модуля
+ * @brief Инструменты описания строкового имени модуля и взаимодействия с ним.
+ * @details Строковое имя используется для идентификации дескриптора модуля.
+ * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
+ * @{
+ */
 
 /**
- * @brief Возвращает пользовательский контекст дескриптора @ref SDeviceHandleHeader::Context.
+ * @brief Мета-определение символа (имени) переменной строкового имени модуля.
+ * @param device_name Название модуля.
+ */
+#define SDEVICE_STRING_NAME(device_name) _##device_name##SDeviceStringName
+
+/**
+ * @brief Создает объявление переменной строкового имени модуля.
+ * @param device_name Название модуля.
+ */
+#define SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char SDEVICE_STRING_NAME(device_name)[]
+
+/**
+ * @brief Создает определение переменной строкового имени модуля.
+ * @details В качестве значения используется стрингифицированное значение параметра @p device_name.
+ * @param device_name Название модуля.
+ */
+#define SDEVICE_STRING_NAME_DEFINITION(device_name) const char SDEVICE_STRING_NAME(device_name)[] = #device_name
+
+/** @} */
+
+/**
+ * @brief Возвращает указатель на пользовательский контекст дескриптора @ref SDeviceHandleHeader::Context.
  * @param[in] handle Дескриптор.
- * @return Пользовательский контекст дескриптора @p handle.
+ * @return Указатель на пользовательский контекст дескриптора @p handle.
  */
 static inline void * SDeviceGetHandleContext(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
    return header->Context;
+}
+
+/**
+ * @brief Возвращает указатель на владельца дескриптора (внешний дескриптор) @ref SDeviceHandleHeader::OwnerHandle.
+ * @param[in] handle Дескриптор.
+ * @return Указатель на владельца дескриптора @p handle.
+ */
+static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
+{
+   const SDeviceHandleHeader *header = handle;
+   return header->OwnerHandle;
+}
+
+/**
+ * @brief Возвращает строковое имя модуля дескриптора @ref SDeviceHandleHeader::SDeviceStringName.
+ * @param[in] handle Дескриптор.
+ * @return Строковое имя модуля дескриптора @p handle.
+ */
+static inline const char * SDeviceGetHandleSDeviceStringName(const void *handle)
+{
+   const SDeviceHandleHeader *header = handle;
+   return header->SDeviceStringName;
 }
 
 /**
@@ -332,17 +379,6 @@ static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handl
 }
 
 /**
- * @brief Возвращает внешний дескриптор @ref SDeviceHandleHeader::ParentHandle.
- * @param[in] handle Дескриптор.
- * @return Внешний дескриптор дескриптора @p handle.
- */
-static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
-{
-   const SDeviceHandleHeader *header = handle;
-   return header->OwnerHandle;
-}
-
-/**
  * @brief Возвращает идентификатор дескриптора @ref SDeviceHandleHeader::Identifier.
  * @param[in] handle Дескриптор.
  * @return Идентификатор дескриптора @p handle.
@@ -351,12 +387,6 @@ static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *han
 {
    const SDeviceHandleHeader *header = handle;
    return header->Identifier;
-}
-
-static inline const char * SDeviceGetHandleSDeviceStringName(const void *handle)
-{
-   const SDeviceHandleHeader *header = handle;
-   return header->SDeviceStringName;
 }
 
 /** @} */
@@ -377,11 +407,16 @@ static inline const char * SDeviceGetHandleSDeviceStringName(const void *handle)
  */
 typedef enum
 {
-    SDEVICE_PROPERTY_OPERATION_STATUS_OK,               /**< Операция выполнена успешно. */
-    SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR, /**< Ошибка проверки значения. */
-    SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR  /**< Ошибка во время записи или чтения значения. */
+   SDEVICE_PROPERTY_OPERATION_STATUS_OK,               /**< Операция выполнена успешно. */
+   SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR, /**< Ошибка проверки значения. */
+   SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR  /**< Ошибка во время записи или чтения значения. */
 } SDevicePropertyOperationStatus;
 
+/**
+ * @brief Проверяет значение на соответствие членам перечисления @ref SDevicePropertyOperationStatus.
+ * @param[in] value Значение, соответствие которого необходимо проверить.
+ * @return `true`, если @p value является членом перечисления @ref SDevicePropertyOperationStatus, иначе - `false`.
+ */
 #define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
 {                                                                                                                      \
    __auto_type _value = (value);                                                                                       \
