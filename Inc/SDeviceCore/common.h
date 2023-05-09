@@ -15,7 +15,7 @@
  * @{
  */
 
-#ifndef likely
+#if !defined likely || defined DOXYGEN
 /**
  * @brief Указывает на вероятную истинность выражения.
  * @details Позволяет компилятору лучше оптимизировать код, использующий условные выражения.
@@ -27,7 +27,7 @@
 #define likely(expression) __builtin_expect(!!(expression), 1)
 #endif
 
-#ifndef unlikely
+#if !defined unlikely || defined DOXYGEN
 /**
  * @brief Указывает на вероятную ложность выражения.
  * @details Позволяет компилятору лучше оптимизировать код, использующий условные выражения.
@@ -39,7 +39,7 @@
 #define unlikely(expression) __builtin_expect(!!(expression), 0)
 #endif
 
-#ifndef MIN
+#if !defined MIN || defined DOXYGEN
 /**
  * @brief Вычисляет минимум из двух значений.
  * @details
@@ -56,7 +56,7 @@
 })
 #endif
 
-#ifndef MAX
+#if !defined MAX || defined DOXYGEN
 /**
  * @brief Вычисляет максимум из двух значений.
  * @details
@@ -73,7 +73,7 @@
 })
 #endif
 
-#ifndef SIZEOF_MEMBER
+#if !defined SIZEOF_MEMBER || defined DOXYGEN
 /**
  * @brief Вычисляет размер (в байтах) члена типа данных.
  * @details Пример использования:
@@ -85,7 +85,7 @@
 #define SIZEOF_MEMBER(type, member) (sizeof(((type *)0)->member))
 #endif
 
-#ifndef BIT_SIZEOF
+#if !defined BIT_SIZEOF || defined DOXYGEN
 /**
  * @brief Вычисляет размер (в битах) типа данных.
  * @param type Тип данных или переменная (будет использован ее тип).
@@ -94,7 +94,7 @@
 #define BIT_SIZEOF(type) (sizeof(type) * CHAR_BIT)
 #endif
 
-#ifndef BIT_SIZEOF_MEMBER
+#if !defined BIT_SIZEOF_MEMBER || defined DOXYGEN
 /**
  * @brief Вычисляет размер (в битах) члена типа данных.
  * @param type Тип данных.
@@ -104,7 +104,7 @@
 #define BIT_SIZEOF_MEMBER(type, member) (SIZEOF_MEMBER(type, member) * CHAR_BIT)
 #endif
 
-#ifndef LENGTHOF
+#if !defined LENGTHOF || defined DOXYGEN
 /**
  * @brief Вычисляет длину (количество элементов) статического массива.
  * @param array Статический массив.
@@ -113,7 +113,7 @@
 #define LENGTHOF(array) (sizeof(array) / sizeof(*array))
 #endif
 
-#ifndef UNUSED_PARAMETER
+#if !defined UNUSED_PARAMETER || defined DOXYGEN
 /**
  * @brief Указывает на возможно неиспользуемый параметр функции.
  * @details Предотвращает возникновение предупреждения о том, что параметр @p parameter не используется в коде функции.
@@ -124,7 +124,7 @@
 #define UNUSED_PARAMETER(parameter) (void)(parameter)
 #endif
 
-#ifndef SET_BITS
+#if !defined SET_BITS || defined DOXYGEN
 /**
  * @brief Устанавливает указанные биты в значении.
  * @param value Значение.
@@ -133,7 +133,7 @@
 #define SET_BITS(value, bits) ((value) |= (bits))
 #endif
 
-#ifndef CLEAR_BITS
+#if !defined CLEAR_BITS || defined DOXYGEN
 /**
  * @brief Сбрасывает указанные биты в значении.
  * @param value Значение.
@@ -142,7 +142,7 @@
 #define CLEAR_BITS(value, bits) ((value) &= ~(bits))
 #endif
 
-#ifndef READ_BITS
+#if !defined READ_BITS || defined DOXYGEN
 /**
  * @brief Читает указанные биты из значения.
  * @param value Значение.

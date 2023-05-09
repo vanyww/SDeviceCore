@@ -40,8 +40,8 @@ typedef const void * CExceptionType;
 
 #include "../../Submodules/cexception/lib/CException.h"
 
-#if defined(SDEVICE_USE_ASSERT)
-#ifdef SDEVICE_USE_SIMPLE_ASSERT
+#if defined SDEVICE_USE_ASSERT
+#if defined SDEVICE_USE_SIMPLE_ASSERT
 #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
 #else
 /**
@@ -64,8 +64,8 @@ typedef const void * CExceptionType;
 #define SDeviceEvalAssert(expression) expression
 #endif
 
-#if defined(SDEVICE_USE_ASSERT) && defined(SDEVICE_USE_DEBUG_ASSERT)
-#ifdef SDEVICE_USE_SIMPLE_ASSERT
+#if defined SDEVICE_USE_ASSERT && defined SDEVICE_USE_DEBUG_ASSERT
+#if defined SDEVICE_USE_SIMPLE_ASSERT
 #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
 void SDeviceProcessAssertFail(void);
 #else
@@ -91,7 +91,7 @@ void SDeviceProcessAssertFail(void);
 #define SDeviceDebugEvalAssert(expression) eSDeviceProcessLogStatusxpression
 #endif
 
-#if defined(SDEVICE_USE_ASSERT)
+#if defined SDEVICE_USE_ASSERT
 /**
  * @brief Логирует состояние дескриптора.
  * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
@@ -122,7 +122,7 @@ void SDeviceProcessAssertFail(void);
    Throw(handle);                                                                                                      \
 })
 
-#ifdef SDEVICE_USE_SIMPLE_ASSERT
+#if defined SDEVICE_USE_SIMPLE_ASSERT
 void SDeviceProcessAssertFail(void);
 #else
 /**
