@@ -14,10 +14,10 @@ SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(Cor
 {
    .Header =
    {
-      .Context = SDEVICE_CORE_GLOBAL_HANDLE_CONTEXT,
-      .OwnerHandle = NULL,
+      .Context           = SDEVICE_CORE_GLOBAL_HANDLE_CONTEXT,
+      .OwnerHandle       = NULL,
       .SDeviceStringName = SDEVICE_STRING_NAME(CoreGlobal),
-      .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK,
-      .Identifier = SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
+      .LatestStatus      = CORE_GLOBAL_SDEVICE_STATUS_OK,
+      .Identifier        = SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
    }
 };

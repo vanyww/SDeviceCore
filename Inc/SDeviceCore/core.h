@@ -258,10 +258,10 @@ typedef int16_t SDeviceHandleStatus;
  */
 typedef struct
 {
-   void *Context; /**< Указатель на пользовательский контекст дескриптора. */
-   const void *OwnerHandle; /**< Указатель на владельца дескриптора (внешний дескриптор). */
-   const char *SDeviceStringName; /**< Строковое имя модуля дескриптора. */
-   SDeviceHandleStatus LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   void                   *Context; /**< Указатель на пользовательский контекст дескриптора. */
+   const void             *OwnerHandle; /**< Указатель на владельца дескриптора (внешний дескриптор). */
+   const char             *SDeviceStringName; /**< Строковое имя модуля дескриптора. */
+   SDeviceHandleStatus     LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
    SDeviceHandleIdentifier Identifier; /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
@@ -568,8 +568,8 @@ typedef enum
 typedef struct
 {
    const void *Data; /**< Указатель на записываемую часть значения. */
-   size_t Offset; /**< Смещение (в байтах) относительно начала полного значения, с которого начнется запись. */
-   size_t Size; /**< Размер (в байтах) записываемой части полного значения. */
+   size_t      Offset; /**< Смещение (в байтах) относительно начала полного значения, с которого начнется запись. */
+   size_t      Size; /**< Размер (в байтах) записываемой части полного значения. */
 } SDeviceSetPartialPropertyParameters;
 
 /**
@@ -626,7 +626,7 @@ typedef struct
  */
 typedef struct
 {
-   void *Data; /**< Указатель на буфер для читаемой части значения. */
+   void  *Data; /**< Указатель на буфер для читаемой части значения. */
    size_t Offset; /**< Смещение (в байтах) относительно начала полного значения, с которого начнется чтение. */
    size_t Size; /**< Размер (в байтах) читаемой части полного значения. */
 } SDeviceGetPartialPropertyParameters;
