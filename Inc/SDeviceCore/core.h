@@ -181,7 +181,7 @@ typedef struct
  * @param pointer_name Имя создаваемой переменной.
  */
 #define SDEVICE_CREATE_HANDLE_POINTER(pointer_name)                                                                    \
-   SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) SDEVICE_CREATE_HANDLE_ARGUMENTS(,,)
+   SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) SDEVICE_CREATE_HANDLE_ARGUMENTS(,,,)
 
 /**
  * @brief Создает прототип (объявление) функции создания дескриптора.
