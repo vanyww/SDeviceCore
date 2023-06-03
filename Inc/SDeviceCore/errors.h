@@ -60,7 +60,8 @@ typedef const void * CExceptionType;
  * @brief Проверяет утверждение с его инвариантным исполнением.
  * @details Проверяет утверждение @p expression, в случае его ложности вызывает функцию @ref SDeviceProcessAssertFail.
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
- * @param expression Утверждение, которое необходимо проверить.
+ * @param expression Выражение, исполняемое инвариантно.
+ * @param condition Условие, применяемое к выражение в ходе проверки утверждения.
  */
 #if defined SDEVICE_USE_ASSERT || defined DOXYGEN
 #define SDeviceEvalAssert(expression, condition) SDeviceAssert(expression condition)
@@ -90,7 +91,8 @@ typedef const void * CExceptionType;
  * @details Принцип работы не отличается от #SDeviceEvalAssert.
  * Предназначен для использования внутри универсальных модулей, проверяемых отдельно (вне конечного ПО).
  * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
- * @param expression Утверждение, которое необходимо проверить.
+ * @param expression Выражение, исполняемое инвариантно.
+ * @param condition Условие, применяемое к выражение в ходе проверки утверждения.
  */
 #if (defined SDEVICE_USE_ASSERT && defined SDEVICE_USE_DEBUG_ASSERT) || defined DOXYGEN
 #define SDeviceDebugEvalAssert(expression, condition) SDeviceDebugAssert(expression condition)
