@@ -63,9 +63,9 @@ typedef const void * CExceptionType;
  * @param expression Утверждение, которое необходимо проверить.
  */
 #if defined SDEVICE_USE_ASSERT || defined DOXYGEN
-#define SDeviceEvalAssert(expression) SDeviceAssert(expression)
+#define SDeviceEvalAssert(expression, condition) SDeviceAssert(expression condition)
 #else
-#define SDeviceEvalAssert(expression) expression
+#define SDeviceEvalAssert(expression, condition) expression
 #endif
 
 /**
@@ -93,9 +93,9 @@ typedef const void * CExceptionType;
  * @param expression Утверждение, которое необходимо проверить.
  */
 #if (defined SDEVICE_USE_ASSERT && defined SDEVICE_USE_DEBUG_ASSERT) || defined DOXYGEN
-#define SDeviceDebugEvalAssert(expression) SDeviceDebugAssert(expression)
+#define SDeviceDebugEvalAssert(expression, condition) SDeviceDebugAssert(expression condition)
 #else
-#define SDeviceDebugEvalAssert(expression) expression
+#define SDeviceDebugEvalAssert(expression, condition) expression
 #endif
 
 /**
