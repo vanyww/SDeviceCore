@@ -1,3 +1,5 @@
+#pragma once
+
 #include "SDeviceCore/core.h"
 
 #define EXAMPLE_SDEVICE_VERSION_MAJOR 1
@@ -34,8 +36,10 @@ SDEVICE_INIT_DATA_DECLARATION(Example)
    /* any init data: callbacks, constants, etc. */
 };
 
-SDEVICE_CREATE_HANDLE_DECLARATION(Example, _init, _parent, _context);
-SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, _handlePointer);
+SDEVICE_STRING_NAME_DECLARATION(Example);
+
+SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, owner, identifier, context);
+SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, handlePointer);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Example, IntValue, int);
 SDEVICE_GET_PROPERTY_DECLARATION(Example, IntValue, handle, value);

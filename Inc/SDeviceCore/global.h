@@ -17,39 +17,6 @@
 
 #include "SDeviceCore/core.h"
 
-#ifdef DOXYGEN
-
-/**
- * @brief **[Опция]** Флаг использования дополнительного файла параметров дескриптора глобального модуля.
- * @details Определение данного флага требует наличия файла `global_sdevice_config.h` в *include path*.
- * Файл создается пользователем и содержит параметры дескриптора глобального модуля:
- * - #SDEVICE_CORE_GLOBAL_CONTEXT
- * - #SDEVICE_CORE_GLOBAL_HANDLE_ID
- *
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG
-
-/**
- * @brief **[Опция]** Контекст дескриптора глобального модуля.
- * @ref SDeviceHandleHeader::Context.
- * @details Значение этого макроса будет использовано в качестве контекста дескриптора глобального модуля.
- * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG.
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_CORE_GLOBAL_CONTEXT
-
-/**
- * @brief **[Опция]** Идентификатор дескриптора глобального модуля.
- * @details Значение этого макроса будет использовано в качестве идентификатора дескриптора глобального модуля.
- * @ref SDeviceHandleHeader::Identifier.
- * Используется в комбинации с #SDEVICE_USE_EXTERNAL_GLOBAL_CONFIG.
- * @note Может быть объявлен пользователем.
- */
-#define SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER
-
-#endif
-
 /**
  * @brief Предварительное объявление типа данных дескриптора глобального модуля.
  */
@@ -72,6 +39,11 @@ typedef enum
 {
    CORE_GLOBAL_SDEVICE_EXCEPTION_OUT_OF_MEMORY /**< Недостаток выделяемой памяти. */
 } CoreGlobalSDeviceException;
+
+/**
+ * @brief Объявление переменной строкового имени глобального модуля.
+ */
+SDEVICE_STRING_NAME_DECLARATION(CoreGlobal);
 
 /**
  * @brief Дескриптор глобального модуля.
