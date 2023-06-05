@@ -1,13 +1,13 @@
 #include "SDeviceCore/errors.h"
 #include "SDeviceCore/common.h"
 
-#ifdef SDEVICE_USE_SIMPLE_ASSERT
+#if defined SDEVICE_USE_SIMPLE_ASSERT
 __attribute__((weak)) void SDeviceProcessAssertFail(void)
 #else
 __attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
 #endif
 {
-#ifndef __SDEVICE_USE_SIMPLE_ASSERT
+#if !defined SDEVICE_USE_SIMPLE_ASSERT
    UNUSED_PARAMETER(file);
    UNUSED_PARAMETER(line);
 #endif
