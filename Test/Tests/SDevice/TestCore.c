@@ -15,13 +15,13 @@ SDEVICE_INTERNAL_ALIASES_DECLARATION(TestDevice);
 SDEVICE_STRING_NAME_DEFINITION(TestDevice);
 
 
-SDEVICE_CREATE_HANDLE_DECLARATION(TestDevice,_init,_owner,_id,_context)
+SDEVICE_CREATE_HANDLE_DECLARATION(TestDevice, _init, _owner, _id,_context)
 {
-    SDeviceAssert(_init!=NULL);
+    SDeviceAssert(_init!= NULL);
     const ThisInitData* init = (ThisInitData*)_init;
 
     ThisHandle *handle = SDeviceMalloc(sizeof(ThisHandle));
-    SDeviceAssert(handle!=NULL);
+    SDeviceAssert(handle!= NULL);
 
     handle->Header = (SDeviceHandleHeader)
     {
@@ -51,10 +51,10 @@ SDEVICE_DISPOSE_HANDLE_DECLARATION(TestDevice, _handlePtr)
     *handlePtr = NULL;
 }
 
-SDEVICE_GET_PROPERTY_DECLARATION(TestDevice,PropertyValue,_handle, _value)
+SDEVICE_GET_PROPERTY_DECLARATION(TestDevice, PropertyValue, _handle, _value)
 {
-    SDeviceAssert(_handle!=NULL);
-    SDeviceAssert(_value!=NULL);
+    SDeviceAssert(_handle!= NULL);
+    SDeviceAssert(_value!= NULL);
 
     ThisHandle *handle = _handle;
 
@@ -63,10 +63,10 @@ SDEVICE_GET_PROPERTY_DECLARATION(TestDevice,PropertyValue,_handle, _value)
     return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }
 
-SDEVICE_SET_PROPERTY_DECLARATION(TestDevice,PropertyValue, _handle, _value)
+SDEVICE_SET_PROPERTY_DECLARATION(TestDevice, PropertyValue, _handle, _value)
 {
-    SDeviceAssert(_handle !=NULL);
-    SDeviceAssert(_value != NULL);
+    SDeviceAssert(_handle!= NULL);
+    SDeviceAssert(_value!= NULL);
 
     ThisHandle *handle = _handle;
 
@@ -75,16 +75,16 @@ SDEVICE_SET_PROPERTY_DECLARATION(TestDevice,PropertyValue, _handle, _value)
     return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }   
 
-SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestDevice,partialPropertyValue, _handle, _parameters)
+SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestDevice, partialPropertyValue, _handle, _parameters)
 {
-    SDeviceAssert(_handle!=NULL);
-    SDeviceAssert(_parameters!=NULL);
-    SDeviceAssert(_parameters->Data!=NULL);
+    SDeviceAssert(_handle!= NULL);
+    SDeviceAssert(_parameters!= NULL);
+    SDeviceAssert(_parameters->Data!= NULL);
 
     ThisHandle *handle = _handle;
 
-    if (_parameters->Size > sizeof(TestDeviceDataType) || 
-            _parameters->Offset > sizeof(TestDeviceDataType) - _parameters->Size)
+    if (_parameters->Size > sizeof(SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue)) || 
+            _parameters->Offset > sizeof(SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue)) - _parameters->Size)
     {
         return SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR;
     }
@@ -94,16 +94,16 @@ SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(TestDevice,partialPropertyValue, _handl
     return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
 }
 
-SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestDevice,partialPropertyValue, _handle, _parameters)
+SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(TestDevice, partialPropertyValue, _handle, _parameters)
 {
-    SDeviceAssert(_handle!=NULL);
-    SDeviceAssert(_parameters!=NULL);
-    SDeviceAssert(_parameters->Data!=NULL);
+    SDeviceAssert(_handle!= NULL);
+    SDeviceAssert(_parameters!= NULL);
+    SDeviceAssert(_parameters->Data!= NULL);
 
     ThisHandle *handle = _handle;
 
-    if (_parameters->Size > sizeof(TestDeviceDataType) || 
-            _parameters->Offset > sizeof(TestDeviceDataType) - _parameters->Size)
+    if (_parameters->Size > sizeof(SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue)) || 
+            _parameters->Offset > sizeof(SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue)) - _parameters->Size)
     {
         return SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR;
     }
