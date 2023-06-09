@@ -3,6 +3,7 @@
 
 static void RunAllTests(void)
 {
+   RUN_TEST_GROUP(Common);
 }
 
 int main(int argc, char const *argv[])

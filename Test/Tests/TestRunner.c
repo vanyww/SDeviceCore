@@ -1,0 +1,14 @@
+#include "unity_fixture.h"
+
+TEST_GROUP_RUNNER(Common)
+{
+    RUN_TEST_CASE(Common,MIN);
+    RUN_TEST_CASE(Common,MAX);
+    RUN_TEST_CASE(Common, SIZEOF_MEMBER);
+    RUN_TEST_CASE(Common, BIT_SIZEOF);
+    RUN_TEST_CASE(Common, BIT_SIZEOF_MEMBER);
+    RUN_TEST_CASE(Common, LENGTHOF);
+    RUN_TEST_CASE(Common,CLEAR_BITS);
+    RUN_TEST_CASE(Common,READ_BITS);
+    RUN_TEST_CASE(Common,SET_BITS);
+}
