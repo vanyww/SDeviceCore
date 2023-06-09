@@ -12,3 +12,12 @@ TEST_GROUP_RUNNER(Common)
    RUN_TEST_CASE(Common, READ_BITS);
    RUN_TEST_CASE(Common, SET_BITS);
 }
+
+
+TEST_GROUP_RUNNER(Weak)
+{
+   RUN_TEST_CASE(Weak, SDeviceAssert);
+   RUN_TEST_CASE(Weak, SDeviceHandledThrow);
+   RUN_TEST_CASE(Weak, SDeviceUnhandledThrow);
+   RUN_TEST_CASE(Weak, SDeviceLogStatus);
+}
