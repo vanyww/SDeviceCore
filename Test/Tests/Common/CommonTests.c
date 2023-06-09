@@ -12,16 +12,16 @@ TEST_TEAR_DOWN(Common)
 
 TEST(Common,MIN)
 {
-   float min = -100.2455432;
-   float max = 1000.23405872;
+   int min = -100;
+   int max = 1000;
 
    TEST_ASSERT_EQUAL(min, MIN(min, max));
 }
 
 TEST(Common, MAX)
 {
-   float min = -1432.2455432;
-   float max = 124510.23405872;
+   int min = -100;
+   int max = 1000;
 
    TEST_ASSERT_EQUAL(max, MAX(min, max));
 }
