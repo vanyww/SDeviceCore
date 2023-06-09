@@ -90,3 +90,10 @@ TEST(SDeviceCore, HandlePartialProperty)
    
    TEST_ASSERT(readValue == writeValue);
 }
+
+TEST_GROUP_RUNNER(SDeviceCore)
+{
+   RUN_TEST_CASE(SDeviceCore, HandleInitialization);
+   RUN_TEST_CASE(SDeviceCore, HandleProperty);
+   RUN_TEST_CASE(SDeviceCore, HandlePartialProperty);
+}

@@ -74,3 +74,11 @@ TEST(Weak, SDeviceLogStatus)
 
    TEST_ASSERT(handle == LastLogStatusHandle && SDeviceGetHandleLatestStatus(LastLogStatusHandle) == status);
 }
+
+TEST_GROUP_RUNNER(Weak)
+{
+   RUN_TEST_CASE(Weak, SDeviceAssert);
+   RUN_TEST_CASE(Weak, SDeviceHandledThrow);
+   RUN_TEST_CASE(Weak, SDeviceUnhandledThrow);
+   RUN_TEST_CASE(Weak, SDeviceLogStatus);
+}
