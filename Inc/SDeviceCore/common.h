@@ -7,6 +7,7 @@
 #pragma once
 
 #include <limits.h>
+#include <assert.h>
 
 /**
  * @defgroup common_operations Общие операции
@@ -168,5 +169,18 @@
 #define TRY_SUB_INT_CHECKED(value_0, value_1, result) (!__builtin_sub_overflow(value_0, value_1, result))
 
 #define TRY_MUL_INT_CHECKED(value_0, value_1, result) (!__builtin_mul_overflow(value_0, value_1, result))
+
+#define HAS_VALUE_UNSIGNED_TYPE(value) (((typeof(value))-1) >= 0)
+
+#define HAS_VALUE_SIGNED_TYPE(value) (((typeof(value))-1) < 0)
+
+#define CEIL_UINT_DIV(dividend, divisor) (                                                                             \
+   {                                                                                                                   \
+      __auto_type _dividend = (dividend);                                                                              \
+      __auto_type _divisor  = (divisor);                                                                               \
+      static_assert(HAS_VALUE_UNSIGNED_TYPE(_dividend), "Dividend value must be unsigned.");                           \
+      static_assert(HAS_VALUE_UNSIGNED_TYPE(_divisor), "Divisor value must be unsigned.");                             \
+      _dividend / _divisor + ((_dividend % _divisor != 0) ? 1 : 0);                                                    \
+   })
 
 /** @} */
