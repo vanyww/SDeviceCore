@@ -59,12 +59,13 @@ typedef struct
 /**
  * @brief Версия ядра фреймворка SDevice в виде составного литерала структуры SDeviceVersion.
  */
-#define SDEVICE_CORE_VERSION ((SDeviceVersion)                                                                         \
-{                                                                                                                      \
-   .Major = SDEVICE_CORE_VERSION_MAJOR,                                                                                \
-   .Minor = SDEVICE_CORE_VERSION_MINOR,                                                                                \
-   .Patch = SDEVICE_CORE_VERSION_PATCH                                                                                 \
-})
+#define SDEVICE_CORE_VERSION (                                                                                         \
+   (SDeviceVersion)                                                                                                    \
+   {                                                                                                                   \
+      .Major = SDEVICE_CORE_VERSION_MAJOR,                                                                             \
+      .Minor = SDEVICE_CORE_VERSION_MINOR,                                                                             \
+      .Patch = SDEVICE_CORE_VERSION_PATCH                                                                              \
+   })
 
 /**
  * @defgroup handles Дескрипторы модулей
@@ -282,12 +283,13 @@ typedef struct
  * @brief Создает объявление структуры данных дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_HANDLE_DECLARATION(device_name) struct SDEVICE_HANDLE(device_name)                                     \
-{                                                                                                                      \
-   SDeviceHandleHeader Header;                                                                                         \
-   SDEVICE_INIT_DATA(device_name) Init;                                                                                \
-   SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                          \
-}
+#define SDEVICE_HANDLE_DECLARATION(device_name)                                                                        \
+   struct SDEVICE_HANDLE(device_name)                                                                                  \
+   {                                                                                                                   \
+      SDeviceHandleHeader Header;                                                                                      \
+      SDEVICE_INIT_DATA(device_name) Init;                                                                             \
+      SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                       \
+   }
 
 /**
  * @brief Создает объявления псевдонимов для типов данных, ассоциированных с модулем.
@@ -418,12 +420,12 @@ typedef enum
  * @return `true`, если @p value является членом перечисления @ref SDevicePropertyOperationStatus, иначе - `false`.
  */
 #define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
-{                                                                                                                      \
-   __auto_type _value = (value);                                                                                       \
-   _value == SDEVICE_PROPERTY_OPERATION_STATUS_OK               ||                                                     \
-   _value == SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR ||                                                     \
-   _value == SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR;                                                       \
-})
+   {                                                                                                                   \
+      __auto_type _value = (value);                                                                                    \
+      _value == SDEVICE_PROPERTY_OPERATION_STATUS_OK               ||                                                  \
+      _value == SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR ||                                                  \
+      _value == SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR;                                                    \
+   })
 
 /**
  * @brief Мета-определение символа (имени) типа данных свойства.

@@ -50,11 +50,11 @@
  */
 #if !defined MIN || defined DOXYGEN
 #define MIN(value_0, value_1) (                                                                                        \
-{                                                                                                                      \
-   __auto_type _value_0 = (value_0);                                                                                   \
-   __auto_type _value_1 = (value_1);                                                                                   \
-   _value_0 < _value_1 ? _value_0 : _value_1;                                                                          \
-})
+   {                                                                                                                   \
+      __auto_type _value_0 = (value_0);                                                                                \
+      __auto_type _value_1 = (value_1);                                                                                \
+      _value_0 < _value_1 ? _value_0 : _value_1;                                                                       \
+   })
 #endif
 
 /**
@@ -67,11 +67,11 @@
  */
 #if !defined MAX || defined DOXYGEN
 #define MAX(value_0, value_1) (                                                                                        \
-{                                                                                                                      \
-   __auto_type _value_0 = (value_0);                                                                                   \
-   __auto_type _value_1 = (value_1);                                                                                   \
-   _value_0 > _value_1 ? _value_0 : _value_1;                                                                          \
-})
+   {                                                                                                                   \
+      __auto_type _value_0 = (value_0);                                                                                \
+      __auto_type _value_1 = (value_1);                                                                                \
+      _value_0 > _value_1 ? _value_0 : _value_1;                                                                       \
+   })
 #endif
 
 /**

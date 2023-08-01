@@ -108,11 +108,11 @@ typedef const void * CExceptionType;
  */
 #if defined SDEVICE_USE_ASSERT || defined DOXYGEN
 #define SDeviceLogStatus(handle, status) (                                                                             \
-{                                                                                                                      \
-   SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                     \
-   _header->LatestStatus = (status);                                                                                   \
-   SDeviceProcessLogStatus(handle);                                                                                    \
-})
+   {                                                                                                                   \
+      SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
+      _header->LatestStatus = (status);                                                                                \
+      SDeviceProcessLogStatus(handle);                                                                                 \
+   })
 #else
 #define SDeviceLogStatus(handle, status) ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
 #endif
@@ -124,11 +124,11 @@ typedef const void * CExceptionType;
  * @param exception Идентификатор исключения (int32_t).
  */
 #define SDeviceThrow(handle, exception) (                                                                              \
-{                                                                                                                      \
-   SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                     \
-   _header->LatestStatus = (exception);                                                                                \
-   Throw(handle);                                                                                                      \
-})
+   {                                                                                                                   \
+      SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
+      _header->LatestStatus = (exception);                                                                             \
+      Throw(handle);                                                                                                   \
+   })
 
 /**
  * @brief Функция обработки проваленной проверки утверждения.
