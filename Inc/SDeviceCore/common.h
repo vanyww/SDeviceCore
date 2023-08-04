@@ -155,25 +155,97 @@
 #define READ_BITS(value, bits) ((value) & (bits))
 #endif
 
+/**
+ * @brief Проверяет, возможно ли целочисленное сложение без переполнения.
+ * @param value_0 Первое значение.
+ * @param value_1 Второе значение.
+ * @return `true`, если операция @p value_0 + @p value_1 не вызовет переполнения, иначе - `false`.
+ */
+#if !defined(WILL_INT_ADD_OVERFLOW) || defined(DOXYGEN)
 #define WILL_INT_ADD_OVERFLOW(value_0, value_1)                                                                        \
    __builtin_add_overflow_p(value_0, value_1, (typeof((value_0) + (value_1)))0)
+#endif
 
+/**
+ * @brief Проверяет, возможно ли целочисленное вычитание без переполнения.
+ * @param value_0 Уменьшаемое.
+ * @param value_1 Вычитаемое.
+ * @return `true`, если операция @p value_0 - @p value_1 не вызовет переполнения, иначе - `false`.
+ */
+#if !defined(WILL_INT_SUB_OVERFLOW) || defined(DOXYGEN)
 #define WILL_INT_SUB_OVERFLOW(value_0, value_1)                                                                        \
    __builtin_sub_overflow_p(value_0, value_1, (typeof((value_0) - (value_1)))0)
+#endif
 
+/**
+ * @brief Проверяет, возможно ли целочисленное умножение без переполнения.
+ * @param value_0 Первое значение.
+ * @param value_1 Второе значение.
+ * @return `true`, если операция @p value_0 * @p value_1 не вызовет переполнения, иначе - `false`.
+ */
+#if !defined(WILL_INT_MUL_OVERFLOW) || defined(DOXYGEN)
 #define WILL_INT_MUL_OVERFLOW(value_0, value_1)                                                                        \
    __builtin_mul_overflow_p(value_0, value_1, (typeof((value_0) * (value_1)))0)
+#endif
 
+/**
+ * @brief Производит целочисленное сложение с проверкой на переполнение.
+ * @param value_0 Первое значение.
+ * @param value_1 Второе значение.
+ * @param result Результат исполнения операции @p value_0 + @p value_1.
+ * @return `true`, если операция @p value_0 + @p value_1 не вызвала переполнения, иначе - `false`.
+ */
+#if !defined(TRY_ADD_INT_CHECKED) || defined(DOXYGEN)
 #define TRY_ADD_INT_CHECKED(value_0, value_1, result) (!__builtin_add_overflow(value_0, value_1, result))
+#endif
 
+/**
+ * @brief Производит целочисленное вычитание с проверкой на переполнение.
+ * @param value_0 Уменьшаемое.
+ * @param value_1 Вычитаемое.
+ * @param result Результат исполнения операции @p value_0 - @p value_1.
+ * @return `true`, если операция @p value_0 - @p value_1 не вызвала переполнения, иначе - `false`.
+ */
+#if !defined(TRY_SUB_INT_CHECKED) || defined(DOXYGEN)
 #define TRY_SUB_INT_CHECKED(value_0, value_1, result) (!__builtin_sub_overflow(value_0, value_1, result))
+#endif
 
+/**
+ * @brief Производит целочисленное умножение с проверкой на переполнение.
+ * @param value_0 Первое значение.
+ * @param value_1 Второе значение.
+ * @param result Результат исполнения операции @p value_0 * @p value_1.
+ * @return `true`, если операция @p value_0 * @p value_1 не вызвала переполнения, иначе - `false`.
+ */
+#if !defined(TRY_MUL_INT_CHECKED) || defined(DOXYGEN)
 #define TRY_MUL_INT_CHECKED(value_0, value_1, result) (!__builtin_mul_overflow(value_0, value_1, result))
+#endif
 
+/**
+ * @brief Проверяет, является ли тип переданного значения беззнаковым.
+ * @param value Значение.
+ * @return `true`, если тип значения @p value - беззнаковый, иначе - `false`.
+ */
+#if !defined(HAS_VALUE_UNSIGNED_TYPE) || defined(DOXYGEN)
 #define HAS_VALUE_UNSIGNED_TYPE(value) (((typeof(value))-1) >= 0)
+#endif
 
+/**
+ * @brief Проверяет, является ли тип переданного значения знаковым.
+ * @param value Значение.
+ * @return `true`, если тип значения @p value - знаковый, иначе - `false`.
+ */
+#if !defined(HAS_VALUE_SIGNED_TYPE) || defined(DOXYGEN)
 #define HAS_VALUE_SIGNED_TYPE(value) (((typeof(value))-1) < 0)
+#endif
 
+/**
+ * @brief Производит беззнаковое целочисленное деление с округлением вверх.
+ * @param dividend Делимое.
+ * @param divisor Делитель.
+ * @return Результат исполнения операции ⌈ @p value_0 / @p value_1 ⌉.
+ */
+#if !defined(CEIL_UINT_DIV) || defined(DOXYGEN)
 #define CEIL_UINT_DIV(dividend, divisor) (                                                                             \
    {                                                                                                                   \
       __auto_type _dividend = (dividend);                                                                              \
@@ -182,5 +254,6 @@
       static_assert(HAS_VALUE_UNSIGNED_TYPE(_divisor), "Divisor value must be unsigned.");                             \
       _dividend / _divisor + ((_dividend % _divisor != 0) ? 1 : 0);                                                    \
    })
+#endif
 
 /** @} */
