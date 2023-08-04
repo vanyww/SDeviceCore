@@ -154,4 +154,13 @@
 #define READ_BITS(value, bits) ((value) & (bits))
 #endif
 
+#define WILL_INT_ADD_OVERFLOW(value_0, value_1)                                                                        \
+   __builtin_add_overflow_p(value_0, value_1, (typeof((value_0) + (value_1)))0)
+
+#define WILL_INT_SUB_OVERFLOW(value_0, value_1)                                                                        \
+   __builtin_sub_overflow_p(value_0, value_1, (typeof((value_0) - (value_1)))0)
+
+#define WILL_INT_MUL_OVERFLOW(value_0, value_1)                                                                        \
+   __builtin_mul_overflow_p(value_0, value_1, (typeof((value_0) * (value_1)))0)
+
 /** @} */
