@@ -163,4 +163,10 @@
 #define WILL_INT_MUL_OVERFLOW(value_0, value_1)                                                                        \
    __builtin_mul_overflow_p(value_0, value_1, (typeof((value_0) * (value_1)))0)
 
+#define TRY_ADD_INT_CHECKED(value_0, value_1, result) (!__builtin_add_overflow(value_0, value_1, result))
+
+#define TRY_SUB_INT_CHECKED(value_0, value_1, result) (!__builtin_sub_overflow(value_0, value_1, result))
+
+#define TRY_MUL_INT_CHECKED(value_0, value_1, result) (!__builtin_mul_overflow(value_0, value_1, result))
+
 /** @} */
