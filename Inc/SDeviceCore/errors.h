@@ -1,10 +1,12 @@
-#pragma once
-
 /**
  * @file errors.h
  * @brief Инструменты обработки ошибок.
  * @details Проверка утверждений, логирование и механизм исключений на основе библиотеки CException.
  */
+
+#pragma once
+
+#include "config.h"
 
 /**
  * @defgroup error_processing Обработка ошибок
@@ -14,8 +16,6 @@
  * @snippet core/core.c error_processing_example
  * @{
  */
-
-#include "config.h"
 
 /**
  * @brief Тип данных исключения.

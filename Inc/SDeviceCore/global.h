@@ -1,5 +1,3 @@
-#pragma once
-
 /**
  * @file global.h
  * @brief Публичный интерфейс глобального модуля (`CoreGlobal`) и внешний символ его дескриптора.
@@ -8,14 +6,16 @@
  * Функции создания и удаления дескриптора модуля отсутствуют, единственный дескриптор создается статически.
  */
 
+#pragma once
+
+#include "SDeviceCore/core.h"
+
 /**
  * @defgroup global_module Глобальный модуль
  * @brief @copybrief global.h
  * @details @copydetails global.h
  * @{
  */
-
-#include "SDeviceCore/core.h"
 
 /**
  * @brief Предварительное объявление типа данных дескриптора глобального модуля.

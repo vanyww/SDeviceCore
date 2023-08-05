@@ -8,16 +8,16 @@
 
 #include <stddef.h>
 
+#if defined SDEVICE_CORE_USE_EXTERNAL_CONFIG
+#include "sdevice_core_config.h"
+#endif
+
 /**
  * @defgroup configuration Конфигурация
  * @brief @copybrief config.h
  * @details @copydetails config.h
  * @{
  */
-
-#if defined SDEVICE_CORE_USE_EXTERNAL_CONFIG
-#include "sdevice_core_config.h"
-#endif
 
 /**
  * @brief Флаг использования внешнего файла конфигурации.
