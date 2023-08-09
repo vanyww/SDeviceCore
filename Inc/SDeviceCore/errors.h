@@ -106,15 +106,17 @@ typedef const void * CExceptionType;
  * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
  * @param status Идентификатор состояния (int32_t).
  */
+#define SDeviceLogStatus(handle, status) SDeviceLogStatusWithExtras(handle, status, NULL, 0)
 #if defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
-#define SDeviceLogStatus(handle, status) (                                                                             \
+#define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                               \
    {                                                                                                                   \
       SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
       _header->LatestStatus = (status);                                                                                \
-      SDeviceProcessLogStatus(handle);                                                                                 \
+      SDeviceProcessLogStatus(handle, extras, extrasSize);                                                             \
    })
 #else
-#define SDeviceLogStatus(handle, status) ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
+#define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize)                                                 \
+   ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
 #endif
 
 /**
@@ -155,7 +157,7 @@ void SDeviceProcessAssertFail(void);
  * @note Определена в виде слабого символа, реализация по-умолчанию - пустая функция.
  * @param[in] handle Дескриптор, ассоциированный с логируемым событием.
  */
-void SDeviceProcessLogStatus(const void *handle);
+void SDeviceProcessLogStatus(const void *handle, const void *extras, size_t extrasSize);
 
 /**
  * @brief Функция обработки необработанного явно исключения.

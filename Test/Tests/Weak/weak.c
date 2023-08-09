@@ -19,7 +19,7 @@ void SDeviceProcessUnhandledThrow(const void *_handle)
    LastUnhandledThrowHandle = _handle;
 }
 
-void SDeviceProcessLogStatus(const void *_handle)
+void SDeviceProcessLogStatus(const void *_handle, const void *extras, size_t extrasSize)
 {
    LastLogStatusHandle = _handle;
 }
