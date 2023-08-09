@@ -106,7 +106,7 @@ typedef const void * CExceptionType;
  * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
  * @param status Идентификатор состояния (int32_t).
  */
-#if defined(SDEVICE_USE_ASSERT) || defined(DOXYGEN)
+#if defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
 #define SDeviceLogStatus(handle, status) (                                                                             \
    {                                                                                                                   \
       SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
