@@ -12,7 +12,7 @@ __attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
    UNUSED_PARAMETER(line);
 #endif
 
-   for(;;) { }
+   for(;;);
 }
 
 __attribute__((weak)) void SDeviceProcessLogStatus(const void *handle)
@@ -24,7 +24,7 @@ __attribute__((weak)) void SDeviceProcessUnhandledThrow(CEXCEPTION_T handle)
 {
    UNUSED_PARAMETER(handle);
 
-   for(;;) { }
+   for(;;);
 }
 
 #include "../Submodules/cexception/lib/CException.c"
