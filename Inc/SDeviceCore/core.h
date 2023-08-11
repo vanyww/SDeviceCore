@@ -409,22 +409,22 @@ static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *han
  */
 typedef enum
 {
-   SDEVICE_PROPERTY_OPERATION_STATUS_OK,               /**< Операция выполнена успешно. */
-   SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR, /**< Ошибка проверки значения. */
-   SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR  /**< Ошибка во время записи или чтения значения. */
-} SDevicePropertyOperationStatus;
+   SDEVICE_PROPERTY_STATUS_OK,               /**< Операция выполнена успешно. */
+   SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR, /**< Ошибка проверки значения. */
+   SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR  /**< Ошибка во время записи или чтения значения. */
+} SDevicePropertyStatus;
 
 /**
- * @brief Проверяет значение на соответствие членам перечисления @ref SDevicePropertyOperationStatus.
+ * @brief Проверяет значение на соответствие членам перечисления @ref SDevicePropertyStatus.
  * @param[in] value Значение, соответствие которого необходимо проверить.
- * @return `true`, если @p value является членом перечисления @ref SDevicePropertyOperationStatus, иначе - `false`.
+ * @return `true`, если @p value является членом перечисления @ref SDevicePropertyStatus, иначе - `false`.
  */
 #define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
    {                                                                                                                   \
       __auto_type _value = (value);                                                                                    \
-      _value == SDEVICE_PROPERTY_OPERATION_STATUS_OK               ||                                                  \
-      _value == SDEVICE_PROPERTY_OPERATION_STATUS_VALIDATION_ERROR ||                                                  \
-      _value == SDEVICE_PROPERTY_OPERATION_STATUS_PROCESSING_ERROR;                                                    \
+      _value == SDEVICE_PROPERTY_STATUS_OK               ||                                                            \
+      _value == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                            \
+      _value == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                              \
    })
 
 /**
@@ -461,7 +461,7 @@ typedef enum
 /**
  * @brief Тип возвращаемого функцией записи обыкновенного свойства значения.
  */
-#define SDEVICE_SET_PROPERTY_RETURN_VALUE SDevicePropertyOperationStatus
+#define SDEVICE_SET_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 
 /**
  * @brief Список формальных параметров функции записи обыкновенного свойства.
@@ -509,7 +509,7 @@ typedef enum
 /**
  * @brief Тип возвращаемого функцией чтения обыкновенного свойства значения.
  */
-#define SDEVICE_GET_PROPERTY_RETURN_VALUE SDevicePropertyOperationStatus
+#define SDEVICE_GET_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 
 /**
  * @brief Список формальных параметров функции чтения обыкновенного свойства.
@@ -577,7 +577,7 @@ typedef struct
 /**
  * @brief Тип возвращаемого функцией записи частичного свойства значения.
  */
-#define SDEVICE_SET_PARTIAL_PROPERTY_RETURN_VALUE SDevicePropertyOperationStatus
+#define SDEVICE_SET_PARTIAL_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 
 /**
  * @brief Список формальных параметров функции записи частичного свойства.
@@ -636,7 +636,7 @@ typedef struct
 /**
  * @brief Тип возвращаемого функцией чтения частичного обыкновенного свойства значения.
  */
-#define SDEVICE_GET_PARTIAL_PROPERTY_RETURN_VALUE SDevicePropertyOperationStatus
+#define SDEVICE_GET_PARTIAL_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 
 /**
  * @brief Список формальных параметров функции чтения частичного свойства.

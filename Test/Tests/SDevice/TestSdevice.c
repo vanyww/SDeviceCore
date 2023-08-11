@@ -32,7 +32,7 @@ TEST(SDeviceCore,HandleInitialization)
    TEST_ASSERT(id == SDeviceGetHandleIdentifier(handle));
    TEST_ASSERT(TEST_DEVICE_STATUS_OK == SDeviceGetHandleLatestStatus(handle));
    TEST_ASSERT(SDEVICE_STRING_NAME(TestDevice) == SDeviceGetHandleSDeviceStringName(handle));
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_GET_PROPERTY(TestDevice, PropertyValue)(handle, &readValue));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PROPERTY(TestDevice, PropertyValue)(handle, &readValue));
    TEST_ASSERT(readValue.FirstValue == writeValue.FirstValue && readValue.SecondValue == writeValue.SecondValue);
 }
 
@@ -49,9 +49,9 @@ TEST(SDeviceCore, HandleProperty)
    SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue) writeValue ={ .FirstValue = 10, .SecondValue = 20 };
    SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue) readValue;
 
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_SET_PROPERTY(TestDevice,PropertyValue)(handle, &writeValue));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_SET_PROPERTY(TestDevice,PropertyValue)(handle, &writeValue));
    TEST_ASSERT(AssertFailedCalled != true);
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_GET_PROPERTY(TestDevice, PropertyValue)(handle, &readValue));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PROPERTY(TestDevice, PropertyValue)(handle, &readValue));
    TEST_ASSERT(AssertFailedCalled != true);
    TEST_ASSERT(readValue.FirstValue == writeValue.FirstValue && readValue.SecondValue == writeValue.SecondValue);
 }
@@ -68,12 +68,12 @@ TEST(SDeviceCore, HandlePartialProperty)
 
    SDEVICE_PROPERTY_TYPE(TestDevice, partialPropertyValue) writeValue = 100;
    SDeviceSetPartialPropertyParameters writeParam = { .Data = &writeValue, .Offset = 0, .Size = sizeof(writeValue)};
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_SET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &writeParam));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_SET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &writeParam));
    TEST_ASSERT(AssertFailedCalled != true);
 
    SDEVICE_PROPERTY_TYPE(TestDevice, partialPropertyValue) readValue;
    SDeviceGetPartialPropertyParameters readParam = { .Data = &readValue, .Offset = 0, .Size = sizeof(readValue)};
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_GET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &readParam));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &readParam));
    TEST_ASSERT(AssertFailedCalled != true);
 
    TEST_ASSERT(readValue == writeValue);
@@ -81,11 +81,11 @@ TEST(SDeviceCore, HandlePartialProperty)
    writeValue = 400;
    writeParam.Data = &writeValue;
    writeParam.Offset = sizeof(writeValue);
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_SET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &writeParam));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_SET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &writeParam));
    TEST_ASSERT(AssertFailedCalled != true);
    
    readParam.Offset = sizeof(readValue);
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_OPERATION_STATUS_OK, SDEVICE_GET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &readParam));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PARTIAL_PROPERTY(TestDevice, partialPropertyValue)(handle, &readParam));
    TEST_ASSERT(AssertFailedCalled != true);
    
    TEST_ASSERT(readValue == writeValue);
