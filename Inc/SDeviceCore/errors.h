@@ -18,29 +18,6 @@
  */
 
 /**
- * @brief Тип данных исключения.
- * @details Определение типа данных, представляющего собой исключение (дескриптор модуля).
- */
-typedef const void * CExceptionType;
-
-/**
- * @brief Параметр CException: "пустое" значение исключения (NULL).
- */
-#define CEXCEPTION_NONE (NULL)
-
-/**
- * @brief Параметр CException: тип данных исключения (#CExceptionType).
- */
-#define CEXCEPTION_T CExceptionType
-
-/**
- * @brief Параметр CException: функция обработки необработанного исключения (#SDeviceProcessUnhandledThrow).
- */
-#define CEXCEPTION_NO_CATCH_HANDLER(id) SDeviceProcessUnhandledThrow(id)
-
-#include "../../Submodules/cexception/lib/CException.h"
-
-/**
  * @brief Проверяет утверждение.
  * @details Проверяет утверждение @p expression, в случае его ложности вызывает функцию @ref SDeviceProcessAssertFail.
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression не будет исполнено.
@@ -136,11 +113,11 @@ typedef const void * CExceptionType;
  * @param handle Дескриптор, с которым должно быть ассоциировано выбрасываемое исключение.
  * @param exception Идентификатор исключения (int32_t).
  */
-#define SDeviceThrow(handle, exception) (                                                                              \
+#define SDevicePanic(handle, panic) (                                                                                  \
    {                                                                                                                   \
       SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
-      _header->LatestStatus = (exception);                                                                             \
-      Throw(handle);                                                                                                   \
+      _header->LatestStatus = (panic);                                                                                 \
+      SDeviceProcessPanic(handle);                                                                                     \
    })
 
 /**
@@ -178,6 +155,6 @@ void SDeviceProcessLogStatus(const void *handle, const void *extras, size_t extr
  * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.
  * @param[in] handle Дескриптор, ассоциированный с возникшим исключением.
  */
-void SDeviceProcessUnhandledThrow(CEXCEPTION_T handle);
+void SDeviceProcessPanic(const void *handle);
 
 /** @} */

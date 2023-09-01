@@ -22,11 +22,9 @@ __attribute__((weak)) void SDeviceProcessLogStatus(const void *handle, const voi
    UNUSED_PARAMETER(extrasSize);
 }
 
-__attribute__((weak)) void SDeviceProcessUnhandledThrow(CEXCEPTION_T handle)
+__attribute__((weak)) void SDeviceProcessPanic(const void *handle)
 {
    UNUSED_PARAMETER(handle);
 
    for(;;);
 }
-
-#include "../Submodules/cexception/lib/CException.c"

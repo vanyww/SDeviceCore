@@ -37,8 +37,8 @@ typedef enum
  */
 typedef enum
 {
-   CORE_GLOBAL_SDEVICE_EXCEPTION_OUT_OF_MEMORY /**< Недостаток выделяемой памяти. */
-} CoreGlobalSDeviceException;
+   CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY /**< Недостаток выделяемой памяти. */
+} CoreGlobalSDevicePanic;
 
 /**
  * @brief Объявление переменной строкового имени глобального модуля.
