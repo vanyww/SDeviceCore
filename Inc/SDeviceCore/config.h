@@ -22,11 +22,7 @@
 /**
  * @brief Флаг использования внешнего файла конфигурации.
  * @details Определение данного флага требует наличия файла `sdevice_core_config.h` в *include path*.
- * Файл создается пользователем и содержит параметры фреймворка SDevice и библиотеки CException.
- * @n Допускается изменение любых параметров, кроме:
- * - #CEXCEPTION_NO_CATCH_HANDLER
- * - #CEXCEPTION_NONE
- * - #CEXCEPTION_T
+ * Файл создается пользователем и содержит параметры фреймворка SDevice.
  */
 #if defined(DOXYGEN)
 #define SDEVICE_CORE_USE_EXTERNAL_CONFIG
@@ -112,4 +108,5 @@
 #endif
 
 /** @} */
+
 /** @} */

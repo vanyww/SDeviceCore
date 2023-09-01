@@ -1,7 +1,7 @@
 /**
  * @file errors.h
  * @brief Инструменты обработки ошибок.
- * @details Проверка утверждений, логирование и механизм исключений на основе библиотеки CException.
+ * @details Проверка утверждений, логирование и паники.
  */
 
 #pragma once
@@ -91,7 +91,7 @@
  * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
  * Также передает дополнительные параметры @p extras и @p extrasSize в @ref SDeviceProcessLogStatus.
  * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
- * @param status Идентификатор состояния (int32_t).
+ * @param status Идентификатор состояния типа @ref SDeviceHandleStatus.
  * @param extras Указатель на дополнительные данные.
  * @param extrasSize Размер (в байтах) дополнительных данных.
  */
@@ -108,10 +108,10 @@
 #endif
 
 /**
- * @brief Выбрасывает исключение.
- * @details Записывает состояние @p exception в дескриптор @p handle и выбрасывает последний в виде исключения.
- * @param handle Дескриптор, с которым должно быть ассоциировано выбрасываемое исключение.
- * @param exception Идентификатор исключения (int32_t).
+ * @brief Выбрасывает панику.
+ * @details Записывает состояние @p panic в дескриптор @p handle и выбрасывает последний в виде паники.
+ * @param handle Дескриптор, с которым должно быть ассоциировано выбрасываемая паника.
+ * @param panic Идентификатор паники типа @ref SDeviceHandleStatus.
  */
 #define SDevicePanic(handle, panic) (                                                                                  \
    {                                                                                                                   \
@@ -150,10 +150,10 @@ void SDeviceProcessAssertFail(void);
 void SDeviceProcessLogStatus(const void *handle, const void *extras, size_t extrasSize);
 
 /**
- * @brief Функция обработки необработанного явно исключения.
- * @details Вызывается в случае, если выброшенное (#SDeviceThrow) исключение не было обработано.
+ * @brief Функция обработки паники.
+ * @details Вызывается при выбрасывании паники макросом #SDevicePanic.
  * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.
- * @param[in] handle Дескриптор, ассоциированный с возникшим исключением.
+ * @param[in] handle Дескриптор, ассоциированный с возникшей паникой.
  */
 void SDeviceProcessPanic(const void *handle);
 

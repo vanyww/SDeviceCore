@@ -32,8 +32,8 @@ typedef enum
 } CoreGlobalSDeviceStatus;
 
 /**
- * @brief Исключения глобального модуля.
- * @details Значения используются для выбрасывания исключений фреймворка средствами #SDeviceThrow.
+ * @brief Паники глобального модуля.
+ * @details Значения используются для выбрасывания паник фреймворка средствами #SDevicePanic.
  */
 typedef enum
 {
