@@ -9,7 +9,7 @@
 #include <stddef.h>
 
 #if defined SDEVICE_CORE_USE_EXTERNAL_CONFIG
-#include "sdevice_core_config.h"
+   #include "sdevice_core_config.h"
 #endif
 
 /**
@@ -25,8 +25,8 @@
  * Файл создается пользователем и содержит параметры фреймворка SDevice.
  */
 #if defined(DOXYGEN)
-#define SDEVICE_CORE_USE_EXTERNAL_CONFIG
-#undef SDEVICE_CORE_USE_EXTERNAL_CONFIG
+   #define SDEVICE_CORE_USE_EXTERNAL_CONFIG
+   #undef SDEVICE_CORE_USE_EXTERNAL_CONFIG
 #endif
 
 /**
@@ -45,8 +45,8 @@
  * Отключение проверки утверждений позволяет уменьшить затраты памяти и повысить производительность.
  */
 #if defined(DOXYGEN)
-#define SDEVICE_USE_ASSERT
-#undef SDEVICE_USE_ASSERT
+   #define SDEVICE_USE_ASSERT
+   #undef SDEVICE_USE_ASSERT
 #endif
 
 /**
@@ -56,8 +56,8 @@
  * Отключение проверки внутренних утверждений модулей позволяет уменьшить затраты памяти и повысить производительность.
  */
 #if defined(DOXYGEN)
-#define SDEVICE_USE_DEBUG_ASSERT
-#undef SDEVICE_USE_DEBUG_ASSERT
+   #define SDEVICE_USE_DEBUG_ASSERT
+   #undef SDEVICE_USE_DEBUG_ASSERT
 #endif
 
 /**
@@ -66,8 +66,8 @@
  * Флаг позволяет уменьшить затраты памяти на проверку утверждений, исключив строковые пути к файлам и номера строк.
  */
 #if defined(DOXYGEN)
-#define SDEVICE_USE_SIMPLE_ASSERT
-#undef SDEVICE_USE_SIMPLE_ASSERT
+   #define SDEVICE_USE_SIMPLE_ASSERT
+   #undef SDEVICE_USE_SIMPLE_ASSERT
 #endif
 
 /**
@@ -76,8 +76,8 @@
  * Состояние флага включает или отключает логирование средствами условной компиляции.
  */
 #if defined(DOXYGEN)
-#define SDEVICE_USE_STATUS_LOG
-#undef SDEVICE_USE_STATUS_LOG
+   #define SDEVICE_USE_STATUS_LOG
+   #undef SDEVICE_USE_STATUS_LOG
 #endif
 
 /** @} */
@@ -95,7 +95,7 @@
  * @n @ref SDeviceHandleHeader::Context.
  */
 #if !defined(SDEVICE_CORE_GLOBAL_HANDLE_CONTEXT) || defined(DOXYGEN)
-#define SDEVICE_CORE_GLOBAL_HANDLE_CONTEXT NULL
+   #define SDEVICE_CORE_GLOBAL_HANDLE_CONTEXT NULL
 #endif
 
 /**
@@ -104,7 +104,7 @@
  * @n @ref SDeviceHandleHeader::Identifier.
  */
 #if !defined(SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER) || defined(DOXYGEN)
-#define SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER 0
+   #define SDEVICE_CORE_GLOBAL_HANDLE_IDENTIFIER 0
 #endif
 
 /** @} */
