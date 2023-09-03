@@ -253,17 +253,23 @@ typedef uint16_t SDeviceHandleIdentifier;
  */
 typedef int16_t SDeviceHandleStatus;
 
+typedef struct
+{
+   uint64_t High;
+   uint64_t Low;
+} SDeviceUuid;
+
 /**
  * @brief Заголовок дескриптора.
  * @details Структура данных, общая для всех дескрипторов.
  */
 typedef struct
 {
-   void                   *Context;           /**< Указатель на пользовательский контекст дескриптора. */
-   const void             *OwnerHandle;       /**< Указатель на владельца дескриптора (внешний дескриптор). */
-   const char             *SDeviceStringName; /**< Строковое имя модуля дескриптора. */
-   SDeviceHandleStatus     LatestStatus;      /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
-   SDeviceHandleIdentifier Identifier;        /**< Идентификатор дескриптора. */
+   void                   *Context;      /**< Указатель на пользовательский контекст дескриптора. */
+   const void             *OwnerHandle;  /**< Указатель на владельца дескриптора (внешний дескриптор). */
+   const SDeviceUuid      *Uuid;         /**< Строковое имя модуля дескриптора. */
+   SDeviceHandleStatus     LatestStatus; /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   SDeviceHandleIdentifier Identifier;   /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
 /**
@@ -319,20 +325,25 @@ typedef struct
  * @brief Мета-определение символа (имени) переменной строкового имени модуля.
  * @param device_name Название модуля.
  */
-#define SDEVICE_STRING_NAME(device_name) _##device_name##SDeviceStringName
+#define SDEVICE_UUID(device_name) _##device_name##SDeviceUuid
 
 /**
  * @brief Создает объявление переменной строкового имени модуля.
  * @param device_name Название модуля.
  */
-#define SDEVICE_STRING_NAME_DECLARATION(device_name) extern const char SDEVICE_STRING_NAME(device_name)[]
+#define SDEVICE_UUID_DECLARATION(device_name) extern const SDeviceUuid SDEVICE_UUID(device_name)
 
 /**
  * @brief Создает определение переменной строкового имени модуля.
  * @details В качестве значения используется стрингифицированное значение параметра @p device_name.
  * @param device_name Название модуля.
  */
-#define SDEVICE_STRING_NAME_DEFINITION(device_name) const char SDEVICE_STRING_NAME(device_name)[] = #device_name
+#define SDEVICE_UUID_DEFINITION(device_name, high, low)                                                                \
+   const SDeviceUuid SDEVICE_UUID(device_name) =                                                                       \
+   {                                                                                                                   \
+      .High = (high),                                                                                                  \
+      .Low  = (low)                                                                                                    \
+   }
 
 /** @} */
 
@@ -363,10 +374,10 @@ static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Строковое имя модуля дескриптора @p handle.
  */
-static inline const char * SDeviceGetHandleSDeviceStringName(const void *handle)
+static inline const SDeviceUuid * SDeviceGetHandleSDeviceUuid(const void *handle)
 {
    const SDeviceHandleHeader *header = handle;
-   return header->SDeviceStringName;
+   return header->Uuid;
 }
 
 /**

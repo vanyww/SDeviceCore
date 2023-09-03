@@ -43,7 +43,7 @@ typedef enum
 /**
  * @brief Объявление переменной строкового имени глобального модуля.
  */
-SDEVICE_STRING_NAME_DECLARATION(CoreGlobal);
+SDEVICE_UUID_DECLARATION(CoreGlobal);
 
 /**
  * @brief Дескриптор глобального модуля.
