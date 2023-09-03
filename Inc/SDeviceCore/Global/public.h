@@ -8,7 +8,9 @@
 
 #pragma once
 
-#include "SDeviceCore/core.h"
+#include "log.h"
+#include "config.h"
+#include "dependencies.h"
 
 /**
  * @defgroup global_module Глобальный модуль
@@ -17,19 +19,21 @@
  * @{
  */
 
+#define CORE_GLOBAL_SDEVICE_VERSION_MAJOR 2
+#define CORE_GLOBAL_SDEVICE_VERSION_MINOR 0
+#define CORE_GLOBAL_SDEVICE_VERSION_PATCH 0
+#define CORE_GLOBAL_SDEVICE_CORE_VERSION (                                                                             \
+   (SDeviceVersion)                                                                                                    \
+   {                                                                                                                   \
+      .Major = CORE_GLOBAL_SDEVICE_VERSION_MAJOR,                                                                      \
+      .Minor = CORE_GLOBAL_SDEVICE_VERSION_MINOR,                                                                      \
+      .Patch = CORE_GLOBAL_SDEVICE_VERSION_PATCH                                                                       \
+   })
+
 /**
  * @brief Предварительное объявление типа данных дескриптора глобального модуля.
  */
 SDEVICE_HANDLE_FORWARD_DECLARATION(CoreGlobal);
-
-/**
- * @brief Состояния глобального модуля.
- * @details Значения используются для логирования состояний фреймворка средствами #SDeviceLogStatus.
- */
-typedef enum
-{
-   CORE_GLOBAL_SDEVICE_STATUS_OK /**< Нормальная работа. */
-} CoreGlobalSDeviceStatus;
 
 /**
  * @brief Паники глобального модуля.
@@ -45,9 +49,7 @@ typedef enum
  */
 SDEVICE_UUID_DECLARATION(CoreGlobal);
 
-/**
- * @brief Дескриптор глобального модуля.
- */
-extern SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle;
+void CoreGlobalSDeviceThrowPanic(CoreGlobalSDevicePanic panic);
+void CoreGlobalSDeviceLogStatus(CoreGlobalSDeviceStatus status);
 
 /** @} */
