@@ -19,16 +19,13 @@
  * @{
  */
 
+/* 78be0543-4a77-11ee-8689-93f017f8080a */
+#define CORE_GLOBAL_SDEVICE_UUID_HIGH 0x78be05434a7711ee
+#define CORE_GLOBAL_SDEVICE_UUID_LOW  0x868993f017f8080a
+
 #define CORE_GLOBAL_SDEVICE_VERSION_MAJOR 2
 #define CORE_GLOBAL_SDEVICE_VERSION_MINOR 0
 #define CORE_GLOBAL_SDEVICE_VERSION_PATCH 0
-#define CORE_GLOBAL_SDEVICE_CORE_VERSION (                                                                             \
-   (SDeviceVersion)                                                                                                    \
-   {                                                                                                                   \
-      .Major = CORE_GLOBAL_SDEVICE_VERSION_MAJOR,                                                                      \
-      .Minor = CORE_GLOBAL_SDEVICE_VERSION_MINOR,                                                                      \
-      .Patch = CORE_GLOBAL_SDEVICE_VERSION_PATCH                                                                       \
-   })
 
 /**
  * @brief Предварительное объявление типа данных дескриптора глобального модуля.
@@ -47,7 +44,7 @@ typedef enum
 /**
  * @brief Объявление переменной строкового имени глобального модуля.
  */
-SDEVICE_UUID_DECLARATION(CoreGlobal);
+SDEVICE_IDENTITY_BLOCK_DECLARATION(CoreGlobal);
 
 void CoreGlobalSDeviceThrowPanic(CoreGlobalSDevicePanic panic);
 void CoreGlobalSDeviceLogStatus(CoreGlobalSDeviceStatus status);

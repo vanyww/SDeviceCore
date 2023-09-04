@@ -1,17 +1,27 @@
 #include "private.h"
 
-/* 78be0543-4a77-11ee-8689-93f017f8080a */
-SDEVICE_UUID_DEFINITION(CoreGlobal, 0x78be05434a7711ee, 0x868993f017f8080a);
+SDEVICE_IDENTITY_BLOCK_DEFINITION(CoreGlobal,
+                                  ((const SDeviceUuid)
+                                  {
+                                     .High = CORE_GLOBAL_SDEVICE_UUID_HIGH,
+                                     .Low  = CORE_GLOBAL_SDEVICE_UUID_LOW
+                                  }),
+                                  ((const SDeviceVersion)
+                                  {
+                                     .Major = CORE_GLOBAL_SDEVICE_VERSION_MAJOR,
+                                     .Minor = CORE_GLOBAL_SDEVICE_VERSION_MINOR,
+                                     .Patch = CORE_GLOBAL_SDEVICE_VERSION_PATCH
+                                  }));
 
 static SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(CoreGlobal))
 {
    .Header =
    {
-      .Context      = CORE_GLOBAL_SDEVICE_HANDLE_CONTEXT,
-      .OwnerHandle  = NULL,
-      .Uuid         = &SDEVICE_UUID(CoreGlobal),
-      .LatestStatus = CORE_GLOBAL_SDEVICE_STATUS_OK,
-      .Identifier   = CORE_GLOBAL_SDEVICE_HANDLE_IDENTIFIER
+      .Context       = CORE_GLOBAL_SDEVICE_HANDLE_CONTEXT,
+      .OwnerHandle   = NULL,
+      .IdentityBlock = &SDEVICE_IDENTITY_BLOCK(CoreGlobal),
+      .LatestStatus  = CORE_GLOBAL_SDEVICE_STATUS_OK,
+      .Identifier    = CORE_GLOBAL_SDEVICE_HANDLE_IDENTIFIER
    }
 };
 
