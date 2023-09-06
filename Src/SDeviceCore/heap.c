@@ -1,5 +1,5 @@
 #include "SDeviceCore/heap.h"
-#include "SDeviceCore/CoreGlobalSDevice/public.h"
+#include "CoreGlobalSDevice/public.h"
 
 #include <stdlib.h>
 
