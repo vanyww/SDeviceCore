@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SDeviceCore/Global/public.h"
+#include "SDeviceCore/CoreGlobalSDevice/public.h"
 
 #include "SDeviceCore/errors.h"
 

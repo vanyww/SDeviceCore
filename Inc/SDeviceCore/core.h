@@ -271,11 +271,11 @@ typedef struct
  */
 typedef struct
 {
-   void                       *Context;       /**< Указатель на пользовательский контекст дескриптора. */
-   const void                 *OwnerHandle;   /**< Указатель на владельца дескриптора (внешний дескриптор). */
-   const SDeviceIdentityBlock *IdentityBlock; /**< Строковое имя модуля дескриптора. */
-   SDeviceHandleStatus         LatestStatus;  /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
-   SDeviceHandleIdentifier     Identifier;    /**< Идентификатор дескриптора. */
+   void                       *Context;         /**< Указатель на пользовательский контекст дескриптора. */
+   const void                 *OwnerHandle;     /**< Указатель на владельца дескриптора (внешний дескриптор). */
+   const SDeviceIdentityBlock *IdentityBlock;   /**< Строковое имя модуля дескриптора. */
+   SDeviceHandleStatus         LatestStatus;    /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
+   SDeviceHandleIdentifier     Identifier; /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
 /**
