@@ -1,5 +1,5 @@
 /**
- * @file core.h
+ * @file SDeviceCore/core.h
  * @brief Инструменты создания модулей и взаимодействия с ними.
  * @details Модуль - единица разработки в рамках фреймворка SDevice.
  * Представляет собой набор объявлений и определений, описывающих структуры данных и алгоритмы взаимодействия с ними.
@@ -25,8 +25,8 @@
 
 /**
  * @defgroup sdevice_core Ядро фреймворка SDevice
- * @brief @copybrief core.h
- * @details @copydetails core.h
+ * @brief @copybrief SDeviceCore/core.h
+ * @details @copydetails SDeviceCore/core.h
  * @{
  */
 
@@ -37,8 +37,8 @@
 typedef struct
 {
    uint16_t Major; /**< Старшая компонента версии. */
-   uint8_t Minor;  /**< Средняя компонента версии. */
-   uint8_t Patch;  /**< Младшая компонента версии. */
+   uint8_t  Minor; /**< Средняя компонента версии. */
+   uint8_t  Patch; /**< Младшая компонента версии. */
 } SDeviceVersion;
 
 /**
@@ -253,16 +253,22 @@ typedef uint16_t SDeviceHandleIdentifier;
  */
 typedef int16_t SDeviceHandleStatus;
 
+/**
+ * @brief Тип данных UUID.
+ */
 typedef struct
 {
-   uint64_t High;
-   uint64_t Low;
+   uint64_t High; /**< Старшая часть UUID. */
+   uint64_t Low;  /**< Младшая часть UUID. */
 } SDeviceUuid;
 
+/**
+ * @brief Тип данных идентификационного блока модуля дескриптора.
+ */
 typedef struct
 {
-   SDeviceUuid    Uuid;
-   SDeviceVersion Version;
+   SDeviceUuid    Uuid;    /**< UUID модуля. */
+   SDeviceVersion Version; /**< Версия модуля. */
 } SDeviceIdentityBlock;
 
 /**
@@ -271,11 +277,11 @@ typedef struct
  */
 typedef struct
 {
-   void                       *Context;         /**< Указатель на пользовательский контекст дескриптора. */
-   const void                 *OwnerHandle;     /**< Указатель на владельца дескриптора (внешний дескриптор). */
-   const SDeviceIdentityBlock *IdentityBlock;   /**< Строковое имя модуля дескриптора. */
-   SDeviceHandleStatus         LatestStatus;    /**< Последнее состояние дескриптора (последняя ошибка или исключение). */
-   SDeviceHandleIdentifier     Identifier; /**< Идентификатор дескриптора. */
+   void                       *Context;       /**< Указатель на пользовательский контекст дескриптора. */
+   const void                 *OwnerHandle;   /**< Указатель на владельца дескриптора (внешний дескриптор). */
+   const SDeviceIdentityBlock *IdentityBlock; /**< Идентификационный блок модуля дескриптора. */
+   SDeviceHandleStatus         LatestStatus;  /**< Последнее состояние дескриптора (ошибка или исключение). */
+   SDeviceHandleIdentifier     Identifier;    /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
 /**
@@ -320,30 +326,30 @@ typedef struct
    typedef SDEVICE_HANDLE(device_name) ThisHandle
 
 /**
- * @defgroup string_name Строковое имя модуля
- * @brief Инструменты описания строкового имени модуля и взаимодействия с ним.
- * @details Строковое имя используется для идентификации дескриптора модуля.
+ * @defgroup identity_block Идентификационный блок модуля дескриптора
+ * @brief Инструменты описания идентификационного блока модуля дескриптора и взаимодействия с ним.
+ * @details Идентификационный блок используется для определения модуля по его дескриптору.
  * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @brief Мета-определение символа (имени) переменной строкового имени модуля.
+ * @brief Мета-определение символа (имени) переменной идентификационного блока модуля дескриптора.
  * @param device_name Название модуля.
  */
 #define SDEVICE_IDENTITY_BLOCK(device_name) _##device_name##SDeviceIdentityBlock
 
 /**
- * @brief Создает объявление переменной строкового имени модуля.
+ * @brief Создает объявление переменной идентификационного блока модуля дескриптора.
  * @param device_name Название модуля.
  */
 #define SDEVICE_IDENTITY_BLOCK_DECLARATION(device_name)                                                                \
    extern const SDeviceIdentityBlock SDEVICE_IDENTITY_BLOCK(device_name)
 
 /**
- * @brief Создает определение переменной строкового имени модуля.
- * @details В качестве значения используется стрингифицированное значение параметра @p device_name.
- * @param device_name Название модуля.
+ * @brief Создает определение переменной идентификационного блока модуля дескриптора.
+ * @param uuid UUID модуля типа @ref SDeviceUuid.
+ * @param version Версия модуля типа @ref SDeviceVersion.
  */
 #define SDEVICE_IDENTITY_BLOCK_DEFINITION(device_name, uuid, version)                                                  \
    const SDeviceIdentityBlock SDEVICE_IDENTITY_BLOCK(device_name) =                                                    \
@@ -377,9 +383,9 @@ static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
 }
 
 /**
- * @brief Возвращает строковое имя модуля дескриптора @ref SDeviceHandleHeader::SDeviceStringName.
+ * @brief Возвращает идентификационный блок модуля дескриптора @ref SDeviceHandleHeader::IdentityBlock.
  * @param[in] handle Дескриптор.
- * @return Строковое имя модуля дескриптора @p handle.
+ * @return Идентификационный блок модуля дескриптор @p handle.
  */
 static inline const SDeviceIdentityBlock * SDeviceGetHandleSDeviceIdentityBlock(const void *handle)
 {

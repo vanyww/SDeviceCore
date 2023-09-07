@@ -1,5 +1,5 @@
 /**
- * @file common.h
+ * @file SDeviceCore/common.h
  * @brief Различные распространенные общие операции.
  * @details Реализация часто применяемых при разработке модулей и не имеющих к ним прямого отношения операций.
  */
@@ -10,9 +10,9 @@
 #include <assert.h>
 
 /**
- * @defgroup common_operations Общие операции
- * @brief @copybrief common.h
- * @details @copydetails common.h
+ * @defgroup sdevice_core_common Общие операции
+ * @brief @copybrief SDeviceCore/common.h
+ * @details @copydetails SDeviceCore/common.h
  * @{
  */
 

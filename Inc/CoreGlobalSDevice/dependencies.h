@@ -1,3 +1,9 @@
+/**
+ * @file CoreGlobalSDevice/dependencies.h
+ * @brief Зависимости глобального модуля.
+ * @details Включения зависимостей глобального модуля и проверка их версий.
+ */
+
 #pragma once
 
 #include "SDeviceCore/core.h"

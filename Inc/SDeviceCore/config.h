@@ -1,5 +1,5 @@
 /**
- * @file config.h
+ * @file SDeviceCore/config.h
  * @brief Конфигурация ядра фреймворка SDevice.
  * @details Опции, позволяющие изменять поведение отдельных частей фреймворка.
  */
@@ -7,26 +7,27 @@
 #pragma once
 
 #include <stddef.h>
-
-#if defined SDEVICE_CORE_USE_EXTERNAL_CONFIG
-   #include "sdevice_core_config.h"
-#endif
+#include <stdbool.h>
 
 /**
- * @defgroup configuration Конфигурация
- * @brief @copybrief config.h
- * @details @copydetails config.h
+ * @defgroup sdevice_core_config Конфигурация
+ * @brief @copybrief SDeviceCore/config.h
+ * @details @copydetails SDeviceCore/config.h
  * @{
  */
 
 /**
- * @brief Флаг использования внешнего файла конфигурации.
- * @details Определение данного флага требует наличия файла `sdevice_core_config.h` в *include path*.
- * Файл создается пользователем и содержит параметры фреймворка SDevice.
+ * @brief Флаг использования внешней конфигурации фреймворка.
+ * @details Значение `true` данного флага включает использование внешней конфигурации фреймворка SDevice.
+ * Она может переопределять значения по умолчанию в файле `sdevice_core_config.h`.
+ * Этот файл должен быть создан и доступнен из `include paths` проекта.
  */
-#if defined(DOXYGEN)
-   #define SDEVICE_CORE_USE_EXTERNAL_CONFIG
-   #undef SDEVICE_CORE_USE_EXTERNAL_CONFIG
+#if !defined(SDEVICE_CORE_USE_EXTERNAL_CONFIG) || defined(DOXYGEN)
+   #define SDEVICE_CORE_USE_EXTERNAL_CONFIG false
+#endif
+
+#if SDEVICE_CORE_USE_EXTERNAL_CONFIG
+   #include "sdevice_core_config.h"
 #endif
 
 /**

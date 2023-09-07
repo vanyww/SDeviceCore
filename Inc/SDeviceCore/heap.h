@@ -1,5 +1,5 @@
 /**
- * @file heap.h
+ * @file SDeviceCore/heap.h
  * @brief Операции динамического выделения памяти.
  * @details Реализация механизма динамического выделения для использования при разработке модулей.
  */
@@ -9,9 +9,9 @@
 #include <stddef.h>
 
 /**
- * @defgroup dynamic_allocation Динамическое выделение памяти
- * @brief @copybrief heap.h
- * @details @copydetails heap.h
+ * @defgroup sdevice_core_malloc Динамическое выделение памяти
+ * @brief @copybrief SDeviceCore/heap.h
+ * @details @copydetails SDeviceCore/heap.h
  * @{
  */
 

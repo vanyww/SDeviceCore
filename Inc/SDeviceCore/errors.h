@@ -1,5 +1,5 @@
 /**
- * @file errors.h
+ * @file SDeviceCore/errors.h
  * @brief Инструменты обработки ошибок.
  * @details Проверка утверждений, логирование и паники.
  */
@@ -9,11 +9,9 @@
 #include "config.h"
 
 /**
- * @defgroup error_processing Обработка ошибок
- * @brief @copybrief errors.h
- * @details @copydetails errors.h
- * @n Пример использования:
- * @snippet core/core.c error_processing_example
+ * @defgroup sdevice_core_errors Обработка ошибок
+ * @brief @copybrief SDeviceCore/errors.h
+ * @details @copydetails SDeviceCore/errors.h
  * @{
  */
 
