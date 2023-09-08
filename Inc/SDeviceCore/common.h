@@ -162,7 +162,7 @@
  * @return `true`, если операция @p value_0 + @p value_1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_ADD_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_ADD_OVERFLOW(value_0, value_1) (                                                                   \
+   #define WILL_INT_ADD_OVERFLOW(value_0, value_1)                                                                     \
       __builtin_add_overflow_p(value_0, value_1, (typeof((value_0) + (value_1)))0)
 #endif
 
