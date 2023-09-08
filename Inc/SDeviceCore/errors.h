@@ -95,11 +95,11 @@
  */
 #if defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                            \
-      {                                                                                                                \
-         SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                               \
-         _header->LatestStatus = (status);                                                                             \
-         SDeviceProcessLogStatus(handle, extras, extrasSize);                                                          \
-      })
+   {                                                                                                                   \
+      SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
+      _header->LatestStatus = (status);                                                                                \
+      SDeviceProcessLogStatus(handle, extras, extrasSize);                                                             \
+   })
 #else
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize)                                              \
       ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
@@ -112,11 +112,11 @@
  * @param panic Идентификатор паники типа @ref SDeviceHandleStatus.
  */
 #define SDevicePanic(handle, panic) (                                                                                  \
-   {                                                                                                                   \
-      SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
-      _header->LatestStatus = (panic);                                                                                 \
-      SDeviceProcessPanic(handle);                                                                                     \
-   })
+{                                                                                                                      \
+   SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                     \
+   _header->LatestStatus = (panic);                                                                                    \
+   SDeviceProcessPanic(handle);                                                                                        \
+})
 
 /**
  * @brief Функция обработки проваленной проверки утверждения.
