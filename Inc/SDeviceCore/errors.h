@@ -21,8 +21,8 @@
  * @note Если флаг #SDEVICE_USE_ASSERT не объявлен, выражение @p expression не будет исполнено.
  * @param expression Утверждение, которое необходимо проверить.
  */
-#if defined(SDEVICE_USE_ASSERT) || defined(DOXYGEN)
-   #if defined(SDEVICE_USE_SIMPLE_ASSERT)
+#if SDEVICE_USE_ASSERT || defined(DOXYGEN)
+   #if SDEVICE_USE_SIMPLE_ASSERT
       #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
    #else
       #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
@@ -38,7 +38,7 @@
  * @param expression Выражение, исполняемое инвариантно.
  * @param condition Условие, применяемое к выражение в ходе проверки утверждения.
  */
-#if defined(SDEVICE_USE_ASSERT) || defined(DOXYGEN)
+#if SDEVICE_USE_ASSERT || defined(DOXYGEN)
    #define SDeviceEvalAssert(expression, condition) SDeviceAssert((expression) condition)
 #else
    #define SDeviceEvalAssert(expression, condition) expression
@@ -51,8 +51,8 @@
  * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression не будет исполнено.
  * @param expression Утверждение, которое необходимо проверить.
  */
-#if (defined(SDEVICE_USE_ASSERT) && defined(SDEVICE_USE_DEBUG_ASSERT)) || defined(DOXYGEN)
-   #if defined(SDEVICE_USE_SIMPLE_ASSERT)
+#if (SDEVICE_USE_ASSERT && SDEVICE_USE_DEBUG_ASSERT) || defined(DOXYGEN)
+   #if SDEVICE_USE_SIMPLE_ASSERT
       #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
    #else
       #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
@@ -69,7 +69,7 @@
  * @param expression Выражение, исполняемое инвариантно.
  * @param condition Условие, применяемое к выражение в ходе проверки утверждения.
  */
-#if (defined(SDEVICE_USE_ASSERT) && defined(SDEVICE_USE_DEBUG_ASSERT)) || defined(DOXYGEN)
+#if (SDEVICE_USE_ASSERT && SDEVICE_USE_DEBUG_ASSERT) || defined(DOXYGEN)
    #define SDeviceDebugEvalAssert(expression, condition) SDeviceDebugAssert((expression) condition)
 #else
    #define SDeviceDebugEvalAssert(expression, condition) expression
@@ -93,7 +93,7 @@
  * @param extras Указатель на дополнительные данные.
  * @param extrasSize Размер (в байтах) дополнительных данных.
  */
-#if defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
+#if SDEVICE_USE_STATUS_LOG || defined(DOXYGEN)
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                            \
    {                                                                                                                   \
       SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
@@ -131,7 +131,7 @@
  * @param[in] file Путь к файлу, в котором расположена проваленная проверка утверждения.
  * @param[in] line Строка файла, в которой расположена проваленная проверка утверждения.
  */
-#if !defined(SDEVICE_USE_SIMPLE_ASSERT) || defined(DOXYGEN)
+#if !SDEVICE_USE_SIMPLE_ASSERT || defined(DOXYGEN)
    void SDeviceProcessAssertFail(char *file, int line);
 #else
    void SDeviceProcessAssertFail(void);
