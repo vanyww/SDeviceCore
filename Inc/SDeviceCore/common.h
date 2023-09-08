@@ -156,10 +156,10 @@
 #endif
 
 /**
- * @brief Проверяет, возможно ли целочисленное сложение без переполнения.
+ * @brief Проверяет, вызовет ли целочисленное сложение переполнение.
  * @param value_0 Первое значение.
  * @param value_1 Второе значение.
- * @return `true`, если операция @p value_0 + @p value_1 не вызовет переполнения, иначе - `false`.
+ * @return `true`, если операция @p value_0 + @p value_1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_ADD_OVERFLOW) || defined(DOXYGEN)
    #define WILL_INT_ADD_OVERFLOW(value_0, value_1)                                                                     \
@@ -167,10 +167,10 @@
 #endif
 
 /**
- * @brief Проверяет, возможно ли целочисленное вычитание без переполнения.
+ * @brief Проверяет, вызовет ли целочисленное вычитание переполнение.
  * @param value_0 Уменьшаемое.
  * @param value_1 Вычитаемое.
- * @return `true`, если операция @p value_0 - @p value_1 не вызовет переполнения, иначе - `false`.
+ * @return `true`, если операция @p value_0 - @p value_1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_SUB_OVERFLOW) || defined(DOXYGEN)
    #define WILL_INT_SUB_OVERFLOW(value_0, value_1)                                                                     \
@@ -178,10 +178,10 @@
 #endif
 
 /**
- * @brief Проверяет, возможно ли целочисленное умножение без переполнения.
+ * @brief Проверяет, вызовет ли целочисленное умножение переполнение.
  * @param value_0 Первое значение.
  * @param value_1 Второе значение.
- * @return `true`, если операция @p value_0 * @p value_1 не вызовет переполнения, иначе - `false`.
+ * @return `true`, если операция @p value_0 * @p value_1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_MUL_OVERFLOW) || defined(DOXYGEN)
    #define WILL_INT_MUL_OVERFLOW(value_0, value_1)                                                                     \
