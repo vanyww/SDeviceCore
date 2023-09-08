@@ -45,9 +45,8 @@
  * Состояние флага включает или отключает проверку утверждений средствами условной компиляции.
  * Отключение проверки утверждений позволяет уменьшить затраты памяти и повысить производительность.
  */
-#if defined(DOXYGEN)
-   #define SDEVICE_USE_ASSERT
-   #undef SDEVICE_USE_ASSERT
+#if !defined(SDEVICE_USE_ASSERT) || defined(DOXYGEN)
+   #define SDEVICE_USE_ASSERT true
 #endif
 
 /**
@@ -56,9 +55,8 @@
  * Состояние флага включает или отключает проверку внутренних утверждений модулей средствами условной компиляции.
  * Отключение проверки внутренних утверждений модулей позволяет уменьшить затраты памяти и повысить производительность.
  */
-#if defined(DOXYGEN)
-   #define SDEVICE_USE_DEBUG_ASSERT
-   #undef SDEVICE_USE_DEBUG_ASSERT
+#if !defined(SDEVICE_USE_DEBUG_ASSERT) || defined(DOXYGEN)
+   #define SDEVICE_USE_DEBUG_ASSERT false
 #endif
 
 /**
@@ -66,9 +64,8 @@
  * @details Изменяет прототип с SDeviceProcessAssertFail(char *, int) на SDeviceProcessAssertFail(void).
  * Флаг позволяет уменьшить затраты памяти на проверку утверждений, исключив строковые пути к файлам и номера строк.
  */
-#if defined(DOXYGEN)
-   #define SDEVICE_USE_SIMPLE_ASSERT
-   #undef SDEVICE_USE_SIMPLE_ASSERT
+#if !defined(SDEVICE_USE_SIMPLE_ASSERT) || defined(DOXYGEN)
+   #define SDEVICE_USE_SIMPLE_ASSERT true
 #endif
 
 /**
@@ -76,9 +73,8 @@
  * @details Управляет поведением #SDeviceLogStatus.
  * Состояние флага включает или отключает логирование средствами условной компиляции.
  */
-#if defined(DOXYGEN)
-   #define SDEVICE_USE_STATUS_LOG
-   #undef SDEVICE_USE_STATUS_LOG
+#if !defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
+   #define SDEVICE_USE_STATUS_LOG true
 #endif
 
 /** @} */
