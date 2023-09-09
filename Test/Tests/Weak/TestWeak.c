@@ -30,12 +30,11 @@ TEST(Weak, SDevicePanic)
 
    _cleanup SDEVICE_HANDLE(TestDevice) *handle = SDEVICE_CREATE_HANDLE(TestDevice)(&init, owner, id, context);
 
-   int16_t status = TEST_DEVICE_SDEVICE_SOME_PANIC;
-
+   int16_t panic = TEST_DEVICE_SDEVICE_SOME_PANIC;
    SDevicePanic(handle, TEST_DEVICE_SDEVICE_SOME_PANIC);
 
    TEST_ASSERT_EQUAL(handle, LastThrowedPanicHandle);
-   TEST_ASSERT_EQUAL(status, SDeviceGetHandleLatestStatus(LastThrowedPanicHandle));
+   TEST_ASSERT_EQUAL(panic, SDeviceGetHandleLatestStatus(LastThrowedPanicHandle));
 }
 
 TEST(Weak, SDeviceLogStatus)
