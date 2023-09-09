@@ -3,11 +3,11 @@
 
 const void *LastThrowedPanicHandle;
 const void *LastLogStatusHandle;
-bool AssertFailedCalled;
+bool WasAssertFailedCalled;
 
 void SDeviceProcessAssertFail(char *file, int line)
 {
-   AssertFailedCalled = true;
+   WasAssertFailedCalled = true;
 }
 
 void SDeviceProcessPanic(const void *_handle)

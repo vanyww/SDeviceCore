@@ -1,62 +1,63 @@
 #include "SDeviceCore/errors.h"
 
-#include "../../Device/Inc/public.h"
-#include "../../Device/Mock/Errors/errors.h"
+#include "../../Mock/SDevice/Inc/public.h"
+#include "../../Mock/Errors/errors.h"
 
 #include "unity_fixture.h"
 
-#define _cleanup __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestDevice))))
+#define _cleanup __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(Test))))
 
-TEST_GROUP(Weak);
+TEST_GROUP(Errors);
 
-TEST_SETUP(Weak) {}
-TEST_TEAR_DOWN(Weak) {}
+TEST_SETUP(Errors) { }
+TEST_TEAR_DOWN(Errors) { }
 
-TEST(Weak, SDeviceAssert)
+TEST(Errors, SDeviceAssert)
 {
-   AssertFailedCalled = false;
+   WasAssertFailedCalled = false;
 
    SDeviceAssert(false);
-   TEST_ASSERT(AssertFailedCalled);
+
+   TEST_ASSERT(WasAssertFailedCalled);
 }
 
-TEST(Weak, SDevicePanic)
+TEST(Errors, SDevicePanic)
 {
-   void *context = NULL;
    void *owner = NULL;
-   SDeviceHandleIdentifier id = 0;
+   void *context = NULL;
+   SDeviceHandleIdentifier identifier = 0;
 
-   SDEVICE_INIT_DATA(TestDevice) init = { .testDeviceData = { .FirstValue = 0, .SecondValue = 0 } };
+   SDEVICE_INIT_DATA(Test) init = { .TestData = { .FirstValue = 0, .SecondValue = 0 } };
 
-   _cleanup SDEVICE_HANDLE(TestDevice) *handle = SDEVICE_CREATE_HANDLE(TestDevice)(&init, owner, id, context);
+   _cleanup SDEVICE_HANDLE(Test) *handle = SDEVICE_CREATE_HANDLE(Test)(&init, owner, identifier, context);
 
-   int16_t panic = TEST_DEVICE_SDEVICE_SOME_PANIC;
-   SDevicePanic(handle, TEST_DEVICE_SDEVICE_SOME_PANIC);
+   SDeviceHandleStatus panic = TEST_SDEVICE_SOME_PANIC;
+   SDevicePanic(handle, panic);
 
    TEST_ASSERT_EQUAL(handle, LastThrowedPanicHandle);
    TEST_ASSERT_EQUAL(panic, SDeviceGetHandleLatestStatus(LastThrowedPanicHandle));
 }
 
-TEST(Weak, SDeviceLogStatus)
+TEST(Errors, SDeviceLogStatus)
 {
-   void *context = NULL;
    void *owner = NULL;
-   SDeviceHandleIdentifier id = 0;
+   void *context = NULL;
+   SDeviceHandleIdentifier identifier = 0;
 
-   SDEVICE_INIT_DATA(TestDevice) init = { .testDeviceData = { .FirstValue = 0, .SecondValue = 0 } };
+   SDEVICE_INIT_DATA(Test) init = { .TestData = { .FirstValue = 0, .SecondValue = 0 } };
 
-   _cleanup SDEVICE_HANDLE(TestDevice) *handle = SDEVICE_CREATE_HANDLE(TestDevice)(&init, owner, id, context);
+   _cleanup SDEVICE_HANDLE(Test) *handle = SDEVICE_CREATE_HANDLE(Test)(&init, owner, identifier, context);
 
-   int16_t status = 0xAAAA;
+   SDeviceHandleStatus status = 0xAAAA;
    SDeviceLogStatus(handle, status);
 
    TEST_ASSERT_EQUAL(handle, LastLogStatusHandle);
    TEST_ASSERT_EQUAL(status, SDeviceGetHandleLatestStatus(LastLogStatusHandle));
 }
 
-TEST_GROUP_RUNNER(Weak)
+TEST_GROUP_RUNNER(Errors)
 {
-   RUN_TEST_CASE(Weak, SDeviceAssert);
-   RUN_TEST_CASE(Weak, SDevicePanic);
-   RUN_TEST_CASE(Weak, SDeviceLogStatus);
+   RUN_TEST_CASE(Errors, SDeviceAssert);
+   RUN_TEST_CASE(Errors, SDevicePanic);
+   RUN_TEST_CASE(Errors, SDeviceLogStatus);
 }

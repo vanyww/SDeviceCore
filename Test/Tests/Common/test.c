@@ -1,14 +1,13 @@
-#include "unity_fixture.h"
 #include "SDeviceCore/common.h"
 
-#include <stdbool.h>
+#include "unity_fixture.h"
 
 TEST_GROUP(Common);
 
-TEST_SETUP(Common){ }
-TEST_TEAR_DOWN(Common){ }
+TEST_SETUP(Common) { }
+TEST_TEAR_DOWN(Common) { }
 
-TEST(Common,MIN)
+TEST(Common, MIN)
 {
    int min = -100;
    int max = 1000;
@@ -29,7 +28,7 @@ TEST(Common, SIZEOF_MEMBER)
    typedef int TestType;
    typedef struct
    {
-      uint8_t Unused;
+      uint8_t  Unused;
       TestType TestValue;
    } TestStructure;
 
@@ -39,6 +38,7 @@ TEST(Common, SIZEOF_MEMBER)
 TEST(Common, BIT_SIZEOF)
 {
    typedef float TestType;
+
    int bit_size = sizeof(TestType) * CHAR_BIT;
 
    TEST_ASSERT_EQUAL(bit_size, BIT_SIZEOF(TestType));
@@ -52,6 +52,7 @@ TEST(Common, BIT_SIZEOF_MEMBER)
       uint8_t Unused;
       TestType TestValue;
    } TestStructure;
+
    int bit_size = BIT_SIZEOF(TestType);
 
    TEST_ASSERT_EQUAL(bit_size, BIT_SIZEOF_MEMBER(TestStructure, TestValue));
@@ -152,26 +153,26 @@ TEST(Common, TRY_MUL_INT_CHECKED)
 
 TEST(Common, HAS_VALUE_UNSIGNED_TYPE)
 {
+   int signedIntValue = 0;
    unsigned int unsignedIntValue = 0;
-   int signedIntValue            = 0;
 
-   TEST_ASSERT_EQUAL(true, HAS_VALUE_UNSIGNED_TYPE(unsignedIntValue));
-   TEST_ASSERT_EQUAL(false, HAS_VALUE_UNSIGNED_TYPE(signedIntValue));
+   TEST_ASSERT(HAS_VALUE_UNSIGNED_TYPE(unsignedIntValue));
+   TEST_ASSERT(!HAS_VALUE_UNSIGNED_TYPE(signedIntValue));
 }
 
 TEST(Common, HAS_VALUE_SIGNED_TYPE)
 {
+   int signedIntValue = 0;
    unsigned int unsignedIntValue = 0;
-   int signedIntValue   = 0;
 
-   TEST_ASSERT_EQUAL(true, HAS_VALUE_SIGNED_TYPE(signedIntValue));
-   TEST_ASSERT_EQUAL(false, HAS_VALUE_SIGNED_TYPE(unsignedIntValue));
+   TEST_ASSERT(HAS_VALUE_SIGNED_TYPE(signedIntValue));
+   TEST_ASSERT(!HAS_VALUE_SIGNED_TYPE(unsignedIntValue));
 }
 
 TEST(Common, CEIL_UINT_DIV)
 {
+   unsigned int divisor = 2;
    unsigned int divident = 5;
-   unsigned int divisor  = 2;
 
    TEST_ASSERT_EQUAL(3, CEIL_UINT_DIV(divident, divisor));
 
