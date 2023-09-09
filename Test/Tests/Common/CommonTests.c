@@ -1,6 +1,8 @@
 #include "unity_fixture.h"
 #include "SDeviceCore/common.h"
 
+#include <stdbool.h>
+
 TEST_GROUP(Common);
 
 TEST_SETUP(Common){ }
@@ -90,6 +92,93 @@ TEST(Common, READ_BITS)
    TEST_ASSERT_EQUAL(resultValue, READ_BITS(testValue, bits));
 }
 
+TEST(Common, WILL_INT_ADD_OVERFLOW)
+{
+   int minInt = INT_MIN;
+   int maxInt = INT_MAX;
+
+   TEST_ASSERT(WILL_INT_ADD_OVERFLOW(maxInt, maxInt));
+   TEST_ASSERT(!WILL_INT_ADD_OVERFLOW(minInt, maxInt));
+}
+
+TEST(Common, WILL_INT_SUB_OVERFLOW)
+{
+   int minInt = INT_MIN;
+   int maxInt = INT_MAX;
+
+   TEST_ASSERT(WILL_INT_SUB_OVERFLOW(minInt, maxInt));
+   TEST_ASSERT(!WILL_INT_SUB_OVERFLOW(maxInt, maxInt));
+}
+
+TEST(Common, WILL_INT_MUL_OVERFLOW)
+{
+   int maxInt = INT_MAX;
+
+   TEST_ASSERT(WILL_INT_MUL_OVERFLOW(maxInt, maxInt));
+   TEST_ASSERT(!WILL_INT_SUB_OVERFLOW(maxInt, 0));
+}
+
+TEST(Common, TRY_ADD_INT_CHECKED)
+{
+   int minInt = INT_MIN;
+   int maxInt = INT_MAX;
+   int result;
+
+   TEST_ASSERT(TRY_ADD_INT_CHECKED(maxInt, minInt, &result));
+   TEST_ASSERT_EQUAL(-1, result);
+   TEST_ASSERT(!TRY_ADD_INT_CHECKED(maxInt, maxInt, &result));
+}
+
+TEST(Common, TRY_SUB_INT_CHECKED)
+{
+   int minInt = INT_MIN;
+   int maxInt = INT_MAX;
+   int result;
+
+   TEST_ASSERT(TRY_SUB_INT_CHECKED(maxInt, maxInt, &result));
+   TEST_ASSERT_EQUAL(0, result);
+   TEST_ASSERT(!TRY_SUB_INT_CHECKED(minInt, maxInt, &result));
+}
+
+TEST(Common, TRY_MUL_INT_CHECKED)
+{
+   int maxInt = INT_MAX;
+   int result;
+
+   TEST_ASSERT(TRY_MUL_INT_CHECKED(maxInt, 0, &result));
+   TEST_ASSERT_EQUAL(0, result);
+   TEST_ASSERT(!TRY_MUL_INT_CHECKED(maxInt, maxInt, &result));
+}
+
+TEST(Common, HAS_VALUE_UNSIGNED_TYPE)
+{
+   unsigned int unsignedIntValue = 0;
+   int signedIntValue            = 0;
+
+   TEST_ASSERT_EQUAL(true, HAS_VALUE_UNSIGNED_TYPE(unsignedIntValue));
+   TEST_ASSERT_EQUAL(false, HAS_VALUE_UNSIGNED_TYPE(signedIntValue));
+}
+
+TEST(Common, HAS_VALUE_SIGNED_TYPE)
+{
+   unsigned int unsignedIntValue = 0;
+   int signedIntValue   = 0;
+
+   TEST_ASSERT_EQUAL(true, HAS_VALUE_SIGNED_TYPE(signedIntValue));
+   TEST_ASSERT_EQUAL(false, HAS_VALUE_SIGNED_TYPE(unsignedIntValue));
+}
+
+TEST(Common, CEIL_UINT_DIV)
+{
+   unsigned int divident = 5;
+   unsigned int divisor  = 2;
+
+   TEST_ASSERT_EQUAL(3, CEIL_UINT_DIV(divident, divisor));
+
+   divisor = divident;
+   TEST_ASSERT_EQUAL(1, CEIL_UINT_DIV(divident, divisor));
+}
+
 TEST_GROUP_RUNNER(Common)
 {
    RUN_TEST_CASE(Common, MIN);
@@ -101,4 +190,13 @@ TEST_GROUP_RUNNER(Common)
    RUN_TEST_CASE(Common, CLEAR_BITS);
    RUN_TEST_CASE(Common, READ_BITS);
    RUN_TEST_CASE(Common, SET_BITS);
+   RUN_TEST_CASE(Common, WILL_INT_ADD_OVERFLOW);
+   RUN_TEST_CASE(Common, WILL_INT_SUB_OVERFLOW);
+   RUN_TEST_CASE(Common, WILL_INT_MUL_OVERFLOW);
+   RUN_TEST_CASE(Common, TRY_ADD_INT_CHECKED);
+   RUN_TEST_CASE(Common, TRY_SUB_INT_CHECKED);
+   RUN_TEST_CASE(Common, TRY_MUL_INT_CHECKED);
+   RUN_TEST_CASE(Common, HAS_VALUE_UNSIGNED_TYPE);
+   RUN_TEST_CASE(Common, HAS_VALUE_SIGNED_TYPE);
+   RUN_TEST_CASE(Common, CEIL_UINT_DIV);
 }
