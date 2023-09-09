@@ -9,8 +9,8 @@
 
 TEST_GROUP(Weak);
 
-TEST_SETUP(Weak){}
-TEST_TEAR_DOWN(Weak){}
+TEST_SETUP(Weak) {}
+TEST_TEAR_DOWN(Weak) {}
 
 TEST(Weak, SDeviceAssert)
 {
@@ -26,7 +26,7 @@ TEST(Weak, SDevicePanic)
    void *owner = NULL;
    SDeviceHandleIdentifier id = 0;
 
-   SDEVICE_INIT_DATA(TestDevice) init = { .testDeviceData ={ .FirstValue = 0, .SecondValue = 0 } };
+   SDEVICE_INIT_DATA(TestDevice) init = { .testDeviceData = { .FirstValue = 0, .SecondValue = 0 } };
 
    _cleanup SDEVICE_HANDLE(TestDevice) *handle = SDEVICE_CREATE_HANDLE(TestDevice)(&init, owner, id, context);
 
@@ -48,7 +48,6 @@ TEST(Weak, SDeviceLogStatus)
    _cleanup SDEVICE_HANDLE(TestDevice) *handle = SDEVICE_CREATE_HANDLE(TestDevice)(&init, owner, id, context);
 
    int16_t status = 0xAAAA;
-
    SDeviceLogStatus(handle, status);
 
    TEST_ASSERT_EQUAL(handle, LastLogStatusHandle);
