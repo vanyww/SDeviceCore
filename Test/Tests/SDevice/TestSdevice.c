@@ -5,6 +5,15 @@
 
 #define _cleanup __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestDevice))))
 
+static bool IsIdentityBlocksEqual(const SDeviceIdentityBlock *expected, const SDeviceIdentityBlock *actual)
+{
+   return expected->Uuid.High == actual->Uuid.High         &&
+          expected->Uuid.Low == actual->Uuid.Low           &&
+          expected->Version.Major == actual->Version.Major &&
+          expected->Version.Minor == actual->Version.Minor &&
+          expected->Version.Patch == actual->Version.Patch;
+}
+
 TEST_GROUP(SDeviceCore);
 
 TEST_SETUP(SDeviceCore){ }
