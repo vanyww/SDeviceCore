@@ -1,7 +1,7 @@
-#include "TestCore.h"
+#include "../../Device/Inc/public.h"
+#include "../../Device/Mock/Errors/errors.h"
+
 #include "unity_fixture.h"
-#include "SDeviceCore/core.h"
-#include "../Weak/weak.h"
 
 #define _cleanup __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(TestDevice))))
 
