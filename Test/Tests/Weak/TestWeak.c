@@ -52,7 +52,8 @@ TEST(Weak, SDeviceLogStatus)
 
    SDeviceLogStatus(handle, status);
 
-   TEST_ASSERT(handle == LastLogStatusHandle && SDeviceGetHandleLatestStatus(LastLogStatusHandle) == status);
+   TEST_ASSERT_EQUAL(handle, LastLogStatusHandle);
+   TEST_ASSERT_EQUAL(status, SDeviceGetHandleLatestStatus(LastLogStatusHandle));
 }
 
 TEST_GROUP_RUNNER(Weak)
