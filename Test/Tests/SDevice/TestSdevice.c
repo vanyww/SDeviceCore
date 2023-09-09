@@ -40,7 +40,7 @@ TEST(SDeviceCore,HandleInitialization)
    TEST_ASSERT(owner == SDeviceGetHandleOwnerHandle(handle));
    TEST_ASSERT(id == SDeviceGetHandleIdentifier(handle));
    TEST_ASSERT(TEST_DEVICE_STATUS_OK == SDeviceGetHandleLatestStatus(handle));
-   TEST_ASSERT(SDEVICE_STRING_NAME(TestDevice) == SDeviceGetHandleSDeviceStringName(handle));
+   TEST_ASSERT(IsIdentityBlocksEqual(&SDEVICE_IDENTITY_BLOCK(TestDevice), SDeviceGetHandleSDeviceIdentityBlock(handle)));
    TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PROPERTY(TestDevice, PropertyValue)(handle, &readValue));
    TEST_ASSERT(readValue.FirstValue == writeValue.FirstValue && readValue.SecondValue == writeValue.SecondValue);
 }
