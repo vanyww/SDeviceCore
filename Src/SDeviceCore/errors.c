@@ -7,7 +7,7 @@
    __attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
 #endif
 {
-#if SDEVICE_USE_SIMPLE_ASSERT
+#if !SDEVICE_USE_SIMPLE_ASSERT
    UNUSED_PARAMETER(file);
    UNUSED_PARAMETER(line);
 #endif
