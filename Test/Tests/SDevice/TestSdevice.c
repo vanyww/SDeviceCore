@@ -18,8 +18,8 @@ TEST(SDeviceCore,HandleInitialization)
    void *context = (void*)"hello_from_test";
    void *owner = (void*)0x123;
    SDeviceHandleIdentifier id = 0;
-   TestDeviceDataType writeValue = { .FirstValue = 1, .SecondValue = 2 };
-   TestDeviceDataType readValue;
+   SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue) writeValue = { .FirstValue = 1, .SecondValue = 2 };
+   SDEVICE_PROPERTY_TYPE(TestDevice, PropertyValue) readValue;
 
    SDEVICE_INIT_DATA(TestDevice) init = { .testDeviceData = writeValue };
 
