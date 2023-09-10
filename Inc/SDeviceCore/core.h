@@ -44,7 +44,7 @@ typedef struct
 /**
  * @brief Старшая компонента версии ядра фреймворка SDevice.
  */
-#define SDEVICE_CORE_VERSION_MAJOR 8
+#define SDEVICE_CORE_VERSION_MAJOR 9
 
 /**
  * @brief Средняя компонента версии ядра фреймворка SDevice.
