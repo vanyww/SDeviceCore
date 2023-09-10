@@ -2,9 +2,9 @@
 #include "SDeviceCore/common.h"
 
 #if SDEVICE_USE_SIMPLE_ASSERT
-   __attribute__((weak)) void SDeviceProcessAssertFail(void)
+__attribute__((weak)) void SDeviceProcessAssertFail(void)
 #else
-   __attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
+__attribute__((weak)) void SDeviceProcessAssertFail(char *file, int line)
 #endif
 {
 #if !SDEVICE_USE_SIMPLE_ASSERT

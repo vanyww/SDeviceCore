@@ -132,9 +132,9 @@
  * @param[in] line Строка файла, в которой расположена проваленная проверка утверждения.
  */
 #if !SDEVICE_USE_SIMPLE_ASSERT || defined(DOXYGEN)
-   void SDeviceProcessAssertFail(char *file, int line);
+void SDeviceProcessAssertFail(char *file, int line);
 #else
-   void SDeviceProcessAssertFail(void);
+void SDeviceProcessAssertFail(void);
 #endif
 
 /**
