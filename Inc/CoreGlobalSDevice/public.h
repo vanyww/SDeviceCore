@@ -38,17 +38,17 @@
 /**
  * @brief Старшая компонента версии глобального модуля.
  */
-#define CORE_GLOBAL_SDEVICE_VERSION_MAJOR 2
+#define CORE_GLOBAL_SDEVICE_VERSION_MAJOR SDEVICE_CORE_VERSION_MAJOR
 
 /**
  * @brief Средняя компонента версии глобального модуля.
  */
-#define CORE_GLOBAL_SDEVICE_VERSION_MINOR 0
+#define CORE_GLOBAL_SDEVICE_VERSION_MINOR SDEVICE_CORE_VERSION_MINOR
 
 /**
  * @brief Младшая компонента версии глобального модуля.
  */
-#define CORE_GLOBAL_SDEVICE_VERSION_PATCH 0
+#define CORE_GLOBAL_SDEVICE_VERSION_PATCH SDEVICE_CORE_VERSION_PATCH
 
 /**
  * @brief Предварительное объявление типа данных дескриптора глобального модуля.
