@@ -33,4 +33,8 @@ void * SDeviceMalloc(size_t size);
  */
 void SDeviceFree(void *memory);
 
+void * SDeviceAllocHandle(size_t initSize, size_t runtimeSize);
+
+void SDeviceFreeHandle(void *handle);
+
 /** @} */
