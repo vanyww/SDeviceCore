@@ -33,8 +33,17 @@ void * SDeviceMalloc(size_t size);
  */
 void SDeviceFree(void *memory);
 
+/**
+ * @brief Динамически выделяет память для дескриптора.
+ * @param[in] initSize Размер @ref handle_init_data "параметров инициализации" дескриптора модуля.
+ * @param[in] runtimeSize Размер @ref handle_runtime_data "параметров времени выполнения" дескриптора модуля.
+ */
 void * SDeviceAllocHandle(size_t initSize, size_t runtimeSize);
 
+/**
+ * @brief Освобождает динамически выделенную память дескриптора.
+ * @param[in] handle Дескриптор, память которого требуется освободить.
+ */
 void SDeviceFreeHandle(void *handle);
 
 /** @} */

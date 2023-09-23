@@ -284,11 +284,15 @@ typedef struct
    SDeviceHandleIdentifier     Identifier;    /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
+/**
+ * @brief Обобщенный дескриптор.
+ * @details Структура данных, используемая для доступа к общим данных дескрипторов.
+ */
 typedef struct
 {
-   SDeviceHandleHeader Header;
-   void               *Init;
-   void               *Runtime;
+   SDeviceHandleHeader Header;  /**< Заголовок дескриптора. */
+   void               *Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
+   void               *Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
 } SDeviceCommonHandle;
 
 /**
