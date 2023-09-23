@@ -23,17 +23,18 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Test, init, owner, identifier, context)
 
    const ThisInitData *_init = init;
 
-   ThisHandle *handle = SDeviceMalloc(sizeof(ThisHandle));
+   ThisHandle *handle = SDeviceAllocHandle(sizeof(ThisInitData), sizeof(ThisRuntimeData));
+
    handle->Header = (SDeviceHandleHeader)
    {
-      .Context = context,
-      .OwnerHandle = owner,
-      .LatestStatus = TEST_SDEVICE_STATUS_OK,
+      .Context       = context,
+      .OwnerHandle   = owner,
+      .LatestStatus  = TEST_SDEVICE_STATUS_OK,
       .IdentityBlock = &SDEVICE_IDENTITY_BLOCK(Test),
-      .Identifier = identifier
+      .Identifier    = identifier
    };
-   handle->Init = *_init;
-   handle->Runtime = (ThisRuntimeData)
+   *handle->Init = *_init;
+   *handle->Runtime = (ThisRuntimeData)
    {
       .TestData = _init->TestData
    };
@@ -50,7 +51,7 @@ SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handlePointer)
 
    SDeviceAssert(handle != NULL);
 
-   SDeviceFree(handle);
+   SDeviceFreeHandle(handle);
    *_handlePointer = NULL;
 }
 
@@ -61,7 +62,7 @@ SDEVICE_GET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
 
    ThisHandle *_handle = handle;
 
-   memcpy(value, &_handle->Runtime.TestData, sizeof(_handle->Runtime.TestData));
+   memcpy(value, &_handle->Runtime->TestData, sizeof(_handle->Runtime->TestData));
 
    return SDEVICE_PROPERTY_STATUS_OK;
 }
@@ -73,7 +74,7 @@ SDEVICE_SET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
 
    ThisHandle *_handle = handle;
 
-   memcpy(&_handle->Runtime.TestData, value, sizeof(_handle->Runtime.TestData));
+   memcpy(&_handle->Runtime->TestData, value, sizeof(_handle->Runtime->TestData));
 
    return SDEVICE_PROPERTY_STATUS_OK;
 }
@@ -92,7 +93,7 @@ SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, handle, par
        return SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR;
    }
 
-   memcpy(parameters->Data, &((char *)&_handle->Runtime.TestData)[parameters->Offset], parameters->Size);
+   memcpy(parameters->Data, &((char *)&_handle->Runtime->TestData)[parameters->Offset], parameters->Size);
 
    return SDEVICE_PROPERTY_STATUS_OK;
 }
@@ -111,7 +112,7 @@ SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, handle, par
        return SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR;
    }
 
-   memcpy(&((char *)&_handle->Runtime.TestData)[parameters->Offset], parameters->Data, parameters->Size);
+   memcpy(&((char *)&_handle->Runtime->TestData)[parameters->Offset], parameters->Data, parameters->Size);
 
    return SDEVICE_PROPERTY_STATUS_OK;
 }
