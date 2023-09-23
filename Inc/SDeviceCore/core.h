@@ -305,8 +305,8 @@ typedef struct
    struct SDEVICE_HANDLE(device_name)                                                                                  \
    {                                                                                                                   \
       SDeviceHandleHeader Header;                                                                                      \
-      SDEVICE_INIT_DATA(device_name) Init;                                                                             \
-      SDEVICE_RUNTIME_DATA(device_name) Runtime;                                                                       \
+      SDEVICE_INIT_DATA(device_name) *Init;                                                                            \
+      SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                      \
    }
 
 /**
