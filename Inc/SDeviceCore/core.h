@@ -284,6 +284,13 @@ typedef struct
    SDeviceHandleIdentifier     Identifier;    /**< Идентификатор дескриптора. */
 } SDeviceHandleHeader;
 
+typedef struct
+{
+   SDeviceHandleHeader Header;
+   void               *Init;
+   void               *Runtime;
+} SDeviceCommonHandle;
+
 /**
  * @brief Мета-определение символа (идентификатора) структуры дескриптора.
  * @param device_name Название модуля.
@@ -367,8 +374,8 @@ typedef struct
  */
 static inline void * SDeviceGetHandleContext(const void *handle)
 {
-   const SDeviceHandleHeader *header = handle;
-   return header->Context;
+   const SDeviceCommonHandle *header = handle;
+   return header->Header.Context;
 }
 
 /**
@@ -378,8 +385,8 @@ static inline void * SDeviceGetHandleContext(const void *handle)
  */
 static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
 {
-   const SDeviceHandleHeader *header = handle;
-   return header->OwnerHandle;
+   const SDeviceCommonHandle *header = handle;
+   return header->Header.OwnerHandle;
 }
 
 /**
@@ -389,8 +396,8 @@ static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
  */
 static inline const SDeviceIdentityBlock * SDeviceGetHandleSDeviceIdentityBlock(const void *handle)
 {
-   const SDeviceHandleHeader *header = handle;
-   return header->IdentityBlock;
+   const SDeviceCommonHandle *header = handle;
+   return header->Header.IdentityBlock;
 }
 
 /**
@@ -400,8 +407,8 @@ static inline const SDeviceIdentityBlock * SDeviceGetHandleSDeviceIdentityBlock(
  */
 static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handle)
 {
-   const SDeviceHandleHeader *header = handle;
-   return header->LatestStatus;
+   const SDeviceCommonHandle *header = handle;
+   return header->Header.LatestStatus;
 }
 
 /**
@@ -411,8 +418,8 @@ static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handl
  */
 static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *handle)
 {
-   const SDeviceHandleHeader *header = handle;
-   return header->Identifier;
+   const SDeviceCommonHandle *header = handle;
+   return header->Header.Identifier;
 }
 
 /** @} */
