@@ -23,8 +23,8 @@ void * SDeviceAllocHandle(size_t initSize, size_t runtimeSize)
 {
    SDeviceCommonHandle *handle = SDeviceMalloc(sizeof(SDeviceCommonHandle));
 
-   handle->Init = initSize != 0 ? SDeviceMalloc(initSize) : NULL;
-   handle->Runtime = runtimeSize != 0 ? SDeviceMalloc(runtimeSize) : NULL;
+   handle->Init = (initSize != 0) ? SDeviceMalloc(initSize) : NULL;
+   handle->Runtime = (runtimeSize != 0) ? SDeviceMalloc(runtimeSize) : NULL;
 
    return handle;
 }
