@@ -6,47 +6,47 @@
 
 __attribute__((weak)) void * SDeviceMalloc(size_t size)
 {
-   void *memory = malloc(size);
+   void *memory;
 
-   if(memory == NULL)
-      CoreGlobalSDeviceThrowPanic(CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY);
+   if(size != 0)
+   {
+      memory = malloc(size);
+
+      if(memory == NULL)
+         CoreGlobalSDeviceThrowPanic(CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY);
+   }
+   else
+   {
+      memory = NULL;
+   }
 
    return memory;
 }
 
 __attribute__((weak)) void SDeviceFree(void *memory)
 {
-   free(memory);
+   if(memory != NULL)
+      free(memory);
 }
 
 void * SDeviceAllocHandle(size_t initSize, size_t runtimeSize)
 {
    SDeviceCommonHandle *handle = SDeviceMalloc(sizeof(SDeviceCommonHandle));
 
-   handle->Init = (initSize != 0) ? SDeviceMalloc(initSize) : NULL;
-   handle->Runtime = (runtimeSize != 0) ? SDeviceMalloc(runtimeSize) : NULL;
+   handle->Init = SDeviceMalloc(initSize);
+   handle->Runtime = SDeviceMalloc(runtimeSize);
 
    return handle;
 }
 
 void SDeviceFreeHandle(void *handle)
 {
-   if(handle == NULL)
-      return;
-
-   SDeviceCommonHandle *_handle = handle;
-
-   if(_handle->Runtime != NULL)
+   if(handle != NULL)
    {
+      SDeviceCommonHandle *_handle = handle;
+
       SDeviceFree(_handle->Runtime);
-      _handle->Runtime = NULL;
-   }
-
-   if(_handle->Init != NULL)
-   {
       SDeviceFree(_handle->Init);
-      _handle->Init = NULL;
+      SDeviceFree(_handle);
    }
-
-   SDeviceFree(_handle);
 }
