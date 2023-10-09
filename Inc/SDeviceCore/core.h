@@ -398,7 +398,7 @@ static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Идентификационный блок модуля дескриптор @p handle.
  */
-static inline const SDeviceIdentityBlock * SDeviceGetHandleSDeviceIdentityBlock(const void *handle)
+static inline const SDeviceIdentityBlock * SDeviceGetHandleIdentityBlock(const void *handle)
 {
    const SDeviceCommonHandle *header = handle;
    return header->Header.IdentityBlock;
