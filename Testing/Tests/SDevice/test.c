@@ -5,15 +5,6 @@
 
 #define _cleanup __attribute__((cleanup(SDEVICE_DISPOSE_HANDLE(Test))))
 
-static bool AreIdentityBlocksEqual(const SDeviceIdentityBlock *expected, const SDeviceIdentityBlock *actual)
-{
-   return expected->Uuid.High     == actual->Uuid.High     &&
-          expected->Uuid.Low      == actual->Uuid.Low      &&
-          expected->Version.Major == actual->Version.Major &&
-          expected->Version.Minor == actual->Version.Minor &&
-          expected->Version.Patch == actual->Version.Patch;
-}
-
 TEST_GROUP(SDeviceCore);
 
 TEST_SETUP(SDeviceCore) { }
@@ -41,7 +32,7 @@ TEST(SDeviceCore, HandleInitialization)
    TEST_ASSERT(owner == SDeviceGetHandleOwnerHandle(handle));
    TEST_ASSERT(identifier == SDeviceGetHandleIdentifier(handle));
    TEST_ASSERT(TEST_SDEVICE_STATUS_OK == SDeviceGetHandleLatestStatus(handle));
-   TEST_ASSERT(AreIdentityBlocksEqual(&SDEVICE_IDENTITY_BLOCK(Test), SDeviceGetHandleSDeviceIdentityBlock(handle)));
+   TEST_ASSERT(SDeviceCompareIdentityBlocks(&SDEVICE_IDENTITY_BLOCK(Test), SDeviceGetHandleIdentityBlock(handle)));
    TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PROPERTY(Test, PropertyValue)(handle, &readValue));
    TEST_ASSERT(readValue.FirstValue == writeValue.FirstValue && readValue.SecondValue == writeValue.SecondValue);
 }
