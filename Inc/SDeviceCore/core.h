@@ -22,6 +22,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 /**
  * @defgroup sdevice_core Ядро фреймворка SDevice
@@ -294,6 +295,30 @@ typedef struct
    void               *Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
    void               *Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
 } SDeviceCommonHandle;
+
+/**
+ * @brief Сравнивает идентификаторы @ref SDeviceUuid.
+ * @param[in] uuid_0 Первый UUID.
+ * @param[in] uuid_1 Второй UUID.
+ * @return `true`, если @p uuid_0 равен @p uuid_1, иначе - `false`.
+ */
+bool SDeviceCompareUuids(const SDeviceUuid *uuid_0, const SDeviceUuid *uuid_1);
+
+/**
+ * @brief Сравнивает версии @ref SDeviceVersion.
+ * @param[in] version_0 Первая версия.
+ * @param[in] version_1 Вторая версия.
+ * @return `true`, если @p version_0 равна @p version_1, иначе - `false`.
+ */
+bool SDeviceCompareVersions(const SDeviceVersion *version_0, const SDeviceVersion *version_1);
+
+/**
+ * @brief Сравнивает идентификационные блоки @ref SDeviceIdentityBlock.
+ * @param[in] identity_0 Первый идентификационный блок.
+ * @param[in] identity_1 Второй идентификационный блок.
+ * @return `true`, если @p identity_0 равен @p identity_1, иначе - `false`.
+ */
+bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const SDeviceIdentityBlock *identity_1);
 
 /**
  * @brief Мета-определение символа (идентификатора) структуры дескриптора.
