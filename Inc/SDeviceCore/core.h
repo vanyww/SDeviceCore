@@ -376,6 +376,7 @@ typedef struct
  * @param[in] handle Дескриптор.
  * @return Указатель на пользовательский контекст дескриптора @p handle.
  */
+__attribute__((always_inline))
 static inline void * SDeviceGetHandleContext(const void *handle)
 {
    const SDeviceCommonHandle *header = handle;
@@ -387,6 +388,7 @@ static inline void * SDeviceGetHandleContext(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Указатель на владельца дескриптора @p handle.
  */
+__attribute__((always_inline))
 static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
 {
    const SDeviceCommonHandle *header = handle;
@@ -398,6 +400,7 @@ static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
  * @param[in] handle Дескриптор.
  * @return Идентификационный блок модуля дескриптор @p handle.
  */
+__attribute__((always_inline))
 static inline const SDeviceIdentityBlock * SDeviceGetHandleIdentityBlock(const void *handle)
 {
    const SDeviceCommonHandle *header = handle;
@@ -409,6 +412,7 @@ static inline const SDeviceIdentityBlock * SDeviceGetHandleIdentityBlock(const v
  * @param[in] handle Дескриптор.
  * @return Последнее состояние дескриптора @p handle.
  */
+__attribute__((always_inline))
 static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handle)
 {
    const SDeviceCommonHandle *header = handle;
@@ -420,6 +424,7 @@ static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handl
  * @param[in] handle Дескриптор.
  * @return Идентификатор дескриптора @p handle.
  */
+__attribute__((always_inline))
 static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *handle)
 {
    const SDeviceCommonHandle *header = handle;
