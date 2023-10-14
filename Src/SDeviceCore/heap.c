@@ -46,7 +46,11 @@ void SDeviceFreeHandle(void *handle)
       SDeviceCommonHandle *_handle = handle;
 
       SDeviceFree(_handle->Runtime);
+      _handle->Runtime = NULL;
+
       SDeviceFree(_handle->Init);
+      _handle->Init = NULL;
+
       SDeviceFree(_handle);
    }
 }
