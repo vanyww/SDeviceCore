@@ -50,11 +50,11 @@
  */
 #if !defined(MIN) || defined(DOXYGEN)
    #define MIN(value_0, value_1) (                                                                                     \
-   {                                                                                                                   \
-      __auto_type _value_0 = (value_0);                                                                                \
-      __auto_type _value_1 = (value_1);                                                                                \
-      (_value_0 < _value_1) ? _value_0 : _value_1;                                                                     \
-   })
+      {                                                                                                                \
+         __auto_type _value_0 = (value_0);                                                                             \
+         __auto_type _value_1 = (value_1);                                                                             \
+         (_value_0 < _value_1) ? _value_0 : _value_1;                                                                  \
+      })
 #endif
 
 /**
@@ -67,11 +67,11 @@
  */
 #if !defined(MAX) || defined(DOXYGEN)
    #define MAX(value_0, value_1) (                                                                                     \
-   {                                                                                                                   \
-      __auto_type _value_0 = (value_0);                                                                                \
-      __auto_type _value_1 = (value_1);                                                                                \
-      (_value_0 > _value_1) ? _value_0 : _value_1;                                                                     \
-   })
+      {                                                                                                                \
+         __auto_type _value_0 = (value_0);                                                                             \
+         __auto_type _value_1 = (value_1);                                                                             \
+         (_value_0 > _value_1) ? _value_0 : _value_1;                                                                  \
+      })
 #endif
 
 /**
@@ -249,13 +249,13 @@
  */
 #if !defined(CEIL_UINT_DIV) || defined(DOXYGEN)
    #define CEIL_UINT_DIV(dividend, divisor) (                                                                          \
-   {                                                                                                                   \
-      __auto_type _dividend = (dividend);                                                                              \
-      __auto_type _divisor  = (divisor);                                                                               \
-      static_assert(HAS_VALUE_UNSIGNED_TYPE(_dividend), "Dividend value must be unsigned.");                           \
-      static_assert(HAS_VALUE_UNSIGNED_TYPE(_divisor), "Divisor value must be unsigned.");                             \
-      _dividend / _divisor + ((_dividend % _divisor != 0U) ? 1U : 0U);                                                 \
-   })
+      {                                                                                                                \
+         __auto_type _dividend = (dividend);                                                                           \
+         __auto_type _divisor  = (divisor);                                                                            \
+         static_assert(HAS_VALUE_UNSIGNED_TYPE(_dividend), "Dividend value must be unsigned.");                        \
+         static_assert(HAS_VALUE_UNSIGNED_TYPE(_divisor), "Divisor value must be unsigned.");                          \
+         _dividend / _divisor + ((_dividend % _divisor != 0U) ? 1U : 0U);                                              \
+      })
 #endif
 
 /** @} */
