@@ -50,16 +50,6 @@
 #endif
 
 /**
- * @brief Флаг, включающий проверку внутренних утверждений модулей.
- * @details Управляет поведением #SDeviceDebugAssert и #SDeviceDebugEvalAssert.
- * Состояние флага включает или отключает проверку внутренних утверждений модулей средствами условной компиляции.
- * Отключение проверки внутренних утверждений модулей позволяет уменьшить затраты памяти и повысить производительность.
- */
-#if !defined(SDEVICE_USE_DEBUG_ASSERT) || defined(DOXYGEN)
-   #define SDEVICE_USE_DEBUG_ASSERT false
-#endif
-
-/**
  * @brief Флаг, упрощающий прототип функции @ref SDeviceProcessAssertFail.
  * @details Изменяет прототип с SDeviceProcessAssertFail(char *, int) на SDeviceProcessAssertFail(void).
  * Флаг позволяет уменьшить затраты памяти на проверку утверждений, исключив строковые пути к файлам и номера строк.

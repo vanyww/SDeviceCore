@@ -45,37 +45,6 @@
 #endif
 
 /**
- * @brief Проверяет внутреннее утверждение модуля.
- * @details Принцип работы не отличается от #SDeviceAssert.
- * Предназначен для использования внутри универсальных модулей, проверяемых отдельно (вне конечного ПО).
- * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression не будет исполнено.
- * @param expression Утверждение, которое необходимо проверить.
- */
-#if (SDEVICE_USE_ASSERT && SDEVICE_USE_DEBUG_ASSERT) || defined(DOXYGEN)
-   #if SDEVICE_USE_SIMPLE_ASSERT
-      #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
-   #else
-      #define SDeviceDebugAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
-   #endif
-#else
-   #define SDeviceDebugAssert(expression) ((void)0U)
-#endif
-
-/**
- * @brief Проверяет внутреннее утверждение модуля с его инвариантным исполнением.
- * @details Принцип работы не отличается от #SDeviceEvalAssert.
- * Предназначен для использования внутри универсальных модулей, проверяемых отдельно (вне конечного ПО).
- * @note Если флаг #SDEVICE_USE_DEBUG_ASSERT не объявлен, выражение @p expression будет исполнено, но не проверено.
- * @param expression Выражение, исполняемое инвариантно.
- * @param condition Условие, применяемое к выражение в ходе проверки утверждения.
- */
-#if (SDEVICE_USE_ASSERT && SDEVICE_USE_DEBUG_ASSERT) || defined(DOXYGEN)
-   #define SDeviceDebugEvalAssert(expression, condition) SDeviceDebugAssert((expression) condition)
-#else
-   #define SDeviceDebugEvalAssert(expression, condition) expression
-#endif
-
-/**
  * @brief Логирует состояние дескриптора.
  * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
  * Дополнительные параметры (@p extras и @p extrasSize) устанавливаются в `NULL` и `0` соответственно.
