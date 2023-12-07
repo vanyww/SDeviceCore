@@ -404,8 +404,8 @@ bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const 
 __attribute__((always_inline))
 static inline void * SDeviceGetHandleContext(const void *handle)
 {
-   const SDeviceCommonHandle *header = handle;
-   return header->Header.Context;
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Header.Context;
 }
 
 /**
@@ -416,8 +416,8 @@ static inline void * SDeviceGetHandleContext(const void *handle)
 __attribute__((always_inline))
 static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
 {
-   const SDeviceCommonHandle *header = handle;
-   return header->Header.OwnerHandle;
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Header.OwnerHandle;
 }
 
 /**
@@ -428,8 +428,8 @@ static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
 __attribute__((always_inline))
 static inline const SDeviceIdentityBlock * SDeviceGetHandleIdentityBlock(const void *handle)
 {
-   const SDeviceCommonHandle *header = handle;
-   return header->Header.IdentityBlock;
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Header.IdentityBlock;
 }
 
 /**
@@ -440,8 +440,8 @@ static inline const SDeviceIdentityBlock * SDeviceGetHandleIdentityBlock(const v
 __attribute__((always_inline))
 static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handle)
 {
-   const SDeviceCommonHandle *header = handle;
-   return header->Header.LatestStatus;
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Header.LatestStatus;
 }
 
 /**
@@ -452,8 +452,20 @@ static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handl
 __attribute__((always_inline))
 static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *handle)
 {
-   const SDeviceCommonHandle *header = handle;
-   return header->Header.Identifier;
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Header.Identifier;
+}
+
+/**
+ * @brief Возвращает "параметры инициализации" дескриптора @ref SDeviceCommonHandle::Init.
+ * @param[in] handle Дескриптор.
+ * @return "Параметры инициализации" дескриптора @p handle.
+ */
+__attribute__((always_inline))
+static inline const void * SDeviceGetHandleInitData(const void *handle)
+{
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Init;
 }
 
 /** @} */
