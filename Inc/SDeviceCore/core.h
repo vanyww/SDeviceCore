@@ -176,7 +176,7 @@ typedef struct
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
 #define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, owner_name, identifier_name, context_name)                     \
-   (const void *init_data_name, const void *owner_name, SDeviceHandleIdentifier identifier_name, void *context_name)
+   (const void *init_data_name, void *owner_name, SDeviceHandleIdentifier identifier_name, void *context_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию создания дескриптора.
@@ -279,7 +279,7 @@ typedef struct
 typedef struct
 {
    void                       *Context;       /**< Указатель на пользовательский контекст дескриптора. */
-   const void                 *OwnerHandle;   /**< Указатель на владельца дескриптора (внешний дескриптор). */
+   void                       *OwnerHandle;   /**< Указатель на владельца дескриптора (внешний дескриптор). */
    const SDeviceIdentityBlock *IdentityBlock; /**< Идентификационный блок модуля дескриптора. */
    SDeviceHandleStatus         LatestStatus;  /**< Последнее состояние дескриптора (ошибка или исключение). */
    SDeviceHandleIdentifier     Identifier;    /**< Идентификатор дескриптора. */
@@ -414,7 +414,7 @@ static inline void * SDeviceGetHandleContext(const void *handle)
  * @return Указатель на владельца дескриптора @p handle.
  */
 __attribute__((always_inline))
-static inline const void * SDeviceGetHandleOwnerHandle(const void *handle)
+static inline void * SDeviceGetHandleOwnerHandle(const void *handle)
 {
    const SDeviceCommonHandle *_handle = handle;
    return _handle->Header.OwnerHandle;
