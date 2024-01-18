@@ -468,6 +468,18 @@ static inline const void * SDeviceGetHandleInitData(const void *handle)
    return _handle->Init;
 }
 
+/**
+ * @brief Возвращает "параметры времени выполнения" дескриптора @ref SDeviceCommonHandle::Runtime.
+ * @param[in] handle Дескриптор.
+ * @return "Параметры времени выполнения" дескриптора @p handle.
+ */
+__attribute__((always_inline))
+static inline void * SDeviceGetHandleRuntimeData(const void *handle)
+{
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Runtime;
+}
+
 /** @} */
 
 /**
