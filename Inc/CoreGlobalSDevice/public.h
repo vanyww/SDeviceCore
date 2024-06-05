@@ -23,17 +23,17 @@
  * @{
  */
 
-/* 78be0543-4a77-11ee-8689-93f017f8080a */
+/* 78BE0543-4A77-11EE-8689-93F017F8080A */
 
 /**
  * @brief Старшая часть UUID глобального модуля.
  */
-#define CORE_GLOBAL_SDEVICE_UUID_HIGH 0x78be05434a7711ee
+#define CORE_GLOBAL_SDEVICE_UUID_HIGH 0x78BE05434A7711EE
 
 /**
  * @brief Младшая часть UUID глобального модуля.
  */
-#define CORE_GLOBAL_SDEVICE_UUID_LOW  0x868993f017f8080a
+#define CORE_GLOBAL_SDEVICE_UUID_LOW  0x868993F017F8080A
 
 /**
  * @brief Старшая компонента версии глобального модуля.
