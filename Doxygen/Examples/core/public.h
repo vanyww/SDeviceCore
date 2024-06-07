@@ -3,7 +3,7 @@
 #include "SDeviceCore/core.h"
 #include "SDeviceCore/config.h"
 
-#if (SDEVICE_CORE_VERSION_MAJOR != 8) || (SDEVICE_CORE_VERSION_MINOR < 0)
+#if (SDEVICE_CORE_VERSION_MAJOR != 9) || (SDEVICE_CORE_VERSION_MINOR < 0)
    #error SDevice core version is incorrect.
 #endif
 
@@ -51,8 +51,13 @@ SDEVICE_PROPERTY_TYPE_DECLARATION(Example, IntValue, int);
 SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value);
 SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value);
 
-SDEVICE_PROPERTY_TYPE_DECLARATION(Example, FixedLengthString, struct { char Value[64]; });
-SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value);
-SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value);
+SDEVICE_PROPERTY_TYPE_DECLARATION(Example, StringValue, struct { char Value[64]; });
+SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value);
+SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value);
+
+SDEVICE_PROPERTY_TYPE_DECLARATION(Example, UuidArrayValue, SDeviceUuid);
+SDEVICE_INDEXER_PROPERTY_LENGTH_DEFINITION(Example, UuidArrayValue, 10);
+SDEVICE_GET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value);
+SDEVICE_SET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value);
 
 void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle);

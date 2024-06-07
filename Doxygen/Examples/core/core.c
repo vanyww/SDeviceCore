@@ -84,7 +84,7 @@ SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value)
    return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value)
+SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value)
 {
    SDeviceAssert(handle != NULL);
    SDeviceAssert(value != NULL);
@@ -94,12 +94,32 @@ SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, val
    return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value)
+SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value)
 {
    SDeviceAssert(handle != NULL);
    SDeviceAssert(value != NULL);
 
    /* write property part by offset "value.Offset" and of size "value.Size" from "value.Data" */
+
+   return SDEVICE_PROPERTY_STATUS_OK;
+}
+
+SDEVICE_GET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value)
+{
+   SDeviceAssert(handle != NULL);
+   SDeviceAssert(value != NULL);
+
+   /* read property part by index "value.StartIdx" and of length "value.Length" to "value.Items" */
+
+   return SDEVICE_PROPERTY_STATUS_OK;
+}
+
+SDEVICE_SET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value)
+{
+   SDeviceAssert(handle != NULL);
+   SDeviceAssert(value != NULL);
+
+   /* write property part by index "value.StartIdx" and of length "value.Length" from "value.Items" */
 
    return SDEVICE_PROPERTY_STATUS_OK;
 }
@@ -110,4 +130,3 @@ void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle)
 
    /* any special logic */
 }
-

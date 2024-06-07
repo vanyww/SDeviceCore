@@ -490,6 +490,7 @@ static inline void * SDeviceGetHandleRuntimeData(const void *handle)
  * Делятся на:
  * - @ref simple_properties
  * - @ref partial_properties
+ * - @ref indexer_properties
  * @{
  */
 
@@ -642,7 +643,7 @@ typedef enum
 /**
  * @defgroup partial_properties Частичные свойства
  * @brief Инструменты описания частичных свойств и взаимодействия с ними.
- * @details Интерфейс частичных свойств обеспечивает доступ для записи и\или чтения к произвольному срезу значения.
+ * @details Интерфейс частичных свойств обеспечивает доступ к произвольному срезу значения.
  * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
@@ -762,6 +763,151 @@ typedef struct
    SDEVICE_GET_PARTIAL_PROPERTY_RETURN_VALUE                                                                           \
    SDEVICE_GET_PARTIAL_PROPERTY(device_name, property_name)                                                            \
    SDEVICE_GET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)
+
+/** @} */
+
+/** @} */
+
+/**
+ * @defgroup indexer_properties Свойства-индексаторы
+ * @brief Инструменты описания свойств-индексаторов и взаимодействия с ними.
+ * @details Интерфейс свойств-индексаторов обеспечивает доступ к произвольным элементам значения.
+ * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
+ * @{
+ */
+
+/**
+ * @brief Мета-определение символа (имени) длины свойства-индексатора.
+ * @param device_name Название модуля.
+ * @param property_name Название свойства.
+ */
+#define SDEVICE_INDEXER_PROPERTY_LENGTH(device_name, property_name)                                                    \
+   _##device_name##SDevice##property_name##IndexerPropertyLength
+
+/**
+ * @brief Определение длины свойства-индексатора.
+ * @param device_name Название модуля.
+ * @param property_name Название свойства.
+ * @param length Длина свойства.
+ */
+#define SDEVICE_INDEXER_PROPERTY_LENGTH_DEFINITION(device_name, property_name, length)                                 \
+   enum { SDEVICE_INDEXER_PROPERTY_LENGTH(device_name, property_name) = length };
+
+/**
+ * @defgroup indexer_property_set Запись
+ * @brief Инструменты описания функции записи свойства-индексатора и взаимодействия с ней.
+ * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
+ * @{
+ */
+
+/**
+ * @brief Структура данных параметров записываемого значения свойства-индексатора.
+ */
+typedef struct
+{
+   const void *const *Items;    /**< Указатель на записываемую коллекцию элементов. */
+   size_t             StartIdx; /**< Индекс элемента, с которого начнется запись. */
+   size_t             Length;   /**< Количество записываемых элементов. */
+} SDeviceSetIndexerPropertyParameters;
+
+/**
+ * @brief Тип возвращаемого функцией записи свойства-индексатора значения.
+ */
+#define SDEVICE_SET_INDEXER_PROPERTY_RETURN_VALUE SDevicePropertyStatus
+
+/**
+ * @brief Список формальных параметров функции записи свойства-индексатора.
+ * @param handle_name Имя формального параметра дескриптора.
+ * @param parameters_name Имя формального параметра параметров записываемого значения свойства-индексатора.
+ */
+#define SDEVICE_SET_INDEXER_PROPERTY_ARGUMENTS(handle_name, parameters_name)                                           \
+   (void *handle_name, const SDeviceSetIndexerPropertyParameters *parameters_name)
+
+/**
+ * @brief Создает переменную (или член структуры) типа указателя на функцию записи свойства-индексатора.
+ * @param pointer_name Имя указателя.
+ */
+#define SDEVICE_SET_INDEXER_PROPERTY_POINTER(pointer_name)                                                             \
+   SDEVICE_SET_INDEXER_PROPERTY_RETURN_VALUE (* pointer_name) SDEVICE_SET_INDEXER_PROPERTY_ARGUMENTS(,)
+
+/**
+ * @brief Мета-определение символа (имени) функции записи свойства-индексатора.
+ * @param device_name Название модуля.
+ * @param property_name Название свойства.
+ */
+#define SDEVICE_SET_INDEXER_PROPERTY(device_name, property_name)                                                       \
+   _##device_name##SDevice##property_name##SetIndexerProperty
+
+/**
+ * @brief Создает прототип (объявление) функции записи свойства-индексатора.
+ * @param device_name Название модуля.
+ * @param property_name Название свойства.
+ * @param handle_name Имя формального параметра дескриптора.
+ * @param parameters_name Имя формального параметра параметров записываемого значения свойства-индексатора.
+ */
+#define SDEVICE_SET_INDEXER_PROPERTY_DECLARATION(device_name, property_name, handle_name, parameters_name)             \
+   SDEVICE_SET_INDEXER_PROPERTY_RETURN_VALUE                                                                           \
+   SDEVICE_SET_INDEXER_PROPERTY(device_name, property_name)                                                            \
+   SDEVICE_SET_INDEXER_PROPERTY_ARGUMENTS(handle_name, parameters_name)
+
+/** @} */
+
+/**
+ * @defgroup indexer_property_get Чтение
+ * @brief Инструменты описания функции чтения свойства-индексатора и взаимодействия с ней.
+ * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
+ * @{
+ */
+
+/**
+ * @brief Структура данных параметров читаемого значения свойства-индексатора.
+ */
+typedef struct
+{
+   void *const *Items;    /**< Указатель на буфер для читаемой коллекции элементов. */
+   size_t       StartIdx; /**< Индекс элемента, с которого начнется чтение. */
+   size_t       Length;   /**< Количество читаемых элементов. */
+} SDeviceGetIndexerPropertyParameters;
+
+/**
+ * @brief Тип возвращаемого функцией чтения свойства-индексатора значения.
+ */
+#define SDEVICE_GET_INDEXER_PROPERTY_RETURN_VALUE SDevicePropertyStatus
+
+/**
+ * @brief Список формальных параметров функции чтения свойства-индексатора.
+ * @param handle_name Имя формального параметра дескриптора.
+ * @param parameters_name Имя формального параметра параметров читаемого значения свойства-индексатора.
+ */
+#define SDEVICE_GET_INDEXER_PROPERTY_ARGUMENTS(handle_name, parameters_name)                                           \
+   (void *handle_name, const SDeviceGetIndexerPropertyParameters *parameters_name)
+
+/**
+ * @brief Создает переменную (или член структуры) типа указателя на функцию чтения свойства-индексатора.
+ * @param pointer_name Имя указателя.
+ */
+#define SDEVICE_GET_INDEXER_PROPERTY_POINTER(pointer_name)                                                             \
+   SDEVICE_GET_INDEXER_PROPERTY_RETURN_VALUE (* pointer_name) SDEVICE_GET_INDEXER_PROPERTY_ARGUMENTS(,)
+
+/**
+ * @brief Мета-определение символа (имени) функции чтения свойства-индексатора.
+ * @param device_name Название модуля.
+ * @param property_name Название свойства.
+ */
+#define SDEVICE_GET_INDEXER_PROPERTY(device_name, property_name)                                                       \
+   _##device_name##SDevice##property_name##GetIndexerProperty
+
+/**
+ * @brief Создает прототип (объявление) функции чтения свойства-индексатора.
+ * @param device_name Название модуля.
+ * @param property_name Название свойства.
+ * @param handle_name Имя формального параметра дескриптора.
+ * @param parameters_name Имя формального параметра параметров читаемого значения свойства-индексатора.
+ */
+#define SDEVICE_GET_INDEXER_PROPERTY_DECLARATION(device_name, property_name, handle_name, parameters_name)             \
+   SDEVICE_GET_INDEXER_PROPERTY_RETURN_VALUE                                                                           \
+   SDEVICE_GET_INDEXER_PROPERTY(device_name, property_name)                                                            \
+   SDEVICE_GET_INDEXER_PROPERTY_ARGUMENTS(handle_name, parameters_name)
 
 /** @} */
 

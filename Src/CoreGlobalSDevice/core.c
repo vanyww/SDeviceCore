@@ -13,7 +13,7 @@ SDEVICE_IDENTITY_BLOCK_DEFINITION(CoreGlobal,
                                      .Patch = CORE_GLOBAL_SDEVICE_VERSION_PATCH
                                   }));
 
-static SDEVICE_HANDLE(CoreGlobal) *const CoreGlobalSDeviceHandle = &(SDEVICE_HANDLE(CoreGlobal))
+static ThisHandle *const CoreGlobalSDeviceHandle = &(ThisHandle)
 {
    .Header =
    {
