@@ -37,8 +37,8 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Test, init, owner, identifier, context);
 SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handlePointer);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Test, PropertyValue, TestSDeviceDataType);
-SDEVICE_GET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value);
-SDEVICE_SET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value);
+SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Test, PropertyValue, handle, value);
+SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Test, PropertyValue, handle, value);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Test, PartialPropertyValue, int);
 SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, handle, parameters);

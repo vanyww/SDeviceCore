@@ -55,7 +55,7 @@ SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handlePointer)
    *_handlePointer = NULL;
 }
 
-SDEVICE_GET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
+SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
 {
    SDeviceAssert(value != NULL);
    SDeviceAssert(handle != NULL);
@@ -67,7 +67,7 @@ SDEVICE_GET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
    return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_SET_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
+SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Test, PropertyValue, handle, value)
 {
    SDeviceAssert(value != NULL);
    SDeviceAssert(handle != NULL);

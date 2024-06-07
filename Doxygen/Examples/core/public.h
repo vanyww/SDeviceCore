@@ -48,8 +48,8 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, owner, identifier, context);
 SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, handlePointer);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Example, IntValue, int);
-SDEVICE_GET_PROPERTY_DECLARATION(Example, IntValue, handle, value);
-SDEVICE_SET_PROPERTY_DECLARATION(Example, IntValue, handle, value);
+SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value);
+SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Example, FixedLengthString, struct { char Value[64]; });
 SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value);

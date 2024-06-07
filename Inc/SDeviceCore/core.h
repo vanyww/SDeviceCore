@@ -488,7 +488,7 @@ static inline void * SDeviceGetHandleRuntimeData(const void *handle)
  * @details Свойства - универсальный интерфейс доступа к значению для записи и/или чтения.
  * Используются в модулях для доступа к внутренним данным модуля, а также вычисляемым значениям.
  * Делятся на:
- * - @ref common_properties
+ * - @ref simple_properties
  * - @ref partial_properties
  * @{
  */
@@ -521,7 +521,8 @@ typedef enum
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  */
-#define SDEVICE_PROPERTY_TYPE(device_name, property_name) _##device_name##SDevice##property_name##PropertyType
+#define SDEVICE_PROPERTY_TYPE(device_name, property_name)                                                              \
+   _##device_name##SDevice##property_name##PropertyType
 
 /**
  * @brief Создает объявление типа данных свойства.
@@ -533,106 +534,106 @@ typedef enum
    typedef type SDEVICE_PROPERTY_TYPE(device_name, property_name)
 
 /**
- * @defgroup common_properties Обыкновенные свойства
- * @brief Инструменты описания обыкновенных свойств и взаимодействия с ними.
- * @details Интерфейс обыкновенных свойств обеспечивает доступ для записи и\или чтения к цельному значению.
+ * @defgroup simple_properties Простые свойства
+ * @brief Инструменты описания простых свойств и взаимодействия с ними.
+ * @details Интерфейс простых свойств обеспечивает доступ к целому значению.
  * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @defgroup common_property_set Запись
- * @brief Инструменты описания функции записи обыкновенного свойства и взаимодействия с ней.
+ * @defgroup simple_property_set Запись
+ * @brief Инструменты описания функции записи простого свойства и взаимодействия с ней.
  * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @brief Тип возвращаемого функцией записи обыкновенного свойства значения.
+ * @brief Тип возвращаемого функцией записи простого свойства значения.
  */
-#define SDEVICE_SET_PROPERTY_RETURN_VALUE SDevicePropertyStatus
+#define SDEVICE_SET_SIMPLE_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 
 /**
- * @brief Список формальных параметров функции записи обыкновенного свойства.
+ * @brief Список формальных параметров функции записи простого свойства.
  * @param handle_name Имя формального параметра дескриптора.
  * @param value_name Имя формального параметра указателя на записываемое значение.
  */
-#define SDEVICE_SET_PROPERTY_ARGUMENTS(handle_name, value_name) (void *handle_name, const void *value_name)
+#define SDEVICE_SET_SIMPLE_PROPERTY_ARGUMENTS(handle_name, value_name) (void *handle_name, const void *value_name)
 
 /**
- * @brief Создает переменную (или член структуры) типа указателя на функцию записи обыкновенного свойства.
+ * @brief Создает переменную (или член структуры) типа указателя на функцию записи простого свойства.
  * @param pointer_name Имя указателя.
  */
-#define SDEVICE_SET_PROPERTY_POINTER(pointer_name)                                                                     \
-   SDEVICE_SET_PROPERTY_RETURN_VALUE (* pointer_name) SDEVICE_SET_PROPERTY_ARGUMENTS(,)
+#define SDEVICE_SET_SIMPLE_PROPERTY_POINTER(pointer_name)                                                              \
+   SDEVICE_SET_SIMPLE_PROPERTY_RETURN_VALUE (* pointer_name) SDEVICE_SET_SIMPLE_PROPERTY_ARGUMENTS(,)
 
 /**
- * @brief Мета-определение символа (имени) функции записи обыкновенного свойства.
+ * @brief Мета-определение символа (имени) функции записи простого свойства.
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  */
-#define SDEVICE_SET_PROPERTY(device_name, property_name)                                                               \
-   _##device_name##SDevice##property_name##SetProperty
+#define SDEVICE_SET_SIMPLE_PROPERTY(device_name, property_name)                                                        \
+   _##device_name##SDevice##property_name##SetSimpleProperty
 
 /**
- * @brief Создает прототип (объявление) функции записи обыкновенного свойства.
+ * @brief Создает прототип (объявление) функции записи простого свойства.
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  * @param handle_name Имя формального параметра дескриптора.
  * @param value_name Имя формального параметра указателя на записываемое значение.
  */
-#define SDEVICE_SET_PROPERTY_DECLARATION(device_name, property_name, handle_name, value_name)                          \
-   SDEVICE_SET_PROPERTY_RETURN_VALUE                                                                                   \
-   SDEVICE_SET_PROPERTY(device_name, property_name)                                                                    \
-   SDEVICE_SET_PROPERTY_ARGUMENTS(handle_name, value_name)
+#define SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(device_name, property_name, handle_name, value_name)                   \
+   SDEVICE_SET_SIMPLE_PROPERTY_RETURN_VALUE                                                                            \
+   SDEVICE_SET_SIMPLE_PROPERTY(device_name, property_name)                                                             \
+   SDEVICE_SET_SIMPLE_PROPERTY_ARGUMENTS(handle_name, value_name)
 
 /** @} */
 
 /**
- * @defgroup common_property_get Чтение
- * @brief Инструменты описания функции чтения обыкновенного свойства и взаимодействия с ней.
+ * @defgroup simple_property_get Чтение
+ * @brief Инструменты описания функции чтения простого свойства и взаимодействия с ней.
  * @details Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
  * @{
  */
 
 /**
- * @brief Тип возвращаемого функцией чтения обыкновенного свойства значения.
+ * @brief Тип возвращаемого функцией чтения простого свойства значения.
  */
-#define SDEVICE_GET_PROPERTY_RETURN_VALUE SDevicePropertyStatus
+#define SDEVICE_GET_SIMPLE_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 
 /**
- * @brief Список формальных параметров функции чтения обыкновенного свойства.
+ * @brief Список формальных параметров функции чтения простого свойства.
  * @param handle_name Имя формального параметра дескриптора.
  * @param value_name Имя формального параметра указателя на буфер для читаемого значения.
  */
-#define SDEVICE_GET_PROPERTY_ARGUMENTS(handle_name, value_name) (void *handle_name, void *value_name)
+#define SDEVICE_GET_SIMPLE_PROPERTY_ARGUMENTS(handle_name, value_name) (void *handle_name, void *value_name)
 
 /**
- * @brief Создает переменную (или член структуры) типа указателя на функцию чтения обыкновенного свойства.
+ * @brief Создает переменную (или член структуры) типа указателя на функцию чтения простого свойства.
  * @param pointer_name Имя указателя.
  */
-#define SDEVICE_GET_PROPERTY_POINTER(pointer_name)                                                                     \
-   SDEVICE_GET_PROPERTY_RETURN_VALUE (* pointer_name) SDEVICE_GET_PROPERTY_ARGUMENTS(,)
+#define SDEVICE_GET_SIMPLE_PROPERTY_POINTER(pointer_name)                                                              \
+   SDEVICE_GET_SIMPLE_PROPERTY_RETURN_VALUE (* pointer_name) SDEVICE_GET_SIMPLE_PROPERTY_ARGUMENTS(,)
 
 /**
- * @brief Мета-определение символа (имени) функции чтения обыкновенного свойства.
+ * @brief Мета-определение символа (имени) функции чтения простого свойства.
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  */
-#define SDEVICE_GET_PROPERTY(device_name, property_name)                                                               \
-   _##device_name##SDevice##property_name##GetProperty
+#define SDEVICE_GET_SIMPLE_PROPERTY(device_name, property_name)                                                        \
+   _##device_name##SDevice##property_name##GetSimpleProperty
 
 /**
- * @brief Создает прототип (объявление) функции чтения обыкновенного свойства.
+ * @brief Создает прототип (объявление) функции чтения простого свойства.
  * @param device_name Название модуля.
  * @param property_name Название свойства.
  * @param handle_name Имя формального параметра дескриптора.
  * @param value_name Имя формального параметра указателя на буфер для читаемого значения.
  */
-#define SDEVICE_GET_PROPERTY_DECLARATION(device_name, property_name, handle_name, value_name)                          \
-   SDEVICE_GET_PROPERTY_RETURN_VALUE                                                                                   \
-   SDEVICE_GET_PROPERTY(device_name, property_name)                                                                    \
-   SDEVICE_GET_PROPERTY_ARGUMENTS(handle_name, value_name)
+#define SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(device_name, property_name, handle_name, value_name)                   \
+   SDEVICE_GET_SIMPLE_PROPERTY_RETURN_VALUE                                                                            \
+   SDEVICE_GET_SIMPLE_PROPERTY(device_name, property_name)                                                             \
+   SDEVICE_GET_SIMPLE_PROPERTY_ARGUMENTS(handle_name, value_name)
 
 /** @} */
 

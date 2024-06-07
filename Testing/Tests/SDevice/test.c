@@ -33,7 +33,7 @@ TEST(SDeviceCore, HandleInitialization)
    TEST_ASSERT(identifier == SDeviceGetHandleIdentifier(handle));
    TEST_ASSERT(TEST_SDEVICE_STATUS_OK == SDeviceGetHandleLatestStatus(handle));
    TEST_ASSERT(SDeviceCompareIdentityBlocks(&SDEVICE_IDENTITY_BLOCK(Test), SDeviceGetHandleIdentityBlock(handle)));
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PROPERTY(Test, PropertyValue)(handle, &readValue));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_SIMPLE_PROPERTY(Test, PropertyValue)(handle, &readValue));
    TEST_ASSERT(readValue.FirstValue == writeValue.FirstValue && readValue.SecondValue == writeValue.SecondValue);
 }
 
@@ -50,9 +50,9 @@ TEST(SDeviceCore, HandleProperty)
    SDEVICE_PROPERTY_TYPE(Test, PropertyValue) writeValue = { .FirstValue = 10, .SecondValue = 20 };
    SDEVICE_PROPERTY_TYPE(Test, PropertyValue) readValue;
 
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_SET_PROPERTY(Test, PropertyValue)(handle, &writeValue));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_SET_SIMPLE_PROPERTY(Test, PropertyValue)(handle, &writeValue));
    TEST_ASSERT(!WasAssertFailedCalled);
-   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_PROPERTY(Test, PropertyValue)(handle, &readValue));
+   TEST_ASSERT_EQUAL(SDEVICE_PROPERTY_STATUS_OK, SDEVICE_GET_SIMPLE_PROPERTY(Test, PropertyValue)(handle, &readValue));
    TEST_ASSERT(!WasAssertFailedCalled);
    TEST_ASSERT(readValue.FirstValue == writeValue.FirstValue && readValue.SecondValue == writeValue.SecondValue);
 }
