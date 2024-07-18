@@ -23,7 +23,7 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Test, init, owner, identifier, context)
 
    const ThisInitData *_init = init;
 
-   ThisHandle *handle = SDeviceAllocHandle(sizeof(ThisInitData), sizeof(ThisRuntimeData));
+   ThisHandle *handle = SDeviceAllocateHandle(sizeof(ThisInitData), sizeof(ThisRuntimeData));
 
    handle->Header = (SDeviceHandleHeader)
    {

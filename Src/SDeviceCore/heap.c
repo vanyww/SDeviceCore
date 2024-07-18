@@ -5,31 +5,31 @@
 #include <stdlib.h>
 
 __attribute__((weak))
-void * SDeviceMalloc(size_t size)
+void * SDeviceAllocateMemory(size_t size)
 {
    if(!size)
       return NULL;
 
-   void *memory = malloc(size);
+   void *pointer = malloc(size);
 
-   if(!memory)
+   if(!pointer)
       CoreGlobalSDeviceThrowPanic(CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY);
 
-   return memory;
+   return pointer;
 }
 
 __attribute__((weak))
-void SDeviceFree(void *memory)
+void SDeviceFreeMemory(void *pointer)
 {
-   free(memory);
+   free(pointer);
 }
 
-void * SDeviceAllocHandle(size_t initSize, size_t runtimeSize)
+void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize)
 {
-   SDeviceCommonHandle *handle = SDeviceMalloc(sizeof(SDeviceCommonHandle));
+   SDeviceCommonHandle *handle = SDeviceAllocateMemory(sizeof(SDeviceCommonHandle));
 
-   handle->Init = SDeviceMalloc(initSize);
-   handle->Runtime = SDeviceMalloc(runtimeSize);
+   handle->Init = SDeviceAllocateMemory(initSize);
+   handle->Runtime = SDeviceAllocateMemory(runtimeSize);
 
    return handle;
 }
@@ -41,11 +41,11 @@ void SDeviceFreeHandle(void *handle)
 
    SDeviceCommonHandle *_handle = handle;
 
-   SDeviceFree(_handle->Runtime);
+   SDeviceFreeMemory(_handle->Runtime);
    _handle->Runtime = NULL;
 
-   SDeviceFree(_handle->Init);
+   SDeviceFreeMemory(_handle->Init);
    _handle->Init = NULL;
 
-   SDeviceFree(_handle);
+   SDeviceFreeMemory(_handle);
 }
