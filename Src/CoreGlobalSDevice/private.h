@@ -2,8 +2,6 @@
 
 #include "CoreGlobalSDevice/public.h"
 
-#include "SDeviceCore/errors.h"
-
 SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(CoreGlobal);
 SDEVICE_INIT_DATA_FORWARD_DECLARATION(CoreGlobal);
 

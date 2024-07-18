@@ -272,7 +272,7 @@
          __auto_type _divisor  = (divisor);                                                                            \
          static_assert(HAS_VALUE_UNSIGNED_TYPE(_dividend), "Dividend value must be unsigned.");                        \
          static_assert(HAS_VALUE_UNSIGNED_TYPE(_divisor), "Divisor value must be unsigned.");                          \
-         _dividend / _divisor + ((_dividend % _divisor != 0U) ? 1U : 0U);                                              \
+         _dividend / _divisor + !!(_dividend % _divisor);                                                              \
       })
 #endif
 

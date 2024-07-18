@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "log.h"
 #include "config.h"
+#include "log.h"
 #include "dependencies.h"
 
 /**
