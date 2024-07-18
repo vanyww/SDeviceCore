@@ -115,6 +115,24 @@
 #endif
 
 /**
+ * @brief Получает первый элемент статического массива или VLA.
+ * @param array Статический массив или VLA.
+ * @return Первый элемент массива @p array.
+ */
+#if !defined(FIRST) || defined(DOXYGEN)
+   #define FIRST(array) ((array)[0])
+#endif
+
+/**
+ * @brief Получает последний элемент статического массива или VLA.
+ * @param array Статический массив или VLA.
+ * @return Последний элемент массива @p array.
+ */
+#if !defined(LAST) || defined(DOXYGEN)
+   #define LAST(array) ((array)[LENGTHOF(array) - 1])
+#endif
+
+/**
  * @brief Указывает на возможно неиспользуемый параметр функции.
  * @details Предотвращает возникновение предупреждения о том, что параметр @p parameter не используется кодом функции.
  * @n Пример использования:
