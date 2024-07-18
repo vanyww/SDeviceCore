@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "SDeviceCore/errors.h"
+
 /**
  * @addtogroup core_global
  * @{
