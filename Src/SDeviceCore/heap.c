@@ -7,15 +7,17 @@
 __attribute__((weak))
 void * SDeviceAllocateMemory(size_t size)
 {
-   if(!size)
-      return NULL;
+   if(size > 0)
+   {
+      void *pointer = malloc(size);
 
-   void *pointer = malloc(size);
+      if(!pointer)
+         CoreGlobalSDeviceThrowPanic(CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY);
 
-   if(!pointer)
-      CoreGlobalSDeviceThrowPanic(CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY);
+      return pointer;
+   }
 
-   return pointer;
+   return NULL;
 }
 
 __attribute__((weak))
@@ -36,16 +38,16 @@ void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize)
 
 void SDeviceFreeHandle(void *handle)
 {
-   if(!handle)
-      return;
+   if(handle)
+   {
+      SDeviceCommonHandle *_handle = handle;
 
-   SDeviceCommonHandle *_handle = handle;
+      SDeviceFreeMemory(_handle->Runtime);
+      _handle->Runtime = NULL;
 
-   SDeviceFreeMemory(_handle->Runtime);
-   _handle->Runtime = NULL;
+      SDeviceFreeMemory(_handle->Init);
+      _handle->Init = NULL;
 
-   SDeviceFreeMemory(_handle->Init);
-   _handle->Init = NULL;
-
-   SDeviceFreeMemory(_handle);
+      SDeviceFreeMemory(_handle);
+   }
 }

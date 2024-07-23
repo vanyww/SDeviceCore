@@ -100,7 +100,7 @@ typedef struct
  * @brief Мета-определение символа (имени) структуры данных параметров инициализации дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_INIT_DATA(device_name) _##device_name##SDeviceInitData
+#define SDEVICE_INIT_DATA(device_name) $##device_name##SDeviceInitData
 
 /**
  * @brief Начинает объявление структуры данных параметров инициализации дескриптора.
@@ -132,7 +132,7 @@ typedef struct
  * @brief Мета-определение символа (имени) структуры данных параметров времени выполнения дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_RUNTIME_DATA(device_name) _##device_name##SDeviceRuntimeData
+#define SDEVICE_RUNTIME_DATA(device_name) $##device_name##SDeviceRuntimeData
 
 /**
  * @brief Начинает объявление структуры данных параметров времени выполнения дескриптора.
@@ -161,7 +161,7 @@ typedef struct
  * @brief Мета-определение символа (имени) функции создания дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_CREATE_HANDLE(device_name) _##device_name##SDeviceCreateHandle
+#define SDEVICE_CREATE_HANDLE(device_name) $##device_name##SDeviceCreateHandle
 
 /**
  * @brief Тип возвращаемого функцией создания дескриптора значения.
@@ -230,7 +230,7 @@ typedef struct
  * @brief Мета-определение символа (имени) функции удаления дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_DISPOSE_HANDLE(device_name) _##device_name##SDeviceDisposeHandle
+#define SDEVICE_DISPOSE_HANDLE(device_name) $##device_name##SDeviceDisposeHandle
 
 /**
  * @brief Создает прототип (объявление) функции удаления дескриптора.
@@ -298,33 +298,33 @@ typedef struct
 
 /**
  * @brief Сравнивает идентификаторы @ref SDeviceUuid.
- * @param[in] uuid_0 Первый UUID.
- * @param[in] uuid_1 Второй UUID.
- * @return `true`, если @p uuid_0 равен @p uuid_1, иначе - `false`.
+ * @param[in] uuid$0 Первый UUID.
+ * @param[in] uuid$1 Второй UUID.
+ * @return `true`, если @p uuid$0 равен @p uuid$1, иначе - `false`.
  */
-bool SDeviceCompareUuids(const SDeviceUuid *uuid_0, const SDeviceUuid *uuid_1);
+bool SDeviceCompareUuids(const SDeviceUuid *uuid$0, const SDeviceUuid *uuid$1);
 
 /**
  * @brief Сравнивает версии @ref SDeviceVersion.
- * @param[in] version_0 Первая версия.
- * @param[in] version_1 Вторая версия.
- * @return `true`, если @p version_0 равна @p version_1, иначе - `false`.
+ * @param[in] version$0 Первая версия.
+ * @param[in] version$1 Вторая версия.
+ * @return `true`, если @p version$0 равна @p version$1, иначе - `false`.
  */
-bool SDeviceCompareVersions(const SDeviceVersion *version_0, const SDeviceVersion *version_1);
+bool SDeviceCompareVersions(const SDeviceVersion *version$0, const SDeviceVersion *version$1);
 
 /**
  * @brief Сравнивает идентификационные блоки @ref SDeviceIdentityBlock.
- * @param[in] identity_0 Первый идентификационный блок.
- * @param[in] identity_1 Второй идентификационный блок.
- * @return `true`, если @p identity_0 равен @p identity_1, иначе - `false`.
+ * @param[in] identity$0 Первый идентификационный блок.
+ * @param[in] identity$1 Второй идентификационный блок.
+ * @return `true`, если @p identity$0 равен @p identity$1, иначе - `false`.
  */
-bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const SDeviceIdentityBlock *identity_1);
+bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity$0, const SDeviceIdentityBlock *identity$1);
 
 /**
  * @brief Мета-определение символа (идентификатора) структуры дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_HANDLE(device_name) _##device_name##SDeviceHandle
+#define SDEVICE_HANDLE(device_name) $##device_name##SDeviceHandle
 
 /**
  * @brief Создает предварительное объявление структуры дескриптора.
@@ -373,7 +373,7 @@ bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const 
  * @brief Мета-определение символа (имени) переменной идентификационного блока модуля дескриптора.
  * @param device_name Название модуля.
  */
-#define SDEVICE_IDENTITY_BLOCK(device_name) _##device_name##SDeviceIdentityBlock
+#define SDEVICE_IDENTITY_BLOCK(device_name) $##device_name##SDeviceIdentityBlock
 
 /**
  * @brief Создает объявление переменной идентификационного блока модуля дескриптора.
@@ -511,10 +511,10 @@ typedef enum
  */
 #define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
    {                                                                                                                   \
-      __auto_type _value = (value);                                                                                    \
-      _value == SDEVICE_PROPERTY_STATUS_OK               ||                                                            \
-      _value == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                            \
-      _value == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                              \
+      __auto_type $$value = (value);                                                                                   \
+      $$value == SDEVICE_PROPERTY_STATUS_OK               ||                                                           \
+      $$value == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                           \
+      $$value == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                             \
    })
 
 /**
@@ -523,7 +523,7 @@ typedef enum
  * @param property_name Название свойства.
  */
 #define SDEVICE_PROPERTY_TYPE(device_name, property_name)                                                              \
-   _##device_name##SDevice##property_name##PropertyType
+   $##device_name##SDevice##property_name##PropertyType
 
 /**
  * @brief Создает объявление типа данных свойства.
@@ -574,7 +574,7 @@ typedef enum
  * @param property_name Название свойства.
  */
 #define SDEVICE_SET_SIMPLE_PROPERTY(device_name, property_name)                                                        \
-   _##device_name##SDevice##property_name##SetSimpleProperty
+   $##device_name##SDevice##property_name##SetSimpleProperty
 
 /**
  * @brief Создает прототип (объявление) функции записи простого свойства.
@@ -622,7 +622,7 @@ typedef enum
  * @param property_name Название свойства.
  */
 #define SDEVICE_GET_SIMPLE_PROPERTY(device_name, property_name)                                                        \
-   _##device_name##SDevice##property_name##GetSimpleProperty
+   $##device_name##SDevice##property_name##GetSimpleProperty
 
 /**
  * @brief Создает прототип (объявление) функции чтения простого свойства.
@@ -691,7 +691,7 @@ typedef struct
  * @param property_name Название свойства.
  */
 #define SDEVICE_SET_PARTIAL_PROPERTY(device_name, property_name)                                                       \
-   _##device_name##SDevice##property_name##SetPartialProperty
+   $##device_name##SDevice##property_name##SetPartialProperty
 
 /**
  * @brief Создает прототип (объявление) функции записи частичного свойства.
@@ -750,7 +750,7 @@ typedef struct
  * @param property_name Название свойства.
  */
 #define SDEVICE_GET_PARTIAL_PROPERTY(device_name, property_name)                                                       \
-   _##device_name##SDevice##property_name##GetPartialProperty
+   $##device_name##SDevice##property_name##GetPartialProperty
 
 /**
  * @brief Создает прототип (объявление) функции чтения частичного свойства.
@@ -782,7 +782,7 @@ typedef struct
  * @param property_name Название свойства.
  */
 #define SDEVICE_INDEXER_PROPERTY_LENGTH(device_name, property_name)                                                    \
-   _##device_name##SDevice##property_name##IndexerPropertyLength
+   $##device_name##SDevice##property_name##IndexerPropertyLength
 
 /**
  * @brief Определение длины свойства-индексатора.
@@ -836,7 +836,7 @@ typedef struct
  * @param property_name Название свойства.
  */
 #define SDEVICE_SET_INDEXER_PROPERTY(device_name, property_name)                                                       \
-   _##device_name##SDevice##property_name##SetIndexerProperty
+   $##device_name##SDevice##property_name##SetIndexerProperty
 
 /**
  * @brief Создает прототип (объявление) функции записи свойства-индексатора.
@@ -895,7 +895,7 @@ typedef struct
  * @param property_name Название свойства.
  */
 #define SDEVICE_GET_INDEXER_PROPERTY(device_name, property_name)                                                       \
-   _##device_name##SDevice##property_name##GetIndexerProperty
+   $##device_name##SDevice##property_name##GetIndexerProperty
 
 /**
  * @brief Создает прототип (объявление) функции чтения свойства-индексатора.

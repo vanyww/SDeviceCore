@@ -65,8 +65,8 @@
 #if SDEVICE_USE_STATUS_LOG || defined(DOXYGEN)
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                            \
       {                                                                                                                \
-         SDeviceCommonHandle *_handle = (SDeviceCommonHandle *)(handle);                                               \
-         _handle->Header.LatestStatus = (status);                                                                      \
+         SDeviceCommonHandle *$$handle = (SDeviceCommonHandle *)(handle);                                              \
+         $$handle->Header.LatestStatus = (status);                                                                     \
          SDeviceProcessLogStatus(handle, extras, extrasSize);                                                          \
       })
 #else
@@ -82,8 +82,8 @@
  */
 #define SDevicePanic(handle, panic) (                                                                                  \
    {                                                                                                                   \
-      SDeviceCommonHandle *_handle = (SDeviceCommonHandle *)(handle);                                                  \
-      _handle->Header.LatestStatus = (panic);                                                                          \
+      SDeviceCommonHandle *$$handle = (SDeviceCommonHandle *)(handle);                                                 \
+      $$handle->Header.LatestStatus = (panic);                                                                         \
       SDeviceProcessPanic(handle);                                                                                     \
    })
 

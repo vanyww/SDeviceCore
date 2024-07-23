@@ -1,30 +1,30 @@
 #include "SDeviceCore/core.h"
 #include "SDeviceCore/errors.h"
 
-bool SDeviceCompareUuids(const SDeviceUuid *uuid_0, const SDeviceUuid *uuid_1)
+bool SDeviceCompareUuids(const SDeviceUuid *uuid$0, const SDeviceUuid *uuid$1)
 {
-   SDeviceAssert(uuid_0);
-   SDeviceAssert(uuid_1);
+   SDeviceAssert(uuid$0);
+   SDeviceAssert(uuid$1);
 
-   return uuid_0->Low == uuid_1->Low &&
-         uuid_0->High == uuid_1->High;
+   return uuid$0->Low == uuid$1->Low &&
+         uuid$0->High == uuid$1->High;
 }
 
-bool SDeviceCompareVersions(const SDeviceVersion *version_0, const SDeviceVersion *version_1)
+bool SDeviceCompareVersions(const SDeviceVersion *version$0, const SDeviceVersion *version$1)
 {
-   SDeviceAssert(version_0);
-   SDeviceAssert(version_1);
+   SDeviceAssert(version$0);
+   SDeviceAssert(version$1);
 
-   return version_0->Major == version_1->Major &&
-         version_0->Minor == version_1->Minor &&
-         version_0->Patch == version_1->Patch;
+   return version$0->Major == version$1->Major &&
+         version$0->Minor == version$1->Minor &&
+         version$0->Patch == version$1->Patch;
 }
 
-bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const SDeviceIdentityBlock *identity_1)
+bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity$0, const SDeviceIdentityBlock *identity$1)
 {
-   SDeviceAssert(identity_0);
-   SDeviceAssert(identity_1);
+   SDeviceAssert(identity$0);
+   SDeviceAssert(identity$1);
 
-   return SDeviceCompareUuids(&identity_0->Uuid, &identity_1->Uuid) &&
-         SDeviceCompareVersions(&identity_0->Version, &identity_1->Version);
+   return SDeviceCompareUuids(&identity$0->Uuid, &identity$1->Uuid) &&
+         SDeviceCompareVersions(&identity$0->Version, &identity$1->Version);
 }
