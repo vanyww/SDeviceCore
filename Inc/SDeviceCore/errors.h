@@ -65,13 +65,13 @@
 #if SDEVICE_USE_STATUS_LOG || defined(DOXYGEN)
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                            \
       {                                                                                                                \
-         SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                               \
-         _header->LatestStatus = (status);                                                                             \
+         SDeviceCommonHandle *_handle = (SDeviceCommonHandle *)(handle);                                               \
+         _handle->Header.LatestStatus = (status);                                                                      \
          SDeviceProcessLogStatus(handle, extras, extrasSize);                                                          \
       })
 #else
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize)                                              \
-      ((SDeviceHandleHeader *)(handle))->LatestStatus = (status)
+      ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
 #endif
 
 /**
@@ -82,8 +82,8 @@
  */
 #define SDevicePanic(handle, panic) (                                                                                  \
    {                                                                                                                   \
-      SDeviceHandleHeader *_header = (SDeviceHandleHeader *)(handle);                                                  \
-      _header->LatestStatus = (panic);                                                                                 \
+      SDeviceCommonHandle *_handle = (SDeviceCommonHandle *)(handle);                                                  \
+      _handle->Header.LatestStatus = (panic);                                                                          \
       SDeviceProcessPanic(handle);                                                                                     \
    })
 

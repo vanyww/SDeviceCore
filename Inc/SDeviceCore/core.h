@@ -292,9 +292,9 @@ typedef struct
 typedef struct
 {
    SDeviceHandleHeader Header;  /**< Заголовок дескриптора. */
-   void               *Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
-   void               *Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
-} SDeviceCommonHandle;
+   void      *restrict Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
+   void      *restrict Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
+} __attribute__((may_alias)) SDeviceCommonHandle;
 
 /**
  * @brief Сравнивает идентификаторы @ref SDeviceUuid.
@@ -340,8 +340,8 @@ bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const 
 #define SDEVICE_HANDLE_DECLARATION(device_name)                                                                        \
    struct SDEVICE_HANDLE(device_name)                                                                                  \
    {                                                                                                                   \
-      SDeviceHandleHeader Header;                                                                                      \
-      SDEVICE_INIT_DATA(device_name) *Init;                                                                            \
+      SDeviceHandleHeader                Header;                                                                       \
+      SDEVICE_INIT_DATA(device_name)    *Init;                                                                         \
       SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                      \
    }
 
