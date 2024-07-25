@@ -394,6 +394,16 @@ bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity$0, const 
       .Version = (version)                                                                                             \
    }
 
+#define SDEVICE_IS_VALID_HANDLE(device_name, handle) (                                                                 \
+   {                                                                                                                   \
+      void *$$handle = (handle);                                                                                       \
+                                                                                                                       \
+      $$handle &&                                                                                                      \
+      SDeviceCompareIdentityBlocks(                                                                                    \
+            &SDEVICE_IDENTITY_BLOCK(device_name),                                                                      \
+            SDeviceGetHandleIdentityBlock($$handle));                                                                  \
+   })
+
 /** @} */
 
 /**
