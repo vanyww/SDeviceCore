@@ -104,26 +104,6 @@ SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value)
    return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_GET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value)
-{
-   SDeviceAssert(handle != NULL);
-   SDeviceAssert(value != NULL);
-
-   /* read property part by index "value.StartIdx" and of length "value.Length" to "value.Items" */
-
-   return SDEVICE_PROPERTY_STATUS_OK;
-}
-
-SDEVICE_SET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value)
-{
-   SDeviceAssert(handle != NULL);
-   SDeviceAssert(value != NULL);
-
-   /* write property part by index "value.StartIdx" and of length "value.Length" from "value.Items" */
-
-   return SDEVICE_PROPERTY_STATUS_OK;
-}
-
 void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle)
 {
    SDeviceAssert(handle != NULL);

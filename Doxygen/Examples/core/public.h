@@ -55,9 +55,4 @@ SDEVICE_PROPERTY_TYPE_DECLARATION(Example, StringValue, struct { char Value[64];
 SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value);
 SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value);
 
-SDEVICE_PROPERTY_TYPE_DECLARATION(Example, UuidArrayValue, SDeviceUuid);
-SDEVICE_INDEXER_PROPERTY_LENGTH_DEFINITION(Example, UuidArrayValue, 10);
-SDEVICE_GET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value);
-SDEVICE_SET_INDEXER_PROPERTY_DECLARATION(Example, UuidArrayValue, handle, value);
-
 void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle);
