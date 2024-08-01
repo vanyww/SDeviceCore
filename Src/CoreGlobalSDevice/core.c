@@ -14,7 +14,7 @@ SDEVICE_IDENTITY_BLOCK_DEFINITION(
          .Patch = CORE_GLOBAL_SDEVICE_VERSION_PATCH
       }));
 
-static ThisHandle *const CoreGlobalSDeviceHandle = &(ThisHandle)
+static ThisHandle *const CoreGlobalHandle = &(ThisHandle)
 {
    .Header =
    {
@@ -28,10 +28,10 @@ static ThisHandle *const CoreGlobalSDeviceHandle = &(ThisHandle)
 
 void CoreGlobalSDeviceThrowPanic(CoreGlobalSDevicePanic panic)
 {
-   SDevicePanic(CoreGlobalSDeviceHandle, panic);
+   SDevicePanic(CoreGlobalHandle, panic);
 }
 
 void CoreGlobalSDeviceLogStatus(CoreGlobalSDeviceStatus status)
 {
-   SDeviceLogStatus(CoreGlobalSDeviceHandle, status);
+   SDeviceLogStatus(CoreGlobalHandle, status);
 }

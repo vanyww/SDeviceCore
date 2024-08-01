@@ -65,9 +65,9 @@
 #if SDEVICE_USE_STATUS_LOG || defined(DOXYGEN)
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                            \
       {                                                                                                                \
-         SDeviceCommonHandle *$$handle = (SDeviceCommonHandle *)(handle);                                              \
-         $$handle->Header.LatestStatus = (status);                                                                     \
-         SDeviceProcessLogStatus(handle, extras, extrasSize);                                                          \
+         SDeviceCommonHandle *_mHandle = (SDeviceCommonHandle *)(handle);                                              \
+         _mHandle->Header.LatestStatus = (status);                                                                     \
+         SDeviceProcessLogStatus(_mHandle, extras, extrasSize);                                                        \
       })
 #else
    #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize)                                              \
@@ -82,9 +82,9 @@
  */
 #define SDevicePanic(handle, panic) (                                                                                  \
    {                                                                                                                   \
-      SDeviceCommonHandle *$$handle = (SDeviceCommonHandle *)(handle);                                                 \
-      $$handle->Header.LatestStatus = (panic);                                                                         \
-      SDeviceProcessPanic(handle);                                                                                     \
+      SDeviceCommonHandle *_mHandle = (SDeviceCommonHandle *)(handle);                                                 \
+      _mHandle->Header.LatestStatus = (panic);                                                                         \
+      SDeviceProcessPanic(_mHandle);                                                                                   \
    })
 
 /**
