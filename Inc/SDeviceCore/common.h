@@ -75,6 +75,29 @@
 #endif
 
 /**
+ * @brief Создает rvalue-значение указателя на тип.
+ * @details
+ * @note Для использования с sizeof-выражениями.
+ * @param type Тип.
+ * @return rvalue-значение указателя на тип @p type.
+ */
+#if !defined(INSTANCE_OF) || defined(DOXYGEN)
+   #define INSTANCE_OF(type) ((type *)0)
+#endif
+
+/**
+ * @brief Создает rvalue-значение члена типа.
+ * @details
+ * @note Для использования с sizeof-выражениями.
+ * @param type Тип.
+ * @param member Член.
+ * @return rvalue-значение члена @p member указателя на тип @p type.
+ */
+#if !defined(MEMBER_OF) || defined(DOXYGEN)
+   #define INSTANCE_MEMBER_OF(type, member) (INSTANCE_OF(type)->member)
+#endif
+
+/**
  * @brief Вычисляет размер (в байтах) члена типа данных.
  * @details Пример использования:
  * @include common/sizeof_member.c
@@ -83,7 +106,7 @@
  * @return Размер (в байтах) члена @p member типа данных @p type.
  */
 #if !defined(SIZEOF_MEMBER) || defined(DOXYGEN)
-   #define SIZEOF_MEMBER(type, member) (sizeof(((type *)0)->member))
+   #define SIZEOF_MEMBER(type, member) (sizeof(INSTANCE_MEMBER_OF(type, member)))
 #endif
 
 /**
