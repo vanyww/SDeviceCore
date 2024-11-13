@@ -1,9 +1,21 @@
 #include "private.h"
 
-#include "SDeviceCore/errors.h"
 #include "SDeviceCore/heap.h"
 
-SDEVICE_STRING_NAME_DEFINITION(Example);
+#include <stdlib.h>
+
+SDEVICE_IDENTITY_BLOCK_DEFINITION(Example,
+                                  ((const SDeviceUuid)
+                                  {
+                                     .High = EXAMPLE_SDEVICE_UUID_HIGH,
+                                     .Low  = EXAMPLE_SDEVICE_UUID_LOW
+                                  }),
+                                  ((const SDeviceVersion)
+                                  {
+                                     .Major = EXAMPLE_SDEVICE_VERSION_MAJOR,
+                                     .Minor = EXAMPLE_SDEVICE_VERSION_MINOR,
+                                     .Patch = EXAMPLE_SDEVICE_VERSION_PATCH
+                                  }));
 
 SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, owner, identifier, context)
 {
@@ -14,11 +26,11 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, owner, identifier, context)
    ThisHandle *handle = SDeviceMalloc(sizeof(ThisHandle));
    handle->Header = (SDeviceHandleHeader)
    {
-      .Context = context,
-      .OwnerHandle = owner,
-      .SDeviceStringName = SDEVICE_STRING_NAME(Example),
-      .LatestStatus = EXAMPLE_SDEVICE_STATUS_OK,
-      .Identifier = identifier
+      .Context       = context,
+      .OwnerHandle   = owner,
+      .IdentityBlock = &SDEVICE_IDENTITY_BLOCK(Example),
+      .LatestStatus  = EXAMPLE_SDEVICE_STATUS_OK,
+      .Identifier    = identifier
    };
 
    handle->Init = *_init;
@@ -44,7 +56,7 @@ SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, handlePointer)
    *_handlePointer = NULL;
 }
 
-SDEVICE_GET_PROPERTY_DECLARATION(Example, IntValue, handle, value)
+SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value)
 {
    SDeviceAssert(handle != NULL);
    SDeviceAssert(value != NULL);
@@ -55,10 +67,10 @@ SDEVICE_GET_PROPERTY_DECLARATION(Example, IntValue, handle, value)
 
    memcpy(value, valueToRead, sizeof(valueToRead));
 
-   return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
+   return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_SET_PROPERTY_DECLARATION(Example, IntValue, handle, value)
+SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Example, IntValue, handle, value)
 {
    SDeviceAssert(handle != NULL);
    SDeviceAssert(value != NULL);
@@ -69,54 +81,32 @@ SDEVICE_SET_PROPERTY_DECLARATION(Example, IntValue, handle, value)
 
    /* write value from "valueToWrite" variable */
 
-   return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
+   return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value)
+SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value)
 {
    SDeviceAssert(handle != NULL);
    SDeviceAssert(value != NULL);
 
    /* read property part by offset "value.Offset" and of size "value.Size" to "value.Data" */
 
-   return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
+   return SDEVICE_PROPERTY_STATUS_OK;
 }
 
-SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, FixedLengthString, handle, value)
+SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Example, StringValue, handle, value)
 {
    SDeviceAssert(handle != NULL);
    SDeviceAssert(value != NULL);
 
    /* write property part by offset "value.Offset" and of size "value.Size" from "value.Data" */
 
-   return SDEVICE_PROPERTY_OPERATION_STATUS_OK;
+   return SDEVICE_PROPERTY_STATUS_OK;
 }
-
-/** [error_processing_example] */
 
 void CommonExampleSDeviceFunction(SDEVICE_HANDLE(Example) *handle)
 {
    SDeviceAssert(handle != NULL);
 
-   int randomValue = GetRandomIntGreaterThanZero();
-   SDeviceDebugAssert(result >= 0);
-
-   int randomValue;
-   SDeviceDebugEvalAssert((randomValue = GetRandomIntGreaterThanZero()) >= 0);
-
-   try /* dummy exception handler */
-   {
-      if(randomValue <= 0) /* dummy example check */
-         SDeviceThrow(handle, EXAMPLE_SDEVICE_EXCEPTION_SOME_EXCEPTION_0);
-   }
-   catch(e)
-   {
-      /* `e` has type `const void *` and is identical to `handle` */
-      /* process exception */
-   }
-
-   if(randomValue <= 0) /* dummy example check */
-      SDeviceLogStatus(handle, EXAMPLE_SDEVICE_STATUS_ERROR_1);
+   /* any special logic */
 }
-
-/** [error_processing_example] */

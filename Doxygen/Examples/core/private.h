@@ -2,6 +2,8 @@
 
 #include "public.h"
 
+#include "SDeviceCore/errors.h"
+
 SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(Example);
 
 SDEVICE_RUNTIME_DATA_DECLARATION(Example)
