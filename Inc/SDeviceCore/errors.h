@@ -62,8 +62,6 @@
  * @details Вызывается при провале проверки утверждения макросами:
  * - #SDeviceAssert
  * - #SDeviceEvalAssert
- * - #SDeviceDebugAssert
- * - #SDeviceDebugEvalAssert
  *
  * @note Может иметь разные прототипы в зависимости от состояния флага #SDEVICE_USE_SIMPLE_ASSERT.
  * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.

@@ -37,7 +37,7 @@
 /**
  * @brief Контекст дескриптора глобального модуля.
  * @details Значение этого макроса будет использовано в качестве контекста дескриптора глобального модуля.
- * @n @ref SDeviceHandleHeader::Context.
+ * @n @ref SDeviceCommonHandle::Context.
  */
 #if !defined(CORE_GLOBAL_SDEVICE_HANDLE_CONTEXT) || defined(DOXYGEN)
    #define CORE_GLOBAL_SDEVICE_HANDLE_CONTEXT NULL

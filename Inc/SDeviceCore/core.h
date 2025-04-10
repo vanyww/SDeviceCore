@@ -74,7 +74,7 @@ typedef struct
  * @details Дескриптор - часть интерфейса модуля, структура данных,
  * храненящая его параметры и внутреннее состояние между вызовами.
  * Дескриптор состоит из следующих членов:
- * - @code SDeviceHandleHeader Header @endcode
+ * - @code void *Context @endcode
  * - @code SDEVICE_INIT_DATA(device_name) Init @endcode
  * - @code SDEVICE_RUNTIME_DATA(device_name) Runtime @endcode
  *
@@ -171,8 +171,6 @@ typedef struct
 /**
  * @brief Список формальных параметров функции создания дескриптора.
  * @param init_data_name Имя формального параметра параметров инициализации дескриптора.
- * @param owner_name Имя формального параметра указателя на владельца (внешний дескриптор).
- * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
 #define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name)                                                  \
@@ -189,8 +187,6 @@ typedef struct
  * @brief Создает прототип (объявление) функции создания дескриптора.
  * @param device_name Название модуля.
  * @param init_data_name Имя формального параметра данных инициализации дескриптора.
- * @param owner_name Имя формального параметра указателя на внешний дескриптор.
- * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
 #define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, context_name)                                   \
