@@ -245,9 +245,9 @@ typedef struct
 /** @} */
 
 /**
- * @brief Тип данных идентификатора дескриптора.
+ * @brief Тип данных паники модуля.
  */
-typedef int16_t SDeviceHandleStatus;
+typedef int16_t SDevicePanic;
 
 /**
  * @brief Тип данных UUID.

@@ -17,9 +17,10 @@ void SDeviceProcessAssertFail(char *file, int line)
 }
 
 __attribute__((weak))
-void SDeviceProcessPanic(const void *handle)
+void SDeviceProcessPanic(const void *handle, SDevicePanic panic)
 {
    UNUSED_PARAMETER(handle);
+   UNUSED_PARAMETER(panic);
 
    for(;;);
 }

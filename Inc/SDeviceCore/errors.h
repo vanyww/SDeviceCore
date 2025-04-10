@@ -47,15 +47,14 @@
 
 /**
  * @brief Выбрасывает панику.
- * @details Записывает состояние @p panic в дескриптор @p handle и выбрасывает последний в виде паники.
+ * @details Выбрасывает дескриптор @p handle и индификатор @p panic в виде паники.
  * @param handle Дескриптор, с которым должно быть ассоциировано выбрасываемая паника.
- * @param panic Идентификатор паники типа @ref SDeviceHandleStatus.
+ * @param panic Идентификатор паники типа @ref SDevicePanic.
  */
-#define SDevicePanic(handle, panic) (                                                                                  \
+#define SDeviceThrowPanic(handle, panic) (                                                                             \
    {                                                                                                                   \
       SDeviceCommonHandle *_mHandle = (SDeviceCommonHandle *)(handle);                                                 \
-      _mHandle->Header.LatestStatus = (panic);                                                                         \
-      SDeviceProcessPanic(_mHandle);                                                                                   \
+      SDeviceProcessPanic(_mHandle, panic);                                                                            \
    })
 
 /**
@@ -79,10 +78,11 @@ void SDeviceProcessAssertFail(void);
 
 /**
  * @brief Функция обработки паники.
- * @details Вызывается при выбрасывании паники макросом #SDevicePanic.
+ * @details Вызывается при выбрасывании паники макросом #SDeviceThrowPanic.
  * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.
  * @param[in] handle Дескриптор, ассоциированный с возникшей паникой.
+ * @param[in] panic Идентификатор паники типа @ref SDevicePanic.
  */
-void SDeviceProcessPanic(const void *handle);
+void SDeviceProcessPanic(const void *handle, SDevicePanic panic);
 
 /** @} */
