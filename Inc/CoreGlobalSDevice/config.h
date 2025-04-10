@@ -43,15 +43,6 @@
    #define CORE_GLOBAL_SDEVICE_HANDLE_CONTEXT NULL
 #endif
 
-/**
- * @brief Идентификатор дескриптора глобального модуля.
- * @details Значение этого макроса будет использовано в качестве идентификатора дескриптора глобального модуля.
- * @n @ref SDeviceHandleHeader::Identifier.
- */
-#if !defined(CORE_GLOBAL_SDEVICE_HANDLE_IDENTIFIER) || defined(DOXYGEN)
-   #define CORE_GLOBAL_SDEVICE_HANDLE_IDENTIFIER 0
-#endif
-
 /** @} */
 
 /** @} */

@@ -8,7 +8,6 @@
 #pragma once
 
 #include "config.h"
-#include "log.h"
 #include "dependencies.h"
 
 /**
@@ -22,18 +21,6 @@
  * @details @copydetails CoreGlobalSDevice/public.h
  * @{
  */
-
-/* 78BE0543-4A77-11EE-8689-93F017F8080A */
-
-/**
- * @brief Старшая часть UUID глобального модуля.
- */
-#define CORE_GLOBAL_SDEVICE_UUID_HIGH 0x78BE05434A7711EE
-
-/**
- * @brief Младшая часть UUID глобального модуля.
- */
-#define CORE_GLOBAL_SDEVICE_UUID_LOW  0x868993F017F8080A
 
 /**
  * @brief Старшая компонента версии глобального модуля.
@@ -64,23 +51,11 @@ typedef enum
 } CoreGlobalSDevicePanic;
 
 /**
- * @brief Объявление переменной идентификационного блока модуля.
- */
-SDEVICE_IDENTITY_BLOCK_DECLARATION(CoreGlobal);
-
-/**
  * @brief Выбрасывает панику глобального модуля.
  * @details Использует #SDevicePanic.
  * @param panic Паника для выбрасывания.
  */
 void CoreGlobalSDeviceThrowPanic(CoreGlobalSDevicePanic panic);
-
-/**
- * @brief Логирует состояние глобального модуля.
- * @details Использует #SDeviceLogStatus.
- * @param status Состояние для логирования.
- */
-void CoreGlobalSDeviceLogStatus(CoreGlobalSDeviceStatus status);
 
 /** @} */
 
