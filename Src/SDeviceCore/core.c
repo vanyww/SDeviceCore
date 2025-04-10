@@ -19,12 +19,3 @@ bool SDeviceCompareVersions(const SDeviceVersion *version_0, const SDeviceVersio
          version_0->Minor == version_1->Minor &&
          version_0->Patch == version_1->Patch;
 }
-
-bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const SDeviceIdentityBlock *identity_1)
-{
-   SDeviceAssert(identity_0);
-   SDeviceAssert(identity_1);
-
-   return SDeviceCompareUuids(&identity_0->Uuid, &identity_1->Uuid) &&
-         SDeviceCompareVersions(&identity_0->Version, &identity_1->Version);
-}

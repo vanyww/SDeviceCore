@@ -17,14 +17,6 @@ void SDeviceProcessAssertFail(char *file, int line)
 }
 
 __attribute__((weak))
-void SDeviceProcessLogStatus(const void *handle, const void *extras, size_t extrasSize)
-{
-   UNUSED_PARAMETER(handle);
-   UNUSED_PARAMETER(extras);
-   UNUSED_PARAMETER(extrasSize);
-}
-
-__attribute__((weak))
 void SDeviceProcessPanic(const void *handle)
 {
    UNUSED_PARAMETER(handle);

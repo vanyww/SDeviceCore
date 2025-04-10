@@ -58,15 +58,6 @@
    #define SDEVICE_USE_SIMPLE_ASSERT true
 #endif
 
-/**
- * @brief Флаг, включающий логирование.
- * @details Управляет поведением #SDeviceLogStatus.
- * Состояние флага включает или отключает логирование средствами условной компиляции.
- */
-#if !defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
-   #define SDEVICE_USE_STATUS_LOG true
-#endif
-
 /** @} */
 
 /** @} */

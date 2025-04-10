@@ -7,6 +7,7 @@
 #pragma once
 
 #include "config.h"
+#include "core.h"
 
 /**
  * @defgroup sdevice_core_errors Обработка ошибок
@@ -45,36 +46,6 @@
 #endif
 
 /**
- * @brief Логирует состояние дескриптора.
- * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
- * Дополнительные параметры (@p extras и @p extrasSize) устанавливаются в `NULL` и `0` соответственно.
- * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
- * @param status Идентификатор состояния (int32_t).
- */
-#define SDeviceLogStatus(handle, status) SDeviceLogStatusWithExtras(handle, status, NULL, 0)
-
-/**
- * @brief Логирует состояние дескриптора с дополнительными данными.
- * @details Записывает состояние @p status в дескриптор @p handle и вызывает @ref SDeviceProcessLogStatus.
- * Также передает дополнительные параметры @p extras и @p extrasSize в @ref SDeviceProcessLogStatus.
- * @param handle Дескриптор, с которым должно быть ассоциировано логируемое состояние.
- * @param status Идентификатор состояния типа @ref SDeviceHandleStatus.
- * @param extras Указатель на дополнительные данные.
- * @param extrasSize Размер (в байтах) дополнительных данных.
- */
-#if SDEVICE_USE_STATUS_LOG || defined(DOXYGEN)
-   #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize) (                                            \
-      {                                                                                                                \
-         SDeviceCommonHandle *_mHandle = (SDeviceCommonHandle *)(handle);                                              \
-         _mHandle->Header.LatestStatus = (status);                                                                     \
-         SDeviceProcessLogStatus(_mHandle, extras, extrasSize);                                                        \
-      })
-#else
-   #define SDeviceLogStatusWithExtras(handle, status, extras, extrasSize)                                              \
-      ((SDeviceCommonHandle *)(handle))->Header.LatestStatus = (status)
-#endif
-
-/**
  * @brief Выбрасывает панику.
  * @details Записывает состояние @p panic в дескриптор @p handle и выбрасывает последний в виде паники.
  * @param handle Дескриптор, с которым должно быть ассоциировано выбрасываемая паника.
@@ -105,16 +76,6 @@ void SDeviceProcessAssertFail(char *file, int line);
 #else
 void SDeviceProcessAssertFail(void);
 #endif
-
-/**
- * @brief Функция обработки запроса на логирование события.
- * @details Вызывается при запросе логирования макросом #SDeviceLogStatus.
- * @note Определена в виде слабого символа, реализация по-умолчанию - пустая функция.
- * @param[in] handle Дескриптор, ассоциированный с логируемым событием.
- * @param[in] extras Дополнительные пользовательские данные.
- * @param[in] extrasSize Размер (в байтах) дополнительных пользовательских данных.
- */
-void SDeviceProcessLogStatus(const void *handle, const void *extras, size_t extrasSize);
 
 /**
  * @brief Функция обработки паники.
