@@ -14,12 +14,16 @@ SDevicePanic Panic = UINT16_MAX;
 static void TestAssertHandler(void)
 {
    WasAssertHandlerCalled = true;
+
+   TEST_MESSAGE("OK");
 }
 
 static void TestPanicHandler(const void *handle, SDevicePanic panic)
 {
    PanicHandle = handle;
    Panic = panic;
+
+   TEST_MESSAGE("OK");
 }
 
 TEST_GROUP(Errors);
