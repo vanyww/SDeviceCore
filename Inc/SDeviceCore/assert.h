@@ -6,7 +6,6 @@
 #pragma once
 
 #include "config.h"
-#include "core.h"
 
 /**
  * @defgroup sdevice_core_errors Обработка ошибок
