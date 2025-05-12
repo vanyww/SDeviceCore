@@ -17,30 +17,6 @@
  */
 
 /**
- * @brief Указывает на вероятную истинность выражения.
- * @details Позволяет компилятору лучше оптимизировать код, использующий условные выражения.
- * @n Пример использования:
- * @include common/likely.c
- * @param expression Выражение, на истинность которого указывается.
- * @return Результат выполнения выражения @p expression.
- */
-#if !defined(likely) || defined(DOXYGEN)
-   #define likely(expression) __builtin_expect(!!(expression), 1)
-#endif
-
-/**
- * @brief Указывает на вероятную ложность выражения.
- * @details Позволяет компилятору лучше оптимизировать код, использующий условные выражения.
- * @n Пример использования:
- * @include common/unlikely.c
- * @param expression Выражение, на ложность которого указывается.
- * @return Результат выполнения выражения @p expression.
- */
-#if !defined(unlikely) || defined(DOXYGEN)
-   #define unlikely(expression) __builtin_expect(!!(expression), 0)
-#endif
-
-/**
  * @brief Вычисляет минимум из двух значений.
  * @details
  * @note Использует braced-groups для предотвращения повторного исполнения передаваемых выражений.
