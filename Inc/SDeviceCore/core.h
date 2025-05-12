@@ -224,9 +224,9 @@
  */
 typedef struct
 {
-   void          *Context; /**< Указатель на пользовательский контекст дескриптора. */
    void *restrict Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
    void *restrict Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
+   void *restrict Context; /**< Указатель на пользовательский контекст дескриптора. */
 } __attribute__((may_alias)) SDeviceCommonHandle;
 
 /**
@@ -249,9 +249,9 @@ typedef struct
 #define SDEVICE_HANDLE_DECLARATION(device_name)                                                                        \
    struct SDEVICE_HANDLE(device_name)                                                                                  \
    {                                                                                                                   \
-      void                              *Context;                                                                      \
       SDEVICE_INIT_DATA(device_name)    *Init;                                                                         \
-      SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                      \
+      SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                                                                   \
+      void                              *Context;                                                                      \
    }
 
 /**
@@ -269,18 +269,6 @@ typedef struct
    typedef SDEVICE_INIT_DATA(device_name) ThisInitData;                                                                \
    typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData;                                                          \
    typedef SDEVICE_HANDLE(device_name) ThisHandle
-
-/**
- * @brief Возвращает указатель на пользовательский контекст дескриптора @ref SDeviceCommonHandle::Context.
- * @param[in] handle Дескриптор.
- * @return Указатель на пользовательский контекст дескриптора @p handle.
- */
-__attribute__((always_inline))
-static inline void * SDeviceGetHandleContext(const void *handle)
-{
-   const SDeviceCommonHandle *_handle = handle;
-   return _handle->Context;
-}
 
 /**
  * @brief Возвращает "параметры инициализации" дескриптора @ref SDeviceCommonHandle::Init.
@@ -304,6 +292,18 @@ static inline void * SDeviceGetHandleRuntimeData(const void *handle)
 {
    const SDeviceCommonHandle *_handle = handle;
    return _handle->Runtime;
+}
+
+/**
+ * @brief Возвращает указатель на пользовательский контекст дескриптора @ref SDeviceCommonHandle::Context.
+ * @param[in] handle Дескриптор.
+ * @return Указатель на пользовательский контекст дескриптора @p handle.
+ */
+__attribute__((always_inline))
+static inline void * SDeviceGetHandleContext(const void *handle)
+{
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Context;
 }
 
 /** @} */
