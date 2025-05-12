@@ -189,9 +189,9 @@
 
 /**
  * @brief Список формальных параметров функции удаления дескриптора.
- * @param handle_pointer_name Имя формального параметра указателя на дескриптор.
+ * @param handle_name Имя формального параметра дескриптора.
  */
-#define SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_pointer_name) (void *handle_pointer_name)
+#define SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_name) (void *handle_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию удаления дескриптора.
@@ -209,12 +209,12 @@
 /**
  * @brief Создает прототип (объявление) функции удаления дескриптора.
  * @param device_name Название модуля.
- * @param handle_pointer_name Имя формального параметра указателя на дескриптор.
+ * @param handle_name Имя формального параметра дескриптора.
  */
-#define SDEVICE_DISPOSE_HANDLE_DECLARATION(device_name, handle_pointer_name)                                           \
+#define SDEVICE_DISPOSE_HANDLE_DECLARATION(device_name, handle_name)                                                   \
    SDEVICE_DISPOSE_HANDLE_RETURN_VALUE                                                                                 \
    SDEVICE_DISPOSE_HANDLE(device_name)                                                                                 \
-   SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_pointer_name)
+   SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_name)
 
 /** @} */
 
