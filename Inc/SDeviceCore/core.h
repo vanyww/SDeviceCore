@@ -32,17 +32,6 @@
  */
 
 /**
- * @brief Версия модуля.
- * @details Тип данных, используемый для хранения версии модулей.
- */
-typedef struct
-{
-   uint16_t Major; /**< Старшая компонента версии. */
-   uint8_t  Minor; /**< Средняя компонента версии. */
-   uint8_t  Patch; /**< Младшая компонента версии. */
-} SDeviceVersion;
-
-/**
  * @brief Старшая компонента версии ядра фреймворка SDevice.
  */
 #define SDEVICE_CORE_VERSION_MAJOR 10
@@ -56,17 +45,6 @@ typedef struct
  * @brief Младшая компонента версии ядра фреймворка SDevice.
  */
 #define SDEVICE_CORE_VERSION_PATCH 0
-
-/**
- * @brief Версия ядра фреймворка SDevice в виде составного литерала структуры SDeviceVersion.
- */
-#define SDEVICE_CORE_VERSION (                                                                                         \
-   (SDeviceVersion)                                                                                                    \
-   {                                                                                                                   \
-      .Major = SDEVICE_CORE_VERSION_MAJOR,                                                                             \
-      .Minor = SDEVICE_CORE_VERSION_MINOR,                                                                             \
-      .Patch = SDEVICE_CORE_VERSION_PATCH                                                                              \
-   })
 
 /**
  * @defgroup handles Дескрипторы модулей
@@ -241,15 +219,6 @@ typedef struct
 /** @} */
 
 /**
- * @brief Тип данных UUID.
- */
-typedef struct
-{
-   uint64_t High; /**< Старшая часть UUID. */
-   uint64_t Low;  /**< Младшая часть UUID. */
-} SDeviceUuid;
-
-/**
  * @brief Обобщенный дескриптор.
  * @details Структура данных, используемая для доступа к общим данных дескрипторов.
  */
@@ -259,22 +228,6 @@ typedef struct
    void *restrict Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
    void *restrict Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
 } __attribute__((may_alias)) SDeviceCommonHandle;
-
-/**
- * @brief Сравнивает идентификаторы @ref SDeviceUuid.
- * @param[in] uuid_0 Первый UUID.
- * @param[in] uuid_1 Второй UUID.
- * @return `true`, если @p uuid_0 равен @p uuid_1, иначе - `false`.
- */
-bool SDeviceCompareUuids(const SDeviceUuid *uuid_0, const SDeviceUuid *uuid_1);
-
-/**
- * @brief Сравнивает версии @ref SDeviceVersion.
- * @param[in] version_0 Первая версия.
- * @param[in] version_1 Вторая версия.
- * @return `true`, если @p version_0 равна @p version_1, иначе - `false`.
- */
-bool SDeviceCompareVersions(const SDeviceVersion *version_0, const SDeviceVersion *version_1);
 
 /**
  * @brief Мета-определение символа (идентификатора) структуры дескриптора.
