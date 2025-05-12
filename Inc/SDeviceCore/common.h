@@ -275,4 +275,25 @@
       })
 #endif
 
+/**
+ * @brief Производит запись переменной так, как если бы она имела квалификатор "volatile".
+ * @details
+ * @param dividend Переменная.
+ * @param divisor Значение.
+ * @return Записанное значение.
+ */
+#if !defined(SET_AS_VOLATILE) || defined(DOXYGEN)
+   #define SET_AS_VOLATILE(target, value) (*(volatile typeof(target) *)&(target) = (value))
+#endif
+
+/**
+ * @brief Производит чтение переменной так, как если бы она имела квалификатор "volatile".
+ * @details
+ * @param dividend Переменная.
+ * @return Прочитанное значение.
+ */
+#if !defined(GET_AS_VOLATILE) || defined(DOXYGEN)
+   #define GET_AS_VOLATILE(target) (*(volatile typeof(target) *)&(target))
+#endif
+
 /** @} */
