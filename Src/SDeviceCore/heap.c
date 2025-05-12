@@ -15,9 +15,12 @@ void SDeviceFreeMemory(void *pointer)
    free(pointer);
 }
 
+__attribute__((weak))
 void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize)
 {
-   SDeviceCommonHandle *handle = SDeviceAllocateMemory(sizeof(SDeviceCommonHandle));
+   SDeviceCommonHandle *handle =
+         SDeviceAllocateMemory(
+               sizeof(*handle));
 
    handle->Init = SDeviceAllocateMemory(initSize);
    handle->Runtime = SDeviceAllocateMemory(runtimeSize);
@@ -25,18 +28,12 @@ void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize)
    return handle;
 }
 
+__attribute__((weak))
 void SDeviceFreeHandle(void *handle)
 {
-   if(handle)
-   {
-      SDeviceCommonHandle *_handle = handle;
+   SDeviceCommonHandle *_handle = handle;
 
-      SDeviceFreeMemory(_handle->Runtime);
-      _handle->Runtime = NULL;
-
-      SDeviceFreeMemory(_handle->Init);
-      _handle->Init = NULL;
-
-      SDeviceFreeMemory(_handle);
-   }
+   SDeviceFreeMemory(_handle->Runtime);
+   SDeviceFreeMemory(_handle->Init);
+   SDeviceFreeMemory(_handle);
 }
