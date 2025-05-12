@@ -334,7 +334,7 @@ typedef enum
  * @param[in] value Значение, соответствие которого необходимо проверить.
  * @return `true`, если @p value является членом перечисления @ref SDevicePropertyStatus, иначе - `false`.
  */
-#define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
+#define SDEVICE_IS_VALID_PROPERTY_STATUS(value) (                                                                      \
    {                                                                                                                   \
       __auto_type _mValue = (value);                                                                                   \
       _mValue == SDEVICE_PROPERTY_STATUS_OK               ||                                                           \
