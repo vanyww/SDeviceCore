@@ -1,4 +1,4 @@
-#include "SDeviceCore/errors.h"
+#include "SDeviceCore/assert.h"
 #include "SDeviceCore/common.h"
 
 __attribute__((weak))
@@ -12,15 +12,6 @@ void SDeviceProcessAssertFail(char *file, int line)
    UNUSED_PARAMETER(file);
    UNUSED_PARAMETER(line);
 #endif
-
-   for(;;);
-}
-
-__attribute__((weak))
-void SDeviceProcessPanic(const void *handle, SDevicePanic panic)
-{
-   UNUSED_PARAMETER(handle);
-   UNUSED_PARAMETER(panic);
 
    for(;;);
 }

@@ -241,11 +241,6 @@ typedef struct
 /** @} */
 
 /**
- * @brief Тип данных паники модуля.
- */
-typedef int16_t SDevicePanic;
-
-/**
  * @brief Тип данных UUID.
  */
 typedef struct

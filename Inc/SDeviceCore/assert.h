@@ -1,7 +1,6 @@
 /**
- * @file SDeviceCore/errors.h
- * @brief Инструменты обработки ошибок.
- * @details Проверка утверждений, логирование и паники.
+ * @file SDeviceCore/assert.h
+ * @brief Инструменты проверки утверждений.
  */
 
 #pragma once
@@ -46,18 +45,6 @@
 #endif
 
 /**
- * @brief Выбрасывает панику.
- * @details Выбрасывает дескриптор @p handle и индификатор @p panic в виде паники.
- * @param handle Дескриптор, с которым должно быть ассоциировано выбрасываемая паника.
- * @param panic Идентификатор паники типа @ref SDevicePanic.
- */
-#define SDeviceThrowPanic(handle, panic) (                                                                             \
-   {                                                                                                                   \
-      SDeviceCommonHandle *_mHandle = (SDeviceCommonHandle *)(handle);                                                 \
-      SDeviceProcessPanic(_mHandle, panic);                                                                            \
-   })
-
-/**
  * @brief Функция обработки проваленной проверки утверждения.
  * @details Вызывается при провале проверки утверждения макросами:
  * - #SDeviceAssert
@@ -73,14 +60,5 @@ void SDeviceProcessAssertFail(char *file, int line);
 #else
 void SDeviceProcessAssertFail(void);
 #endif
-
-/**
- * @brief Функция обработки паники.
- * @details Вызывается при выбрасывании паники макросом #SDeviceThrowPanic.
- * @note Определена в виде слабого символа, реализация по-умолчанию - вечный цикл.
- * @param[in] handle Дескриптор, ассоциированный с возникшей паникой.
- * @param[in] panic Идентификатор паники типа @ref SDevicePanic.
- */
-void SDeviceProcessPanic(const void *handle, SDevicePanic panic);
 
 /** @} */

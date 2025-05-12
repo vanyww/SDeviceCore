@@ -1,23 +1,12 @@
 #include "SDeviceCore/heap.h"
-
-#include "CoreGlobalSDevice/public.h"
+#include "SDeviceCore/core.h"
 
 #include <stdlib.h>
 
 __attribute__((weak))
 void * SDeviceAllocateMemory(size_t size)
 {
-   if(size > 0)
-   {
-      void *pointer = malloc(size);
-
-      if(!pointer)
-         CoreGlobalSDeviceThrowPanic(CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY);
-
-      return pointer;
-   }
-
-   return NULL;
+   return malloc(size);
 }
 
 __attribute__((weak))
