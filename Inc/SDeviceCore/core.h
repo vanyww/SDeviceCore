@@ -20,9 +20,7 @@
 
 #pragma once
 
-#include <stdint.h>
 #include <stddef.h>
-#include <stdbool.h>
 
 /**
  * @defgroup sdevice_core Ядро фреймворка SDevice
