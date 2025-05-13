@@ -54,6 +54,7 @@ void SDeviceProcessAssertFail(char *file, int line)
 {
    int messageLength = snprintf(NULL, 0, ASSERT_FAIL_FORMAT, file, line);
    char message[messageLength + 1];
+
    sprintf(message, ASSERT_FAIL_FORMAT, file, line);
 
    TEST_MESSAGE(message);
