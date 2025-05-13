@@ -3,10 +3,6 @@
 #include "config.h"
 #include "dependencies.h"
 
-/* 00000000-0000-0000-0000-000000000001 */
-#define TEST_SDEVICE_UUID_HIGH 0x0000000000000000
-#define TEST_SDEVICE_UUID_LOW  0x0000000000000001
-
 #define TEST_SDEVICE_VERSION_MAJOR 1
 #define TEST_SDEVICE_VERSION_MINOR 0
 #define TEST_SDEVICE_VERSION_PATCH 0
@@ -20,18 +16,13 @@ typedef struct
    int Second;
 } TestSDeviceDataType;
 
-typedef enum
-{
-   TEST_SDEVICE_PANIC
-} TestSDevicePanic;
-
 SDEVICE_INIT_DATA_DECLARATION(Test)
 {
    TestSDeviceDataType InitData;
 };
 
 SDEVICE_CREATE_HANDLE_DECLARATION(Test, init, context);
-SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handlePointer);
+SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handle);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Test, SimplePropertyValue, TestSDeviceDataType);
 SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Test, SimplePropertyValue, handle, value);

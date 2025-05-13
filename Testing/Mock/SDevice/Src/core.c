@@ -22,18 +22,11 @@ SDEVICE_CREATE_HANDLE_DECLARATION(Test, init, context)
    return handle;
 }
 
-SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handlePointer)
+SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handle)
 {
-   SDeviceAssert(handlePointer);
-
-   ThisHandle **_handlePointer = handlePointer;
-   ThisHandle *handle = *_handlePointer;
-
    SDeviceAssert(handle);
 
    SDeviceFreeHandle(handle);
-
-   *_handlePointer = NULL;
 }
 
 SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Test, SimplePropertyValue, handle, value)
