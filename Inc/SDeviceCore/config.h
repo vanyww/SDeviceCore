@@ -41,7 +41,7 @@
 
 /**
  * @brief Флаг, включающий проверку утверждений.
- * @details Управляет поведением #SDeviceAssert, #SDeviceEvalAssert, #SDeviceDebugAssert и #SDeviceDebugEvalAssert.
+ * @details Управляет поведением #SDeviceAssert, #SDeviceEvalAssert.
  * Состояние флага включает или отключает проверку утверждений средствами условной компиляции.
  * Отключение проверки утверждений позволяет уменьшить затраты памяти и повысить производительность.
  */
@@ -56,15 +56,6 @@
  */
 #if !defined(SDEVICE_USE_SIMPLE_ASSERT) || defined(DOXYGEN)
    #define SDEVICE_USE_SIMPLE_ASSERT true
-#endif
-
-/**
- * @brief Флаг, включающий логирование.
- * @details Управляет поведением #SDeviceLogStatus.
- * Состояние флага включает или отключает логирование средствами условной компиляции.
- */
-#if !defined(SDEVICE_USE_STATUS_LOG) || defined(DOXYGEN)
-   #define SDEVICE_USE_STATUS_LOG true
 #endif
 
 /** @} */

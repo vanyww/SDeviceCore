@@ -11,9 +11,6 @@
    #include "example_sdevice_config.h"
 #endif
 
-#define EXAMPLE_SDEVICE_UUID_HIGH 0x0000000000000000
-#define EXAMPLE_SDEVICE_UUID_LOW  0x0000000000000000
-
 #define EXAMPLE_SDEVICE_VERSION_MAJOR 0
 #define EXAMPLE_SDEVICE_VERSION_MINOR 0
 #define EXAMPLE_SDEVICE_VERSION_PATCH 0
@@ -28,15 +25,6 @@ typedef enum
    /* any other panics to throw */
 } ExampleSDevicePanic;
 
-typedef enum
-{
-   EXAMPLE_SDEVICE_STATUS_OK,
-   EXAMPLE_SDEVICE_STATUS_ERROR_1,
-   EXAMPLE_SDEVICE_STATUS_ERROR_2,
-   EXAMPLE_SDEVICE_STATUS_ERROR_3
-   /* any other status entries to log */
-} ExampleSDeviceStatus;
-
 SDEVICE_INIT_DATA_DECLARATION(Example)
 {
    /* any init data: callbacks, constants, etc. */
@@ -44,7 +32,7 @@ SDEVICE_INIT_DATA_DECLARATION(Example)
 
 SDEVICE_IDENTITY_BLOCK_DECLARATION(Example);
 
-SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, owner, identifier, context);
+SDEVICE_CREATE_HANDLE_DECLARATION(Example, init, context);
 SDEVICE_DISPOSE_HANDLE_DECLARATION(Example, handlePointer);
 
 SDEVICE_PROPERTY_TYPE_DECLARATION(Example, IntValue, int);

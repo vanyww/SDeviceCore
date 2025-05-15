@@ -35,6 +35,7 @@ void SDeviceFreeMemory(void *pointer);
 
 /**
  * @brief Динамически выделяет память для дескриптора.
+ * @note Имеет определение в виде слабого символа.
  * @param[in] initSize Размер @ref handle_init_data "параметров инициализации" дескриптора модуля.
  * @param[in] runtimeSize Размер @ref handle_runtime_data "параметров времени выполнения" дескриптора модуля.
  * @return Указатель на выделенный дескприптор.
@@ -44,6 +45,7 @@ void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize);
 
 /**
  * @brief Освобождает динамически выделенную (при помощи функции @ref SDeviceAllocateHandle) память дескриптора.
+ * @note Имеет определение в виде слабого символа.
  * @param[in] handle Дескриптор, память которого требуется освободить.
  */
 void SDeviceFreeHandle(void *handle);
