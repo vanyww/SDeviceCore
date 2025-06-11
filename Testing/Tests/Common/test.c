@@ -48,7 +48,7 @@ TEST(Common, BIT_SIZEOF_MEMBER)
 {
    typedef float TestType;
    typedef struct
-   {  
+   {
       uint8_t Unused;
       TestType TestValue;
    } TestStructure;
@@ -68,29 +68,27 @@ TEST(Common, LENGTHOF)
 
 TEST(Common, SET_BITS)
 {
-   int testValue   = 0b1111001100111;
-   int bits        = 0b0000110011000;
-   int resultValue = 0b1111111111111;
+   int testValue = 0b0000000000000;
+   int bits      = 0b0000110011000;
 
-   TEST_ASSERT_EQUAL(resultValue, SET_BITS(testValue, bits));
+   TEST_ASSERT_BITS_HIGH(bits, SET_BITS(testValue, bits));
 }
 
 TEST(Common, CLEAR_BITS)
 {
-   int testValue   = 0b1111111111111;
-   int bits        = 0b0000110011000;
-   int resultValue = 0b1111001100111;
+   int testValue = 0b1111111111111;
+   int bits      = 0b0000110011000;
 
-   TEST_ASSERT_EQUAL(resultValue, CLEAR_BITS(testValue,bits));
+   TEST_ASSERT_BITS_LOW(bits, CLEAR_BITS(testValue, bits));
 }
 
 TEST(Common, READ_BITS)
 {
-   int testValue   = 0b1111001111111;
-   int bits        = 0b0100110011000;
-   int resultValue = 0b0100000011000;
+   int testValue = 0b1111001111111;
+   int bits      = 0b0100110011000;
+   int result    = 0b0100000011000;
 
-   TEST_ASSERT_EQUAL(resultValue, READ_BITS(testValue, bits));
+   TEST_ASSERT_BITS(bits, result, READ_BITS(testValue, bits));
 }
 
 TEST(Common, WILL_INT_ADD_OVERFLOW)

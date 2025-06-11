@@ -20,9 +20,7 @@
 
 #pragma once
 
-#include <stdint.h>
 #include <stddef.h>
-#include <stdbool.h>
 
 /**
  * @defgroup sdevice_core Ядро фреймворка SDevice
@@ -32,20 +30,9 @@
  */
 
 /**
- * @brief Версия модуля.
- * @details Тип данных, используемый для хранения версии модулей.
- */
-typedef struct
-{
-   uint16_t Major; /**< Старшая компонента версии. */
-   uint8_t  Minor; /**< Средняя компонента версии. */
-   uint8_t  Patch; /**< Младшая компонента версии. */
-} SDeviceVersion;
-
-/**
  * @brief Старшая компонента версии ядра фреймворка SDevice.
  */
-#define SDEVICE_CORE_VERSION_MAJOR 9
+#define SDEVICE_CORE_VERSION_MAJOR 10
 
 /**
  * @brief Средняя компонента версии ядра фреймворка SDevice.
@@ -58,23 +45,12 @@ typedef struct
 #define SDEVICE_CORE_VERSION_PATCH 0
 
 /**
- * @brief Версия ядра фреймворка SDevice в виде составного литерала структуры SDeviceVersion.
- */
-#define SDEVICE_CORE_VERSION (                                                                                         \
-   (SDeviceVersion)                                                                                                    \
-   {                                                                                                                   \
-      .Major = SDEVICE_CORE_VERSION_MAJOR,                                                                             \
-      .Minor = SDEVICE_CORE_VERSION_MINOR,                                                                             \
-      .Patch = SDEVICE_CORE_VERSION_PATCH                                                                              \
-   })
-
-/**
  * @defgroup handles Дескрипторы модулей
  * @brief Инструменты описания дескрипторов и взаимодействия с ними.
  * @details Дескриптор - часть интерфейса модуля, структура данных,
  * храненящая его параметры и внутреннее состояние между вызовами.
  * Дескриптор состоит из следующих членов:
- * - @code SDeviceHandleHeader Header @endcode
+ * - @code void *Context @endcode
  * - @code SDEVICE_INIT_DATA(device_name) Init @endcode
  * - @code SDEVICE_RUNTIME_DATA(device_name) Runtime @endcode
  *
@@ -171,32 +147,28 @@ typedef struct
 /**
  * @brief Список формальных параметров функции создания дескриптора.
  * @param init_data_name Имя формального параметра параметров инициализации дескриптора.
- * @param owner_name Имя формального параметра указателя на владельца (внешний дескриптор).
- * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, owner_name, identifier_name, context_name)                     \
-   (const void *init_data_name, void *owner_name, SDeviceHandleIdentifier identifier_name, void *context_name)
+#define SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name)                                                  \
+   (const void *init_data_name, void *context_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию создания дескриптора.
  * @param pointer_name Имя создаваемой переменной.
  */
 #define SDEVICE_CREATE_HANDLE_POINTER(pointer_name)                                                                    \
-   SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) SDEVICE_CREATE_HANDLE_ARGUMENTS(,,,)
+   SDEVICE_CREATE_HANDLE_RETURN_VALUE (* pointer_name) SDEVICE_CREATE_HANDLE_ARGUMENTS(,)
 
 /**
  * @brief Создает прототип (объявление) функции создания дескриптора.
  * @param device_name Название модуля.
  * @param init_data_name Имя формального параметра данных инициализации дескриптора.
- * @param owner_name Имя формального параметра указателя на внешний дескриптор.
- * @param identifier_name Имя формального параметра идентификатора дескриптора.
  * @param context_name Имя формального параметра пользовательского контекста дескриптора.
  */
-#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, owner_name, identifier_name, context_name)      \
+#define SDEVICE_CREATE_HANDLE_DECLARATION(device_name, init_data_name, context_name)                                   \
    SDEVICE_CREATE_HANDLE_RETURN_VALUE                                                                                  \
    SDEVICE_CREATE_HANDLE(device_name)                                                                                  \
-   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, owner_name, identifier_name, context_name)
+   SDEVICE_CREATE_HANDLE_ARGUMENTS(init_data_name, context_name)
 
 /** @} */
 
@@ -215,9 +187,9 @@ typedef struct
 
 /**
  * @brief Список формальных параметров функции удаления дескриптора.
- * @param handle_pointer_name Имя формального параметра указателя на дескриптор.
+ * @param handle_name Имя формального параметра дескриптора.
  */
-#define SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_pointer_name) (void *handle_pointer_name)
+#define SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_name) (void *handle_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию удаления дескриптора.
@@ -235,55 +207,14 @@ typedef struct
 /**
  * @brief Создает прототип (объявление) функции удаления дескриптора.
  * @param device_name Название модуля.
- * @param handle_pointer_name Имя формального параметра указателя на дескриптор.
+ * @param handle_name Имя формального параметра дескриптора.
  */
-#define SDEVICE_DISPOSE_HANDLE_DECLARATION(device_name, handle_pointer_name)                                           \
+#define SDEVICE_DISPOSE_HANDLE_DECLARATION(device_name, handle_name)                                                   \
    SDEVICE_DISPOSE_HANDLE_RETURN_VALUE                                                                                 \
    SDEVICE_DISPOSE_HANDLE(device_name)                                                                                 \
-   SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_pointer_name)
+   SDEVICE_DISPOSE_HANDLE_ARGUMENTS(handle_name)
 
 /** @} */
-
-/**
- * @brief Тип данных идентификатора дескриптора.
- */
-typedef uint16_t SDeviceHandleIdentifier;
-
-/**
- * @brief Тип данных состояния дескриптора.
- */
-typedef int16_t SDeviceHandleStatus;
-
-/**
- * @brief Тип данных UUID.
- */
-typedef struct
-{
-   uint64_t High; /**< Старшая часть UUID. */
-   uint64_t Low;  /**< Младшая часть UUID. */
-} SDeviceUuid;
-
-/**
- * @brief Тип данных идентификационного блока модуля дескриптора.
- */
-typedef struct
-{
-   SDeviceUuid    Uuid;    /**< UUID модуля. */
-   SDeviceVersion Version; /**< Версия модуля. */
-} SDeviceIdentityBlock;
-
-/**
- * @brief Заголовок дескриптора.
- * @details Структура данных, общая для всех дескрипторов.
- */
-typedef struct
-{
-   void                       *Context;       /**< Указатель на пользовательский контекст дескриптора. */
-   void                       *OwnerHandle;   /**< Указатель на владельца дескриптора (внешний дескриптор). */
-   const SDeviceIdentityBlock *IdentityBlock; /**< Идентификационный блок модуля дескриптора. */
-   SDeviceHandleStatus         LatestStatus;  /**< Последнее состояние дескриптора (ошибка или исключение). */
-   SDeviceHandleIdentifier     Identifier;    /**< Идентификатор дескриптора. */
-} SDeviceHandleHeader;
 
 /**
  * @brief Обобщенный дескриптор.
@@ -291,34 +222,10 @@ typedef struct
  */
 typedef struct
 {
-   SDeviceHandleHeader Header;  /**< Заголовок дескриптора. */
-   void      *restrict Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
-   void      *restrict Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
+   void *restrict Init;    /**< @ref handle_init_data "Параметры инициализации" дескриптора. */
+   void *restrict Runtime; /**< @ref handle_runtime_data "Параметры времени выполнения" дескриптора. */
+   void *restrict Context; /**< Указатель на пользовательский контекст дескриптора. */
 } __attribute__((may_alias)) SDeviceCommonHandle;
-
-/**
- * @brief Сравнивает идентификаторы @ref SDeviceUuid.
- * @param[in] uuid_0 Первый UUID.
- * @param[in] uuid_1 Второй UUID.
- * @return `true`, если @p uuid_0 равен @p uuid_1, иначе - `false`.
- */
-bool SDeviceCompareUuids(const SDeviceUuid *uuid_0, const SDeviceUuid *uuid_1);
-
-/**
- * @brief Сравнивает версии @ref SDeviceVersion.
- * @param[in] version_0 Первая версия.
- * @param[in] version_1 Вторая версия.
- * @return `true`, если @p version_0 равна @p version_1, иначе - `false`.
- */
-bool SDeviceCompareVersions(const SDeviceVersion *version_0, const SDeviceVersion *version_1);
-
-/**
- * @brief Сравнивает идентификационные блоки @ref SDeviceIdentityBlock.
- * @param[in] identity_0 Первый идентификационный блок.
- * @param[in] identity_1 Второй идентификационный блок.
- * @return `true`, если @p identity_0 равен @p identity_1, иначе - `false`.
- */
-bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const SDeviceIdentityBlock *identity_1);
 
 /**
  * @brief Мета-определение символа (идентификатора) структуры дескриптора.
@@ -340,9 +247,9 @@ bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const 
 #define SDEVICE_HANDLE_DECLARATION(device_name)                                                                        \
    struct SDEVICE_HANDLE(device_name)                                                                                  \
    {                                                                                                                   \
-      SDeviceHandleHeader                Header;                                                                       \
       SDEVICE_INIT_DATA(device_name)    *Init;                                                                         \
       SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                      \
+      void                              *Context;                                                                      \
    }
 
 /**
@@ -360,111 +267,6 @@ bool SDeviceCompareIdentityBlocks(const SDeviceIdentityBlock *identity_0, const 
    typedef SDEVICE_INIT_DATA(device_name) ThisInitData;                                                                \
    typedef SDEVICE_RUNTIME_DATA(device_name) ThisRuntimeData;                                                          \
    typedef SDEVICE_HANDLE(device_name) ThisHandle
-
-/**
- * @defgroup identity_block Идентификационный блок модуля дескриптора
- * @brief Инструменты описания идентификационного блока модуля дескриптора и взаимодействия с ним.
- * @details Идентификационный блок используется для определения модуля по его дескриптору.
- * @n Пример применения приведен в @link sdevice_core описании ядра фреймворка @endlink.
- * @{
- */
-
-/**
- * @brief Мета-определение символа (имени) переменной идентификационного блока модуля дескриптора.
- * @param device_name Название модуля.
- */
-#define SDEVICE_IDENTITY_BLOCK(device_name) device_name##SDeviceIdentityBlock
-
-/**
- * @brief Создает объявление переменной идентификационного блока модуля дескриптора.
- * @param device_name Название модуля.
- */
-#define SDEVICE_IDENTITY_BLOCK_DECLARATION(device_name)                                                                \
-   extern const SDeviceIdentityBlock SDEVICE_IDENTITY_BLOCK(device_name)
-
-/**
- * @brief Создает определение переменной идентификационного блока модуля дескриптора.
- * @param uuid UUID модуля типа @ref SDeviceUuid.
- * @param version Версия модуля типа @ref SDeviceVersion.
- */
-#define SDEVICE_IDENTITY_BLOCK_DEFINITION(device_name, uuid, version)                                                  \
-   const SDeviceIdentityBlock SDEVICE_IDENTITY_BLOCK(device_name) =                                                    \
-   {                                                                                                                   \
-      .Uuid    = (uuid),                                                                                               \
-      .Version = (version)                                                                                             \
-   }
-
-#define SDEVICE_IS_VALID_HANDLE(device_name, handle) (                                                                 \
-   {                                                                                                                   \
-      __auto_type _mHandle = (handle);                                                                                 \
-                                                                                                                       \
-      _mHandle &&                                                                                                      \
-      SDeviceCompareIdentityBlocks(                                                                                    \
-            &SDEVICE_IDENTITY_BLOCK(device_name),                                                                      \
-            SDeviceGetHandleIdentityBlock(_mHandle));                                                                  \
-   })
-
-/** @} */
-
-/**
- * @brief Возвращает указатель на пользовательский контекст дескриптора @ref SDeviceHandleHeader::Context.
- * @param[in] handle Дескриптор.
- * @return Указатель на пользовательский контекст дескриптора @p handle.
- */
-__attribute__((always_inline))
-static inline void * SDeviceGetHandleContext(const void *handle)
-{
-   const SDeviceCommonHandle *_handle = handle;
-   return _handle->Header.Context;
-}
-
-/**
- * @brief Возвращает указатель на владельца дескриптора (внешний дескриптор) @ref SDeviceHandleHeader::OwnerHandle.
- * @param[in] handle Дескриптор.
- * @return Указатель на владельца дескриптора @p handle.
- */
-__attribute__((always_inline))
-static inline void * SDeviceGetHandleOwnerHandle(const void *handle)
-{
-   const SDeviceCommonHandle *_handle = handle;
-   return _handle->Header.OwnerHandle;
-}
-
-/**
- * @brief Возвращает идентификационный блок модуля дескриптора @ref SDeviceHandleHeader::IdentityBlock.
- * @param[in] handle Дескриптор.
- * @return Идентификационный блок модуля дескриптор @p handle.
- */
-__attribute__((always_inline))
-static inline const SDeviceIdentityBlock * SDeviceGetHandleIdentityBlock(const void *handle)
-{
-   const SDeviceCommonHandle *_handle = handle;
-   return _handle->Header.IdentityBlock;
-}
-
-/**
- * @brief Возвращает последнее состояние дескриптора @ref SDeviceHandleHeader::LatestStatus.
- * @param[in] handle Дескриптор.
- * @return Последнее состояние дескриптора @p handle.
- */
-__attribute__((always_inline))
-static inline SDeviceHandleStatus SDeviceGetHandleLatestStatus(const void *handle)
-{
-   const SDeviceCommonHandle *_handle = handle;
-   return _handle->Header.LatestStatus;
-}
-
-/**
- * @brief Возвращает идентификатор дескриптора @ref SDeviceHandleHeader::Identifier.
- * @param[in] handle Дескриптор.
- * @return Идентификатор дескриптора @p handle.
- */
-__attribute__((always_inline))
-static inline SDeviceHandleIdentifier SDeviceGetHandleIdentifier(const void *handle)
-{
-   const SDeviceCommonHandle *_handle = handle;
-   return _handle->Header.Identifier;
-}
 
 /**
  * @brief Возвращает "параметры инициализации" дескриптора @ref SDeviceCommonHandle::Init.
@@ -488,6 +290,18 @@ static inline void * SDeviceGetHandleRuntimeData(const void *handle)
 {
    const SDeviceCommonHandle *_handle = handle;
    return _handle->Runtime;
+}
+
+/**
+ * @brief Возвращает указатель на пользовательский контекст дескриптора @ref SDeviceCommonHandle::Context.
+ * @param[in] handle Дескриптор.
+ * @return Указатель на пользовательский контекст дескриптора @p handle.
+ */
+__attribute__((always_inline))
+static inline void * SDeviceGetHandleContext(const void *handle)
+{
+   const SDeviceCommonHandle *_handle = handle;
+   return _handle->Context;
 }
 
 /** @} */
@@ -518,12 +332,13 @@ typedef enum
  * @param[in] value Значение, соответствие которого необходимо проверить.
  * @return `true`, если @p value является членом перечисления @ref SDevicePropertyStatus, иначе - `false`.
  */
-#define SDEVICE_IS_VALID_PROPERTY_OPERATION_STATUS(value) (                                                            \
+#define SDEVICE_IS_VALID_PROPERTY_STATUS(status) (                                                                     \
    {                                                                                                                   \
-      __auto_type _mValue = (value);                                                                                   \
-      _mValue == SDEVICE_PROPERTY_STATUS_OK               ||                                                           \
-      _mValue == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                           \
-      _mValue == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                             \
+      __auto_type _mStatus = (status);                                                                                 \
+                                                                                                                       \
+      _mStatus == SDEVICE_PROPERTY_STATUS_OK               ||                                                          \
+      _mStatus == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                          \
+      _mStatus == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                            \
    })
 
 /**
