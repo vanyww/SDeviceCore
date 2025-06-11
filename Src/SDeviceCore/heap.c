@@ -16,14 +16,21 @@ void SDeviceFreeMemory(void *pointer)
 }
 
 __attribute__((weak))
-void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize)
+void * SDeviceAllocateHandle(
+      size_t initSize,
+      size_t runtimeSize)
 {
    SDeviceCommonHandle *handle =
          SDeviceAllocateMemory(
                sizeof(*handle));
 
-   handle->Init = SDeviceAllocateMemory(initSize);
-   handle->Runtime = SDeviceAllocateMemory(runtimeSize);
+   handle->Init =
+         SDeviceAllocateMemory(
+               initSize);
+
+   handle->Runtime =
+         SDeviceAllocateMemory(
+               runtimeSize);
 
    return handle;
 }

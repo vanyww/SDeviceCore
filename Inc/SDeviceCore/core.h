@@ -248,7 +248,7 @@ typedef struct
    struct SDEVICE_HANDLE(device_name)                                                                                  \
    {                                                                                                                   \
       SDEVICE_INIT_DATA(device_name)    *Init;                                                                         \
-      SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                                                                   \
+      SDEVICE_RUNTIME_DATA(device_name) *Runtime;                                                                      \
       void                              *Context;                                                                      \
    }
 
@@ -332,12 +332,13 @@ typedef enum
  * @param[in] value Значение, соответствие которого необходимо проверить.
  * @return `true`, если @p value является членом перечисления @ref SDevicePropertyStatus, иначе - `false`.
  */
-#define SDEVICE_IS_VALID_PROPERTY_STATUS(value) (                                                                      \
+#define SDEVICE_IS_VALID_PROPERTY_STATUS(status) (                                                                     \
    {                                                                                                                   \
-      __auto_type _mValue = (value);                                                                                   \
-      _mValue == SDEVICE_PROPERTY_STATUS_OK               ||                                                           \
-      _mValue == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                           \
-      _mValue == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                             \
+      __auto_type _mStatus = (status);                                                                                 \
+                                                                                                                       \
+      _mStatus == SDEVICE_PROPERTY_STATUS_OK               ||                                                          \
+      _mStatus == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                          \
+      _mStatus == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                            \
    })
 
 /**
@@ -498,8 +499,8 @@ typedef struct
  * @param handle_name Имя формального параметра дескриптора.
  * @param parameters_name Имя формального параметра параметров записываемого значения частичного свойства.
  */
-#define SDEVICE_SET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)                                           \
-   (void *handle_name, const SDeviceSetPartialPropertyParameters *parameters_name)
+#define SDEVICE_SET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name) (                                         \
+   void *handle_name, const SDeviceSetPartialPropertyParameters *parameters_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию записи частичного свойства.
@@ -557,8 +558,8 @@ typedef struct
  * @param handle_name Имя формального параметра дескриптора.
  * @param parameters_name Имя формального параметра параметров читаемого значения частичного свойства.
  */
-#define SDEVICE_GET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)                                           \
-   (void *handle_name, const SDeviceGetPartialPropertyParameters *parameters_name)
+#define SDEVICE_GET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name) (                                         \
+   void *handle_name, const SDeviceGetPartialPropertyParameters *parameters_name)
 
 /**
  * @brief Создает переменную (или член структуры) типа указателя на функцию чтения частичного свойства.

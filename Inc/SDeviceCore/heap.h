@@ -41,7 +41,9 @@ void SDeviceFreeMemory(void *pointer);
  * @return Указатель на выделенный дескприптор.
  * @throws #CORE_GLOBAL_SDEVICE_PANIC_OUT_OF_MEMORY
  */
-void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize);
+void * SDeviceAllocateHandle(
+      size_t initSize,
+      size_t runtimeSize);
 
 /**
  * @brief Освобождает динамически выделенную (при помощи функции @ref SDeviceAllocateHandle) память дескриптора.
