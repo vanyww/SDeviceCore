@@ -3,7 +3,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-#if !defined(SDEVICE_CORE_USE_EXTERNAL_CONFIG) || defined(DOXYGEN)
+#if !defined(SDEVICE_CORE_USE_EXTERNAL_CONFIG)
    #define SDEVICE_CORE_USE_EXTERNAL_CONFIG false
 #endif
 
@@ -11,10 +11,10 @@
    #include "sdevice_core_config.h"
 #endif
 
-#if !defined(SDEVICE_USE_ASSERT) || defined(DOXYGEN)
+#if !defined(SDEVICE_USE_ASSERT)
    #define SDEVICE_USE_ASSERT true
 #endif
 
-#if !defined(SDEVICE_USE_SIMPLE_ASSERT) || defined(DOXYGEN)
+#if !defined(SDEVICE_USE_SIMPLE_ASSERT)
    #define SDEVICE_USE_SIMPLE_ASSERT true
 #endif
