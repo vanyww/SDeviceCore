@@ -180,8 +180,8 @@
  * @param valueI1 Второе значение.
  * @return `true`, если операция @p valueI0 + @p valueI1 вызовет переполнение, иначе - `false`.
  */
-#if !defined(WILL_INT_ADD_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_ADD_OVERFLOW(valueI0, valueI1, type)                                                               \
+#if !defined(WILL_ADD_INT_OVERFLOW) || defined(DOXYGEN)
+   #define WILL_ADD_INT_OVERFLOW(valueI0, valueI1, type)                                                               \
       __builtin_add_overflow_p(valueI0, valueI1, (type)0)
 #endif
 
@@ -191,8 +191,8 @@
  * @param valueI1 Вычитаемое.
  * @return `true`, если операция @p valueI0 - @p valueI1 вызовет переполнение, иначе - `false`.
  */
-#if !defined(WILL_INT_SUB_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_SUB_OVERFLOW(valueI0, valueI1, type)                                                               \
+#if !defined(WILL_SUB_INT_OVERFLOW) || defined(DOXYGEN)
+   #define WILL_SUB_INT_OVERFLOW(valueI0, valueI1, type)                                                               \
       __builtin_sub_overflow_p(valueI0, valueI1, (type)0)
 #endif
 
@@ -202,8 +202,8 @@
  * @param valueI1 Второе значение.
  * @return `true`, если операция @p valueI0 * @p valueI1 вызовет переполнение, иначе - `false`.
  */
-#if !defined(WILL_INT_MUL_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_MUL_OVERFLOW(valueI0, valueI1, type)                                                               \
+#if !defined(WILL_MUL_INT_OVERFLOW) || defined(DOXYGEN)
+   #define WILL_MUL_INT_OVERFLOW(valueI0, valueI1, type)                                                               \
       __builtin_mul_overflow_p(valueI0, valueI1, (type)0)
 #endif
 
