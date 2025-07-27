@@ -214,8 +214,8 @@
  * @param result Результат исполнения операции @p valueI0 + @p valueI1.
  * @return `true`, если операция @p valueI0 + @p valueI1 не вызвала переполнения, иначе - `false`.
  */
-#if !defined(TRY_ADD_INT_CHECKED) || defined(DOXYGEN)
-   #define TRY_ADD_INT_CHECKED(valueI0, valueI1, result) (!__builtin_add_overflow(valueI0, valueI1, result))
+#if !defined(ADD_INT_CHECKED) || defined(DOXYGEN)
+   #define ADD_INT_CHECKED(valueI0, valueI1, result) (!__builtin_add_overflow(valueI0, valueI1, result))
 #endif
 
 /**
@@ -225,8 +225,8 @@
  * @param result Результат исполнения операции @p valueI0 - @p valueI1.
  * @return `true`, если операция @p valueI0 - @p valueI1 не вызвала переполнения, иначе - `false`.
  */
-#if !defined(TRY_SUB_INT_CHECKED) || defined(DOXYGEN)
-   #define TRY_SUB_INT_CHECKED(valueI0, valueI1, result) (!__builtin_sub_overflow(valueI0, valueI1, result))
+#if !defined(SUB_INT_CHECKED) || defined(DOXYGEN)
+   #define SUB_INT_CHECKED(valueI0, valueI1, result) (!__builtin_sub_overflow(valueI0, valueI1, result))
 #endif
 
 /**
@@ -236,8 +236,8 @@
  * @param result Результат исполнения операции @p valueI0 * @p valueI1.
  * @return `true`, если операция @p valueI0 * @p valueI1 не вызвала переполнения, иначе - `false`.
  */
-#if !defined(TRY_MUL_INT_CHECKED) || defined(DOXYGEN)
-   #define TRY_MUL_INT_CHECKED(valueI0, valueI1, result) (!__builtin_mul_overflow(valueI0, valueI1, result))
+#if !defined(MUL_INT_CHECKED) || defined(DOXYGEN)
+   #define MUL_INT_CHECKED(valueI0, valueI1, result) (!__builtin_mul_overflow(valueI0, valueI1, result))
 #endif
 
 /**
