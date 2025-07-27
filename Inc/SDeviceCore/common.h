@@ -181,8 +181,8 @@
  * @return `true`, если операция @p valueI0 + @p valueI1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_ADD_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_ADD_OVERFLOW(valueI0, valueI1)                                                                     \
-      __builtin_add_overflow_p(valueI0, valueI1, (typeof((valueI0) + (valueI1)))0)
+   #define WILL_INT_ADD_OVERFLOW(valueI0, valueI1, type)                                                               \
+      __builtin_add_overflow_p(valueI0, valueI1, (type)0)
 #endif
 
 /**
@@ -192,8 +192,8 @@
  * @return `true`, если операция @p valueI0 - @p valueI1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_SUB_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_SUB_OVERFLOW(valueI0, valueI1)                                                                     \
-      __builtin_sub_overflow_p(valueI0, valueI1, (typeof((valueI0) - (valueI1)))0)
+   #define WILL_INT_SUB_OVERFLOW(valueI0, valueI1, type)                                                               \
+      __builtin_sub_overflow_p(valueI0, valueI1, (type)0)
 #endif
 
 /**
@@ -203,8 +203,8 @@
  * @return `true`, если операция @p valueI0 * @p valueI1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_INT_MUL_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_INT_MUL_OVERFLOW(valueI0, valueI1)                                                                     \
-      __builtin_mul_overflow_p(valueI0, valueI1, (typeof((valueI0) * (valueI1)))0)
+   #define WILL_INT_MUL_OVERFLOW(valueI0, valueI1, type)                                                               \
+      __builtin_mul_overflow_p(valueI0, valueI1, (type)0)
 #endif
 
 /**
