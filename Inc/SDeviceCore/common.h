@@ -20,17 +20,17 @@
  * @brief Вычисляет минимум из двух значений.
  * @details
  * @note Использует braced-groups для предотвращения повторного исполнения передаваемых выражений.
- * @param valueI0 Первое значение.
- * @param valueI1 Второе значение.
- * @return Минимум из @p valueI0 и @p valueI1.
+ * @param valueS0 Первое значение.
+ * @param valueS1 Второе значение.
+ * @return Минимум из @p valueS0 и @p valueS1.
  */
 #if !defined(MIN) || defined(DOXYGEN)
-   #define MIN(valueI0, valueI1) (                                                                                     \
+   #define MIN(valueS0, valueS1) (                                                                                     \
       {                                                                                                                \
-         __auto_type _mValueI0 = (valueI0);                                                                            \
-         __auto_type _mValueI1 = (valueI1);                                                                            \
+         __auto_type _mValueS0 = (valueS0);                                                                            \
+         __auto_type _mValueS1 = (valueS1);                                                                            \
                                                                                                                        \
-         (_mValueI0 < _mValueI1) ? _mValueI0 : _mValueI1;                                                              \
+         (_mValueS0 < _mValueS1) ? _mValueS0 : _mValueS1;                                                              \
       })
 #endif
 
@@ -38,17 +38,17 @@
  * @brief Вычисляет максимум из двух значений.
  * @details
  * @note Использует braced-groups для предотвращения повторного исполнения передаваемых выражений.
- * @param valueI0 Первое значение.
- * @param valueI1 Второе значение.
- * @return Максимум из @p valueI0 и @p valueI1.
+ * @param valueS0 Первое значение.
+ * @param valueS1 Второе значение.
+ * @return Максимум из @p valueS0 и @p valueS1.
  */
 #if !defined(MAX) || defined(DOXYGEN)
-   #define MAX(valueI0, valueI1) (                                                                                     \
+   #define MAX(valueS0, valueS1) (                                                                                     \
       {                                                                                                                \
-         __auto_type _mValue_0 = (valueI0);                                                                            \
-         __auto_type _mValue_1 = (valueI1);                                                                            \
+         __auto_type _mValueS0 = (valueS0);                                                                            \
+         __auto_type _mValueS1 = (valueS1);                                                                            \
                                                                                                                        \
-         (_mValue_0 > _mValue_1) ? _mValue_0 : _mValue_1;                                                              \
+         (_mValueS0 > _mValueS1) ? _mValueS0 : _mValueS1;                                                              \
       })
 #endif
 
@@ -176,68 +176,68 @@
 
 /**
  * @brief Проверяет, вызовет ли целочисленное сложение переполнение.
- * @param valueI0 Первое значение.
- * @param valueI1 Второе значение.
- * @return `true`, если операция @p valueI0 + @p valueI1 вызовет переполнение, иначе - `false`.
+ * @param valueS0 Первое значение.
+ * @param valueS1 Второе значение.
+ * @return `true`, если операция @p valueS0 + @p valueS1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_ADD_INT_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_ADD_INT_OVERFLOW(valueI0, valueI1, type)                                                               \
-      __builtin_add_overflow_p(valueI0, valueI1, (type)0)
+   #define WILL_ADD_INT_OVERFLOW(valueS0, valueS1, type)                                                               \
+      __builtin_add_overflow_p(valueS0, valueS1, (type)0)
 #endif
 
 /**
  * @brief Проверяет, вызовет ли целочисленное вычитание переполнение.
- * @param valueI0 Уменьшаемое.
- * @param valueI1 Вычитаемое.
- * @return `true`, если операция @p valueI0 - @p valueI1 вызовет переполнение, иначе - `false`.
+ * @param valueS0 Уменьшаемое.
+ * @param valueS1 Вычитаемое.
+ * @return `true`, если операция @p valueS0 - @p valueS1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_SUB_INT_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_SUB_INT_OVERFLOW(valueI0, valueI1, type)                                                               \
-      __builtin_sub_overflow_p(valueI0, valueI1, (type)0)
+   #define WILL_SUB_INT_OVERFLOW(valueS0, valueS1, type)                                                               \
+      __builtin_sub_overflow_p(valueS0, valueS1, (type)0)
 #endif
 
 /**
  * @brief Проверяет, вызовет ли целочисленное умножение переполнение.
- * @param valueI0 Первое значение.
- * @param valueI1 Второе значение.
- * @return `true`, если операция @p valueI0 * @p valueI1 вызовет переполнение, иначе - `false`.
+ * @param valueS0 Первое значение.
+ * @param valueS1 Второе значение.
+ * @return `true`, если операция @p valueS0 * @p valueS1 вызовет переполнение, иначе - `false`.
  */
 #if !defined(WILL_MUL_INT_OVERFLOW) || defined(DOXYGEN)
-   #define WILL_MUL_INT_OVERFLOW(valueI0, valueI1, type)                                                               \
-      __builtin_mul_overflow_p(valueI0, valueI1, (type)0)
+   #define WILL_MUL_INT_OVERFLOW(valueS0, valueS1, type)                                                               \
+      __builtin_mul_overflow_p(valueS0, valueS1, (type)0)
 #endif
 
 /**
  * @brief Производит целочисленное сложение с проверкой на переполнение.
- * @param valueI0 Первое значение.
- * @param valueI1 Второе значение.
- * @param result Результат исполнения операции @p valueI0 + @p valueI1.
- * @return `true`, если операция @p valueI0 + @p valueI1 не вызвала переполнения, иначе - `false`.
+ * @param valueS0 Первое значение.
+ * @param valueS1 Второе значение.
+ * @param result Результат исполнения операции @p valueS0 + @p valueS1.
+ * @return `true`, если операция @p valueS0 + @p valueS1 не вызвала переполнения, иначе - `false`.
  */
 #if !defined(ADD_INT_CHECKED) || defined(DOXYGEN)
-   #define ADD_INT_CHECKED(valueI0, valueI1, result) (!__builtin_add_overflow(valueI0, valueI1, result))
+   #define ADD_INT_CHECKED(valueS0, valueS1, result) (!__builtin_add_overflow(valueS0, valueS1, result))
 #endif
 
 /**
  * @brief Производит целочисленное вычитание с проверкой на переполнение.
- * @param valueI0 Уменьшаемое.
- * @param valueI1 Вычитаемое.
- * @param result Результат исполнения операции @p valueI0 - @p valueI1.
- * @return `true`, если операция @p valueI0 - @p valueI1 не вызвала переполнения, иначе - `false`.
+ * @param valueS0 Уменьшаемое.
+ * @param valueS1 Вычитаемое.
+ * @param result Результат исполнения операции @p valueS0 - @p valueS1.
+ * @return `true`, если операция @p valueS0 - @p valueS1 не вызвала переполнения, иначе - `false`.
  */
 #if !defined(SUB_INT_CHECKED) || defined(DOXYGEN)
-   #define SUB_INT_CHECKED(valueI0, valueI1, result) (!__builtin_sub_overflow(valueI0, valueI1, result))
+   #define SUB_INT_CHECKED(valueS0, valueS1, result) (!__builtin_sub_overflow(valueS0, valueS1, result))
 #endif
 
 /**
  * @brief Производит целочисленное умножение с проверкой на переполнение.
- * @param valueI0 Первое значение.
- * @param valueI1 Второе значение.
- * @param result Результат исполнения операции @p valueI0 * @p valueI1.
- * @return `true`, если операция @p valueI0 * @p valueI1 не вызвала переполнения, иначе - `false`.
+ * @param valueS0 Первое значение.
+ * @param valueS1 Второе значение.
+ * @param result Результат исполнения операции @p valueS0 * @p valueS1.
+ * @return `true`, если операция @p valueS0 * @p valueS1 не вызвала переполнения, иначе - `false`.
  */
 #if !defined(MUL_INT_CHECKED) || defined(DOXYGEN)
-   #define MUL_INT_CHECKED(valueI0, valueI1, result) (!__builtin_mul_overflow(valueI0, valueI1, result))
+   #define MUL_INT_CHECKED(valueS0, valueS1, result) (!__builtin_mul_overflow(valueS0, valueS1, result))
 #endif
 
 /**
