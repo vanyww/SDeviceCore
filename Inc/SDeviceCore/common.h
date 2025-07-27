@@ -72,18 +72,15 @@
 #endif
 
 #if !defined(WILL_ADD_INT_OVERFLOW)
-   #define WILL_ADD_INT_OVERFLOW(valueS0, valueS1, type)                                                               \
-      __builtin_add_overflow_p(valueS0, valueS1, (type)0)
+   #define WILL_ADD_INT_OVERFLOW(valueS0, valueS1, type) __builtin_add_overflow_p(valueS0, valueS1, (type)0)
 #endif
 
 #if !defined(WILL_SUB_INT_OVERFLOW)
-   #define WILL_SUB_INT_OVERFLOW(valueS0, valueS1, type)                                                               \
-      __builtin_sub_overflow_p(valueS0, valueS1, (type)0)
+   #define WILL_SUB_INT_OVERFLOW(valueS0, valueS1, type) __builtin_sub_overflow_p(valueS0, valueS1, (type)0)
 #endif
 
 #if !defined(WILL_MUL_INT_OVERFLOW)
-   #define WILL_MUL_INT_OVERFLOW(valueS0, valueS1, type)                                                               \
-      __builtin_mul_overflow_p(valueS0, valueS1, (type)0)
+   #define WILL_MUL_INT_OVERFLOW(valueS0, valueS1, type) __builtin_mul_overflow_p(valueS0, valueS1, (type)0)
 #endif
 
 #if !defined(ADD_INT_CHECKED)
