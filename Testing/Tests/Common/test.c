@@ -48,7 +48,7 @@ TEST(Common, BIT_SIZEOF_MEMBER)
 {
    typedef float TestType;
    typedef struct
-   {  
+   {
       uint8_t Unused;
       TestType TestValue;
    } TestStructure;
@@ -68,87 +68,85 @@ TEST(Common, LENGTHOF)
 
 TEST(Common, SET_BITS)
 {
-   int testValue   = 0b1111001100111;
-   int bits        = 0b0000110011000;
-   int resultValue = 0b1111111111111;
+   int testValue = 0b0000000000000;
+   int bits      = 0b0000110011000;
 
-   TEST_ASSERT_EQUAL(resultValue, SET_BITS(testValue, bits));
+   TEST_ASSERT_BITS_HIGH(bits, SET_BITS(testValue, bits));
 }
 
 TEST(Common, CLEAR_BITS)
 {
-   int testValue   = 0b1111111111111;
-   int bits        = 0b0000110011000;
-   int resultValue = 0b1111001100111;
+   int testValue = 0b1111111111111;
+   int bits      = 0b0000110011000;
 
-   TEST_ASSERT_EQUAL(resultValue, CLEAR_BITS(testValue,bits));
+   TEST_ASSERT_BITS_LOW(bits, CLEAR_BITS(testValue, bits));
 }
 
 TEST(Common, READ_BITS)
 {
-   int testValue   = 0b1111001111111;
-   int bits        = 0b0100110011000;
-   int resultValue = 0b0100000011000;
+   int testValue = 0b1111001111111;
+   int bits      = 0b0100110011000;
+   int result    = 0b0100000011000;
 
-   TEST_ASSERT_EQUAL(resultValue, READ_BITS(testValue, bits));
+   TEST_ASSERT_BITS(bits, result, READ_BITS(testValue, bits));
 }
 
-TEST(Common, WILL_INT_ADD_OVERFLOW)
+TEST(Common, WILL_ADD_INT_OVERFLOW)
 {
    int minInt = INT_MIN;
    int maxInt = INT_MAX;
 
-   TEST_ASSERT(WILL_INT_ADD_OVERFLOW(maxInt, maxInt));
-   TEST_ASSERT(!WILL_INT_ADD_OVERFLOW(minInt, maxInt));
+   TEST_ASSERT(WILL_ADD_INT_OVERFLOW(maxInt, maxInt, int));
+   TEST_ASSERT(!WILL_ADD_INT_OVERFLOW(minInt, maxInt, int));
 }
 
-TEST(Common, WILL_INT_SUB_OVERFLOW)
+TEST(Common, WILL_SUB_INT_OVERFLOW)
 {
    int minInt = INT_MIN;
    int maxInt = INT_MAX;
 
-   TEST_ASSERT(WILL_INT_SUB_OVERFLOW(minInt, maxInt));
-   TEST_ASSERT(!WILL_INT_SUB_OVERFLOW(maxInt, maxInt));
+   TEST_ASSERT(WILL_SUB_INT_OVERFLOW(minInt, maxInt, int));
+   TEST_ASSERT(!WILL_SUB_INT_OVERFLOW(maxInt, maxInt, int));
 }
 
-TEST(Common, WILL_INT_MUL_OVERFLOW)
+TEST(Common, WILL_MUL_INT_OVERFLOW)
 {
    int maxInt = INT_MAX;
 
-   TEST_ASSERT(WILL_INT_MUL_OVERFLOW(maxInt, maxInt));
-   TEST_ASSERT(!WILL_INT_SUB_OVERFLOW(maxInt, 0));
+   TEST_ASSERT(WILL_MUL_INT_OVERFLOW(maxInt, maxInt, int));
+   TEST_ASSERT(!WILL_SUB_INT_OVERFLOW(maxInt, 0, int));
 }
 
-TEST(Common, TRY_ADD_INT_CHECKED)
+TEST(Common, ADD_INT_CHECKED)
 {
    int minInt = INT_MIN;
    int maxInt = INT_MAX;
    int result;
 
-   TEST_ASSERT(TRY_ADD_INT_CHECKED(maxInt, minInt, &result));
+   TEST_ASSERT(ADD_INT_CHECKED(maxInt, minInt, &result));
    TEST_ASSERT_EQUAL(-1, result);
-   TEST_ASSERT(!TRY_ADD_INT_CHECKED(maxInt, maxInt, &result));
+   TEST_ASSERT(!ADD_INT_CHECKED(maxInt, maxInt, &result));
 }
 
-TEST(Common, TRY_SUB_INT_CHECKED)
+TEST(Common, SUB_INT_CHECKED)
 {
    int minInt = INT_MIN;
    int maxInt = INT_MAX;
    int result;
 
-   TEST_ASSERT(TRY_SUB_INT_CHECKED(maxInt, maxInt, &result));
+   TEST_ASSERT(SUB_INT_CHECKED(maxInt, maxInt, &result));
    TEST_ASSERT_EQUAL(0, result);
-   TEST_ASSERT(!TRY_SUB_INT_CHECKED(minInt, maxInt, &result));
+   TEST_ASSERT(!SUB_INT_CHECKED(minInt, maxInt, &result));
 }
 
-TEST(Common, TRY_MUL_INT_CHECKED)
+TEST(Common, MUL_INT_CHECKED)
 {
    int maxInt = INT_MAX;
    int result;
 
-   TEST_ASSERT(TRY_MUL_INT_CHECKED(maxInt, 0, &result));
+   TEST_ASSERT(MUL_INT_CHECKED(maxInt, 0, &result));
    TEST_ASSERT_EQUAL(0, result);
-   TEST_ASSERT(!TRY_MUL_INT_CHECKED(maxInt, maxInt, &result));
+   TEST_ASSERT(!MUL_INT_CHECKED(maxInt, maxInt, &result));
 }
 
 TEST(Common, HAS_VALUE_UNSIGNED_TYPE)
@@ -191,12 +189,12 @@ TEST_GROUP_RUNNER(Common)
    RUN_TEST_CASE(Common, CLEAR_BITS);
    RUN_TEST_CASE(Common, READ_BITS);
    RUN_TEST_CASE(Common, SET_BITS);
-   RUN_TEST_CASE(Common, WILL_INT_ADD_OVERFLOW);
-   RUN_TEST_CASE(Common, WILL_INT_SUB_OVERFLOW);
-   RUN_TEST_CASE(Common, WILL_INT_MUL_OVERFLOW);
-   RUN_TEST_CASE(Common, TRY_ADD_INT_CHECKED);
-   RUN_TEST_CASE(Common, TRY_SUB_INT_CHECKED);
-   RUN_TEST_CASE(Common, TRY_MUL_INT_CHECKED);
+   RUN_TEST_CASE(Common, WILL_ADD_INT_OVERFLOW);
+   RUN_TEST_CASE(Common, WILL_SUB_INT_OVERFLOW);
+   RUN_TEST_CASE(Common, WILL_MUL_INT_OVERFLOW);
+   RUN_TEST_CASE(Common, ADD_INT_CHECKED);
+   RUN_TEST_CASE(Common, SUB_INT_CHECKED);
+   RUN_TEST_CASE(Common, MUL_INT_CHECKED);
    RUN_TEST_CASE(Common, HAS_VALUE_UNSIGNED_TYPE);
    RUN_TEST_CASE(Common, HAS_VALUE_SIGNED_TYPE);
    RUN_TEST_CASE(Common, CEIL_UINT_DIV);
