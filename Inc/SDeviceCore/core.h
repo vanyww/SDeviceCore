@@ -1,6 +1,9 @@
 #pragma once
 
+#include "common.h"
+
 #include <stddef.h>
+#include <stdbool.h>
 
 #define SDEVICE_CORE_VERSION_MAJOR 10
 #define SDEVICE_CORE_VERSION_MINOR 0
@@ -83,19 +86,18 @@ static inline void * SDeviceGetHandleContext(const void *handle)
 
 typedef enum
 {
-   SDEVICE_PROPERTY_STATUS_OK,
-   SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR,
-   SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR
+   SDevicePropertyStatusOk,
+   SDevicePropertyStatusValidationError,
+   SDevicePropertyStatusProcessingError,
+
+   SDevicePropertyStatusesCount
 } SDevicePropertyStatus;
 
-#define SDEVICE_IS_VALID_PROPERTY_STATUS(status) (                                                                     \
-   {                                                                                                                   \
-      __auto_type _mStatus = (status);                                                                                 \
-                                                                                                                       \
-      _mStatus == SDEVICE_PROPERTY_STATUS_OK               ||                                                          \
-      _mStatus == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                          \
-      _mStatus == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                            \
-   })
+__attribute__((always_inline))
+static inline bool SDevicePropertyStatusIsValid(SDevicePropertyStatus status)
+{
+   return status < SDevicePropertyStatusesCount;
+}
 
 #define SDEVICE_PROPERTY_TYPE(device_name, property_name)                                                              \
    device_name##SDevice##property_name##PropertyType

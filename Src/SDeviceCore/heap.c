@@ -4,21 +4,21 @@
 #include <stdlib.h>
 
 __attribute__((weak))
-void * SDeviceAllocateMemory(size_t size)
+void * SDeviceAllocateMemory(size_t memory_size)
 {
-   return malloc(size);
+   return malloc(memory_size);
 }
 
 __attribute__((weak))
-void SDeviceFreeMemory(void *pointer)
+void SDeviceFreeMemory(void *memory)
 {
-   free(pointer);
+   free(memory);
 }
 
 __attribute__((weak))
 void * SDeviceAllocateHandle(
-      size_t initSize,
-      size_t runtimeSize)
+      size_t init_memory_size,
+      size_t runtime_memory_size)
 {
    SDeviceCommonHandle *handle =
          SDeviceAllocateMemory(
@@ -26,11 +26,11 @@ void * SDeviceAllocateHandle(
 
    handle->Init =
          SDeviceAllocateMemory(
-               initSize);
+               init_memory_size);
 
    handle->Runtime =
          SDeviceAllocateMemory(
-               runtimeSize);
+               runtime_memory_size);
 
    return handle;
 }

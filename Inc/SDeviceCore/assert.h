@@ -4,22 +4,26 @@
 
 #if SDEVICE_USE_ASSERT
    #if SDEVICE_USE_SIMPLE_ASSERT
-      #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail())
-   #else
-      #define SDeviceAssert(expression) ((expression) ? (void)0U : SDeviceProcessAssertFail(__FILE__, __LINE__))
-   #endif
-#else
-   #define SDeviceAssert(expression) ((void)0U)
-#endif
+      #define SDeviceAssert(expression)                                                                                \
+         ((expression) ? (void)0 : SDeviceProcessAssertFail())
+   #else /* SDEVICE_USE_SIMPLE_ASSERT */
+      #define SDeviceAssert(expression)                                                                                \
+         ((expression) ? (void)0 : SDeviceProcessAssertFail(__FILE__, __LINE__))
+   #endif /* SDEVICE_USE_SIMPLE_ASSERT */
+#else /* SDEVICE_USE_ASSERT */
+   #define SDeviceAssert(expression) ((void)0)
+#endif /* SDEVICE_USE_ASSERT */
 
 #if SDEVICE_USE_ASSERT
-   #define SDeviceEvalAssert(expression, condition) SDeviceAssert((expression) condition)
-#else
-   #define SDeviceEvalAssert(expression, condition) expression
-#endif
+   #define SDeviceEvalAssert(expression, condition)                                                                    \
+      SDeviceAssert((expression) condition)
+#else /* SDEVICE_USE_ASSERT */
+   #define SDeviceEvalAssert(expression, condition)                                                                    \
+      (expression)
+#endif /* SDEVICE_USE_ASSERT */
 
-#if !SDEVICE_USE_SIMPLE_ASSERT
-void SDeviceProcessAssertFail(char *file, int line);
-#else
+#if SDEVICE_USE_SIMPLE_ASSERT
 void SDeviceProcessAssertFail(void);
-#endif
+#else /* SDEVICE_USE_SIMPLE_ASSERT */
+void SDeviceProcessAssertFail(char *file, int line);
+#endif /* SDEVICE_USE_SIMPLE_ASSERT */
