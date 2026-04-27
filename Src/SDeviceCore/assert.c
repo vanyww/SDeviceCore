@@ -4,14 +4,14 @@
 __attribute__((weak))
 #if SDEVICE_USE_SIMPLE_ASSERT
 void SDeviceProcessAssertFail(void)
-#else
+#else /* SDEVICE_USE_SIMPLE_ASSERT */
 void SDeviceProcessAssertFail(char *file, int line)
-#endif
+#endif /* SDEVICE_USE_SIMPLE_ASSERT */
 {
-#if !SDEVICE_USE_SIMPLE_ASSERT
+#if not SDEVICE_USE_SIMPLE_ASSERT
    UNUSED_PARAMETER(file);
    UNUSED_PARAMETER(line);
-#endif
+#endif /* not SDEVICE_USE_SIMPLE_ASSERT */
 
    for(;;);
 }

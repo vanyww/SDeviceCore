@@ -2,11 +2,11 @@
 
 #include <stddef.h>
 
-void * SDeviceAllocateMemory(size_t size);
-void SDeviceFreeMemory(void *pointer);
+void * SDeviceAllocateMemory(size_t memory_size);
+void SDeviceFreeMemory(void *memory);
 
 void * SDeviceAllocateHandle(
-      size_t initSize,
-      size_t runtimeSize);
+      size_t init_memory_size,
+      size_t runtime_memory_size);
 
 void SDeviceFreeHandle(void *handle);
