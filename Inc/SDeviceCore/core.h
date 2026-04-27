@@ -83,18 +83,18 @@ static inline void * SDeviceGetHandleContext(const void *handle)
 
 typedef enum
 {
-   SDEVICE_PROPERTY_STATUS_OK,
-   SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR,
-   SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR
+   SDevicePropertyStatusOk,
+   SDevicePropertyStatusValidationError,
+   SDevicePropertyStatusProcessingError
 } SDevicePropertyStatus;
 
 #define SDEVICE_IS_VALID_PROPERTY_STATUS(status) (                                                                     \
    {                                                                                                                   \
-      __auto_type _mStatus = (status);                                                                                 \
+      __auto_type _m_status = (status);                                                                                \
                                                                                                                        \
-      _mStatus == SDEVICE_PROPERTY_STATUS_OK               ||                                                          \
-      _mStatus == SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR ||                                                          \
-      _mStatus == SDEVICE_PROPERTY_STATUS_PROCESSING_ERROR;                                                            \
+      _m_status == SDevicePropertyStatusOk              ||                                                             \
+      _m_status == SDevicePropertyStatusValidationError ||                                                             \
+      _m_status == SDevicePropertyStatusProcessingError;                                                               \
    })
 
 #define SDEVICE_PROPERTY_TYPE(device_name, property_name)                                                              \

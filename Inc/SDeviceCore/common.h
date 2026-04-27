@@ -3,123 +3,129 @@
 #include <limits.h>
 #include <assert.h>
 
-#if !defined(MIN)
-   #define MIN(valueS0, valueS1) (                                                                                     \
+#ifndef MIN
+   #define MIN(value_a, value_b) (                                                                                     \
       {                                                                                                                \
-         __auto_type _mValueS0 = (valueS0);                                                                            \
-         __auto_type _mValueS1 = (valueS1);                                                                            \
+         __auto_type _m_value_a = (value_a);                                                                           \
+         __auto_type _m_value_b = (value_b);                                                                           \
                                                                                                                        \
-         (_mValueS0 < _mValueS1) ? _mValueS0 : _mValueS1;                                                              \
+         (_m_value_a < _m_value_b) ? _m_value_a : _m_value_b;                                                          \
       })
-#endif
+#endif /* MIN */
 
-#if !defined(MAX)
-   #define MAX(valueS0, valueS1) (                                                                                     \
+#ifndef MAX
+   #define MAX(value_a, value_b) (                                                                                     \
       {                                                                                                                \
-         __auto_type _mValueS0 = (valueS0);                                                                            \
-         __auto_type _mValueS1 = (valueS1);                                                                            \
+         __auto_type _m_value_a = (value_a);                                                                           \
+         __auto_type _m_value_b = (value_b);                                                                           \
                                                                                                                        \
-         (_mValueS0 > _mValueS1) ? _mValueS0 : _mValueS1;                                                              \
+         (_m_value_a > _m_value_b) ? _m_value_a : _m_value_b;                                                          \
       })
-#endif
+#endif /* MAX */
 
-#if !defined(INSTANCE_OF)
+#ifndef INSTANCE_OF
    #define INSTANCE_OF(type) ((type *)0)
-#endif
+#endif /* INSTANCE_OF */
 
-#if !defined(MEMBER_OF)
+#ifndef MEMBER_OF
    #define INSTANCE_MEMBER_OF(type, member) (INSTANCE_OF(type)->member)
-#endif
+#endif /* MEMBER_OF */
 
-#if !defined(SIZEOF_MEMBER)
+#ifndef SIZEOF_MEMBER
    #define SIZEOF_MEMBER(type, member) (sizeof(INSTANCE_MEMBER_OF(type, member)))
-#endif
+#endif /* SIZEOF_MEMBER */
 
-#if !defined(BIT_SIZEOF)
+#ifndef BIT_SIZEOF
    #define BIT_SIZEOF(type) (sizeof(type) * CHAR_BIT)
-#endif
+#endif /* BIT_SIZEOF */
 
-#if !defined(BIT_SIZEOF_MEMBER)
+#ifndef BIT_SIZEOF_MEMBER
    #define BIT_SIZEOF_MEMBER(type, member) (SIZEOF_MEMBER(type, member) * CHAR_BIT)
-#endif
+#endif /* BIT_SIZEOF_MEMBER */
 
-#if !defined(LENGTHOF)
+#ifndef LENGTHOF
    #define LENGTHOF(array) (sizeof(array) / sizeof(*array))
-#endif
+#endif /* LENGTHOF */
 
-#if !defined(FIRST)
+#ifndef FIRST
    #define FIRST(array) ((array)[0])
-#endif
+#endif /* FIRST */
 
-#if !defined(LAST)
+#ifndef LAST
    #define LAST(array) ((array)[LENGTHOF(array) - 1])
-#endif
+#endif /* LAST */
 
-#if !defined(UNUSED_PARAMETER)
+#ifndef UNUSED_PARAMETER
    #define UNUSED_PARAMETER(parameter) (void)(parameter)
-#endif
+#endif /* UNUSED_PARAMETER */
 
-#if !defined(SET_BITS)
+#ifndef SET_BITS
    #define SET_BITS(value, bits) ((value) |= (bits))
-#endif
+#endif /* SET_BITS */
 
-#if !defined(CLEAR_BITS)
+#ifndef CLEAR_BITS
    #define CLEAR_BITS(value, bits) ((value) &= ~(bits))
-#endif
+#endif /* CLEAR_BITS */
 
-#if !defined(READ_BITS)
+#ifndef READ_BITS
    #define READ_BITS(value, bits) ((value) & (bits))
-#endif
+#endif /* READ_BITS */
 
-#if !defined(WILL_ADD_INT_OVERFLOW)
-   #define WILL_ADD_INT_OVERFLOW(valueS0, valueS1, type) __builtin_add_overflow_p(valueS0, valueS1, (type)0)
-#endif
+#ifndef WILL_ADD_INT_OVERFLOW
+   #define WILL_ADD_INT_OVERFLOW(value_a, value_b, type)                                                               \
+      __builtin_add_overflow_p(value_a, value_b, (type)0)
+#endif /* WILL_ADD_INT_OVERFLOW */
 
-#if !defined(WILL_SUB_INT_OVERFLOW)
-   #define WILL_SUB_INT_OVERFLOW(valueS0, valueS1, type) __builtin_sub_overflow_p(valueS0, valueS1, (type)0)
-#endif
+#ifndef WILL_SUB_INT_OVERFLOW
+   #define WILL_SUB_INT_OVERFLOW(value_a, value_b, type)                                                               \
+      __builtin_sub_overflow_p(value_a, value_b, (type)0)
+#endif /* WILL_SUB_INT_OVERFLOW */
 
-#if !defined(WILL_MUL_INT_OVERFLOW)
-   #define WILL_MUL_INT_OVERFLOW(valueS0, valueS1, type) __builtin_mul_overflow_p(valueS0, valueS1, (type)0)
-#endif
+#ifndef WILL_MUL_INT_OVERFLOW
+   #define WILL_MUL_INT_OVERFLOW(value_a, value_b, type)                                                               \
+      __builtin_mul_overflow_p(value_a, value_b, (type)0)
+#endif /* WILL_MUL_INT_OVERFLOW */
 
-#if !defined(ADD_INT_CHECKED)
-   #define ADD_INT_CHECKED(valueS0, valueS1, result) (!__builtin_add_overflow(valueS0, valueS1, result))
-#endif
+#ifndef ADD_INT_CHECKED
+   #define ADD_INT_CHECKED(value_a, value_b, result)                                                                   \
+      (!__builtin_add_overflow(value_a, value_b, result))
+#endif /* ADD_INT_CHECKED */
 
-#if !defined(SUB_INT_CHECKED)
-   #define SUB_INT_CHECKED(valueS0, valueS1, result) (!__builtin_sub_overflow(valueS0, valueS1, result))
-#endif
+#ifndef SUB_INT_CHECKED
+   #define SUB_INT_CHECKED(value_a, value_b, result)                                                                   \
+      (!__builtin_sub_overflow(value_a, value_b, result))
+#endif /* SUB_INT_CHECKED */
 
-#if !defined(MUL_INT_CHECKED)
-   #define MUL_INT_CHECKED(valueS0, valueS1, result) (!__builtin_mul_overflow(valueS0, valueS1, result))
-#endif
+#ifndef MUL_INT_CHECKED
+   #define MUL_INT_CHECKED(value_a, value_b, result)                                                                   \
+      (!__builtin_mul_overflow(value_a, value_b, result))
+#endif /* MUL_INT_CHECKED */
 
-#if !defined(HAS_VALUE_UNSIGNED_TYPE)
+#ifndef HAS_VALUE_UNSIGNED_TYPE
    #define HAS_VALUE_UNSIGNED_TYPE(value) (((typeof(value))-1) >= 0)
-#endif
+#endif /* HAS_VALUE_UNSIGNED_TYPE */
 
-#if !defined(HAS_VALUE_SIGNED_TYPE)
+#ifndef HAS_VALUE_SIGNED_TYPE
    #define HAS_VALUE_SIGNED_TYPE(value) (((typeof(value))-1) < 0)
-#endif
+#endif /* HAS_VALUE_SIGNED_TYPE */
 
-#if !defined(CEIL_UINT_DIV)
+#ifndef CEIL_UINT_DIV
    #define CEIL_UINT_DIV(dividend, divisor) (                                                                          \
       {                                                                                                                \
-         __auto_type _mDividend = (dividend);                                                                          \
-         __auto_type _mDivisor  = (divisor);                                                                           \
+         __auto_type _m_dividend = (dividend);                                                                         \
+         __auto_type _m_divisor  = (divisor);                                                                          \
                                                                                                                        \
-         static_assert(HAS_VALUE_UNSIGNED_TYPE(_mDividend));                                                           \
-         static_assert(HAS_VALUE_UNSIGNED_TYPE(_mDivisor));                                                            \
+         static_assert(HAS_VALUE_UNSIGNED_TYPE(_m_dividend));                                                          \
+         static_assert(HAS_VALUE_UNSIGNED_TYPE(_m_divisor));                                                           \
                                                                                                                        \
-         _mDividend / _mDivisor + !!(_mDividend % _mDivisor);                                                          \
+         _m_dividend / _m_divisor + !!(_m_dividend % _m_divisor);                                                      \
       })
-#endif
+#endif /* CEIL_UINT_DIV */
 
-#if !defined(SET_AS_VOLATILE)
+#ifndef SET_AS_VOLATILE
    #define SET_AS_VOLATILE(target, value) (*(volatile typeof(target) *)&(target) = (value))
-#endif
+#endif /* SET_AS_VOLATILE */
 
-#if !defined(GET_AS_VOLATILE)
+#ifndef GET_AS_VOLATILE
    #define GET_AS_VOLATILE(target) (*(volatile typeof(target) *)&(target))
-#endif
+#endif /* GET_AS_VOLATILE */
