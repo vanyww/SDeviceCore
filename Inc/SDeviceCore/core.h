@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #define SDEVICE_CORE_VERSION_MAJOR 10
-#define SDEVICE_CORE_VERSION_MINOR 0
+#define SDEVICE_CORE_VERSION_MINOR 1
 #define SDEVICE_CORE_VERSION_PATCH 0
 
 #define SDEVICE_INIT_DATA(device_name) device_name##SDeviceInitData
