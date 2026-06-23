@@ -2,7 +2,6 @@
 
 #include "common.h"
 
-#include <stddef.h>
 #include <stdbool.h>
 
 #define SDEVICE_CORE_VERSION_MAJOR 10
@@ -133,6 +132,16 @@ typedef struct
    size_t      Size;
 } SDeviceSetPartialPropertyParameters;
 
+__attribute__((always_inline))
+static inline bool SDeviceSetPartialPropertyParametersAreValid(
+      const SDeviceSetPartialPropertyParameters *parameters,
+      size_t                                     property_size)
+{
+   return
+         not WILL_ADD_INT_OVERFLOW(parameters->Size, parameters->Offset, size_t) and
+         parameters->Size + parameters->Offset <= property_size;
+}
+
 #define SDEVICE_SET_PARTIAL_PROPERTY_RETURN_VALUE SDevicePropertyStatus
 #define SDEVICE_SET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name) (                                         \
    void *handle_name, const SDeviceSetPartialPropertyParameters *parameters_name)
@@ -163,3 +172,13 @@ typedef struct
    SDEVICE_GET_PARTIAL_PROPERTY_RETURN_VALUE                                                                           \
    SDEVICE_GET_PARTIAL_PROPERTY(device_name, property_name)                                                            \
    SDEVICE_GET_PARTIAL_PROPERTY_ARGUMENTS(handle_name, parameters_name)
+
+__attribute__((always_inline))
+static inline bool SDeviceGetPartialPropertyParametersAreValid(
+      const SDeviceGetPartialPropertyParameters *parameters,
+      size_t                                     property_size)
+{
+   return
+         not WILL_ADD_INT_OVERFLOW(parameters->Size, parameters->Offset, size_t) and
+         parameters->Size + parameters->Offset <= property_size;
+}
