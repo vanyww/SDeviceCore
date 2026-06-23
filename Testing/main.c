@@ -3,8 +3,7 @@
 static void RunAllTests(void)
 {
    RUN_TEST_GROUP(Common);
-   RUN_TEST_GROUP(SDeviceCore_A);
-   RUN_TEST_GROUP(SDeviceCore_B);
+   RUN_TEST_GROUP(SDeviceCore);
    RUN_TEST_GROUP(Assert);
 }
 

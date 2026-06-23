@@ -3,40 +3,36 @@
 #include "unity_fixture.h"
 
 #include <stdlib.h>
-#include <stdio.h>
 
-#define ASSERT_FAIL_FORMAT "Assert failed on file (%s) line (%d)"
+#define ASSERT_FAIL_FORMAT "Assertion failure: file (%s) line (%d)."
 
-AssertFailHandler ThisAssertFailHandler;
+static AssertFailHandler assert_fail_handler;
 
-void SetAssertFailHandler(AssertFailHandler handler)
+void * SDeviceAllocateMemory(size_t memory_size)
 {
-   ThisAssertFailHandler = handler;
+   return malloc(memory_size);
 }
 
-void ResetAssertFailHandler(void)
+void SDeviceFreeMemory(void *memory)
 {
-   ThisAssertFailHandler = NULL;
+   free(memory);
 }
 
-void * SDeviceAllocateMemory(size_t size)
-{
-   return (size <= 0) ? NULL : malloc(size);
-}
-
-void SDeviceFreeMemory(void *pointer)
-{
-   free(pointer);
-}
-
-void * SDeviceAllocateHandle(size_t initSize, size_t runtimeSize)
+void * SDeviceAllocateHandle(
+      size_t init_memory_size,
+      size_t runtime_memory_size)
 {
    SDeviceCommonHandle *handle =
          SDeviceAllocateMemory(
                sizeof(*handle));
 
-   handle->Init = SDeviceAllocateMemory(initSize);
-   handle->Runtime = SDeviceAllocateMemory(runtimeSize);
+   handle->Init =
+         SDeviceAllocateMemory(
+               init_memory_size);
+
+   handle->Runtime =
+         SDeviceAllocateMemory(
+               runtime_memory_size);
 
    return handle;
 }
@@ -50,20 +46,22 @@ void SDeviceFreeHandle(void *handle)
    SDeviceFreeMemory(_handle);
 }
 
+void SetAssertFailHandler(AssertFailHandler handler)
+{
+   assert_fail_handler = handler;
+}
+
 void SDeviceProcessAssertFail(char *file, int line)
 {
-   int messageLength = snprintf(NULL, 0, ASSERT_FAIL_FORMAT, file, line);
-   char message[messageLength + 1];
-   sprintf(message, ASSERT_FAIL_FORMAT, file, line);
-
-   TEST_MESSAGE(message);
-
-   if(ThisAssertFailHandler)
+   if(assert_fail_handler)
    {
-      ThisAssertFailHandler();
+      assert_fail_handler();
    }
    else
    {
-      TEST_FAIL_MESSAGE("Assert fail has not been processed");
+      char failure_message[snprintf(NULL, 0, ASSERT_FAIL_FORMAT, file, line) + 1];
+      sprintf(failure_message, ASSERT_FAIL_FORMAT, file, line);
+
+      TEST_FAIL_MESSAGE(failure_message);
    }
 }

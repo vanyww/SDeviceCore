@@ -2,8 +2,6 @@
 
 #include "../Inc/public.h"
 
-#include "SDeviceCore/assert.h"
-
 SDEVICE_RUNTIME_DATA_FORWARD_DECLARATION(Test);
 SDEVICE_RUNTIME_DATA_DECLARATION(Test)
 {

@@ -4,32 +4,46 @@
 
 #include "unity_fixture.h"
 
-static bool WasAssertHandlerCalled = false;
+static bool was_assert_handler_called = false;
 
 static void TestAssertHandler(void)
 {
-   WasAssertHandlerCalled = true;
-
-   TEST_MESSAGE("OK");
+   was_assert_handler_called = true;
 }
 
 TEST_GROUP(Assert);
 
-TEST_SETUP(Assert) { }
+TEST_SETUP(Assert)
+{
+   was_assert_handler_called = false;
+}
+
 TEST_TEAR_DOWN(Assert) { }
 
-TEST(Assert, SDeviceAssert)
+TEST(Assert, SDeviceAssertTrue)
 {
    SetAssertFailHandler(TestAssertHandler);
 
    SDeviceAssert(false);
 
-   ResetAssertFailHandler();
+   SetAssertFailHandler(NULL);
 
-   TEST_ASSERT(WasAssertHandlerCalled);
+   TEST_ASSERT_TRUE(was_assert_handler_called);
+}
+
+TEST(Assert, SDeviceAssertFalse)
+{
+   SetAssertFailHandler(TestAssertHandler);
+
+   SDeviceAssert(true);
+
+   SetAssertFailHandler(NULL);
+
+   TEST_ASSERT_FALSE(was_assert_handler_called);
 }
 
 TEST_GROUP_RUNNER(Assert)
 {
-   RUN_TEST_CASE(Assert, SDeviceAssert);
+   RUN_TEST_CASE(Assert, SDeviceAssertTrue);
+   RUN_TEST_CASE(Assert, SDeviceAssertFalse);
 }

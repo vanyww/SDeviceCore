@@ -5,4 +5,3 @@
 typedef void (* AssertFailHandler)(void);
 
 void SetAssertFailHandler(AssertFailHandler handler);
-void ResetAssertFailHandler(void);

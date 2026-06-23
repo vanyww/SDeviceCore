@@ -1,95 +1,93 @@
 #include "private.h"
 
 #include "SDeviceCore/heap.h"
+#include "SDeviceCore/assert.h"
 
 #include <memory.h>
 
 SDEVICE_CREATE_HANDLE_DECLARATION(Test, init, context)
 {
-   SDeviceAssert(init);
-
    const ThisInitData *_init = init;
 
-   ThisHandle *handle = SDeviceAllocateHandle(sizeof(*handle->Init), sizeof(*handle->Runtime));
+   SDeviceAssert(_init);
 
-   handle->Context = context;
-   *handle->Init = *_init;
-   *handle->Runtime = (ThisRuntimeData)
-   {
-      .SimplePropertyValue  = _init->InitData
-   };
+   ThisHandle *instance =
+         SDeviceAllocateHandle(
+               sizeof(*instance->Init),
+               sizeof(*instance->Runtime));
 
-   return handle;
+   *instance->Init = *_init;
+
+   instance->Context = context;
+
+   instance->Runtime->SimplePropertyValue =
+         _init->InitData;
+
+   return instance;
 }
 
-SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, handle)
+SDEVICE_DISPOSE_HANDLE_DECLARATION(Test, this)
 {
-   SDeviceAssert(handle);
+   SDeviceAssert(this);
 
-   SDeviceFreeHandle(handle);
+   SDeviceFreeHandle(this);
 }
 
-SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Test, SimplePropertyValue, handle, value)
+SDEVICE_GET_SIMPLE_PROPERTY_DECLARATION(Test, SimplePropertyValue, this, value)
 {
+   ThisHandle *_this = this;
+
    SDeviceAssert(value);
-   SDeviceAssert(handle);
+   SDeviceAssert(_this);
 
-   ThisHandle *_handle = handle;
+   memcpy(value, &_this->Runtime->SimplePropertyValue, sizeof(_this->Runtime->SimplePropertyValue));
 
-   memcpy(value, &_handle->Runtime->SimplePropertyValue, sizeof(_handle->Runtime->SimplePropertyValue));
-
-   return SDEVICE_PROPERTY_STATUS_OK;
+   return SDevicePropertyStatusOk;
 }
 
-SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Test, SimplePropertyValue, handle, value)
+SDEVICE_SET_SIMPLE_PROPERTY_DECLARATION(Test, SimplePropertyValue, this, value)
 {
+   ThisHandle *_this = this;
+
+   SDeviceAssert(_this);
    SDeviceAssert(value);
-   SDeviceAssert(handle);
 
-   ThisHandle *_handle = handle;
+   SDEVICE_PROPERTY_TYPE(Test, SimplePropertyValue) _value;
+   memcpy(&_value, value, sizeof(_value));
 
-   SDEVICE_PROPERTY_TYPE(Test, SimplePropertyValue) valueToWrite;
-   memcpy(&valueToWrite, value, sizeof(valueToWrite));
+   _this->Runtime->SimplePropertyValue = _value;
 
-   _handle->Runtime->SimplePropertyValue = valueToWrite;
-
-   return SDEVICE_PROPERTY_STATUS_OK;
+   return SDevicePropertyStatusOk;
 }
 
-SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, handle, parameters)
+SDEVICE_GET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, this, parameters)
 {
-   SDeviceAssert(handle);
+   ThisHandle *_this = this;
+
+   SDeviceAssert(_this);
    SDeviceAssert(parameters);
    SDeviceAssert(parameters->Data);
 
-   ThisHandle *_handle = handle;
+   if(not SDeviceGetPartialPropertyParametersAreValid(parameters, sizeof(_this->Runtime->PartialPropertyValue)))
+      return SDevicePropertyStatusValidationError;
 
-   if (parameters->Size > sizeof(SDEVICE_PROPERTY_TYPE(Test, PartialPropertyValue)) ||
-       parameters->Offset > sizeof(SDEVICE_PROPERTY_TYPE(Test, PartialPropertyValue)) - parameters->Size)
-   {
-       return SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR;
-   }
+   memcpy(parameters->Data, &_this->Runtime->PartialPropertyValue.Value[parameters->Offset], parameters->Size);
 
-   memcpy(parameters->Data, &_handle->Runtime->PartialPropertyValue.Value[parameters->Offset], parameters->Size);
-
-   return SDEVICE_PROPERTY_STATUS_OK;
+   return SDevicePropertyStatusOk;
 }
 
-SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, handle, parameters)
+SDEVICE_SET_PARTIAL_PROPERTY_DECLARATION(Test, PartialPropertyValue, this, parameters)
 {
-   SDeviceAssert(handle);
+   ThisHandle *_this = this;
+
+   SDeviceAssert(_this);
    SDeviceAssert(parameters);
    SDeviceAssert(parameters->Data);
 
-   ThisHandle *_handle = handle;
+   if(not SDeviceSetPartialPropertyParametersAreValid(parameters, sizeof(_this->Runtime->PartialPropertyValue)))
+      return SDevicePropertyStatusValidationError;
 
-   if (parameters->Size > sizeof(SDEVICE_PROPERTY_TYPE(Test, PartialPropertyValue)) ||
-       parameters->Offset > sizeof(SDEVICE_PROPERTY_TYPE(Test, PartialPropertyValue)) - parameters->Size)
-   {
-       return SDEVICE_PROPERTY_STATUS_VALIDATION_ERROR;
-   }
+   memcpy(&_this->Runtime->PartialPropertyValue.Value[parameters->Offset], parameters->Data, parameters->Size);
 
-   memcpy(&_handle->Runtime->PartialPropertyValue.Value[parameters->Offset], parameters->Data, parameters->Size);
-
-   return SDEVICE_PROPERTY_STATUS_OK;
+   return SDevicePropertyStatusOk;
 }
